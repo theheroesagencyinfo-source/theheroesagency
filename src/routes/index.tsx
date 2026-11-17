@@ -49,9 +49,9 @@ const projects = [
 ];
 
 const journey = [
-  { n: "01", label: "Discovery", h: "They find you.", p: "Through your book, a talk, a podcast or a recommendation.", note: "A first point of discovery", img: journeyDiscovery, cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
+  { n: "01", label: "Discovery", h: "They find you.", p: "Through your book, a talk, a podcast or a recommendation.", note: "A first point of discovery", img: journeyRelationship, cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
   { n: "02", label: "Connection", h: "They stay.", p: "Your website gives them a useful reason to join your reader list.", note: "A reason to stay", img: journeyConnection, cls: "md:col-start-2 md:row-start-1 md:mt-32", photo: "h-[260px] md:h-[clamp(235px,28vw,365px)]" },
-  { n: "03", label: "Relationship", h: "They get to know you.", p: "Helpful emails build trust and show how your expertise can help.", note: "Trust built over time", img: journeyRelationship, cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
+  { n: "03", label: "Relationship", h: "They get to know you.", p: "Helpful emails build trust and show how your expertise can help.", note: "Trust built over time", img: journeyDiscovery, cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
   { n: "04", label: "Opportunity", h: "They take action.", p: "A conversation, client enquiry, speaking invitation or book sale.", note: "The next opportunity", img: journeyOpportunity, cls: "md:col-start-2 md:row-start-2 md:mt-20", photo: "h-[300px] md:h-[clamp(300px,36vw,465px)]" },
 ];
 
