@@ -6,10 +6,26 @@ import { ProjectRating } from "@/components/project-rating";
 import danielHome from "@/assets/daniel-carter/home.png.asset.json";
 import eleanorHome from "@/assets/eleanor-whitmore/home.png.asset.json";
 import jonathanHome from "@/assets/jonathan-reed/home.png.asset.json";
-import bookVideo from "@/assets/book_opening_desktop.mp4.asset.json";
-import bookVideoMobile from "@/assets/book_opening_mobile.mp4.asset.json";
-import bookPoster from "@/assets/book_opening_poster.jpg.asset.json";
-import bookPosterMobile from "@/assets/book_opening_poster_m.jpg.asset.json";
+import bookF1 from "@/assets/book_frame_1.webp.asset.json";
+import bookF2 from "@/assets/book_frame_2.webp.asset.json";
+import bookF3 from "@/assets/book_frame_3.webp.asset.json";
+import bookF4 from "@/assets/book_frame_4.webp.asset.json";
+import bookF5 from "@/assets/book_frame_5.webp.asset.json";
+const BOOK_FRAMES = [bookF1, bookF2, bookF3, bookF4, bookF5];
+// Per keyframe camera pose: scale, x/y offset (% of stage), rotation (deg)
+const BOOK_POSES = [
+  { s: 0.92, x: 0, y: 2, r: 0 },
+  { s: 0.97, x: 0, y: 0, r: -1.5 },
+  { s: 1.05, x: 0, y: -1, r: 0 },
+  { s: 1.08, x: 0, y: -1, r: 0.6 },
+  { s: 1.12, x: 0, y: -2, r: 0 },
+];
+const BOOK_LINES: { from: number; to: number; text: string[]; accent?: number }[] = [
+  { from: -1, to: 0.2, text: ["THEHEROES", "Author Studio"], accent: 1 },
+  { from: 0.18, to: 0.46, text: ["Every great idea", "deserves a bigger story."], accent: 1 },
+  { from: 0.46, to: 0.74, text: ["Your book is only", "the beginning."], accent: 1 },
+  { from: 0.74, to: 2, text: ["Your ideas deserve", "to go further."], accent: 1 },
+];
 import deskPhoto from "@/assets/banner-writers-desk.png.asset.json";
 import mouBurgundy from "@/assets/mou/burgundy.png.asset.json";
 import mouWhite from "@/assets/mou/white.png.asset.json";
@@ -99,55 +115,49 @@ function Home() {
 
     const opening = q<HTMLDivElement>("[data-opening]");
     const spacer = q<HTMLDivElement>("[data-opening-spacer]");
-    const video = q<HTMLVideoElement>("[data-book-video]");
-    // Phones get the portrait 9:16 cut so the whole book stays visible.
-    if (video && window.matchMedia("(max-width: 767px), (orientation: portrait)").matches) { video.poster = bookPosterMobile.url; video.src = bookVideoMobile.url; video.load(); }
+    const frames = Array.from(el.querySelectorAll<HTMLImageElement>("[data-book-frame]"));
+    const bookCam = q<HTMLDivElement>("[data-book-cam]");
+    const lines = Array.from(el.querySelectorAll<HTMLElement>("[data-book-line]"));
     const scenes = Array.from(el.querySelectorAll<HTMLElement>("[data-scene]"));
     const dots = Array.from(el.querySelectorAll<HTMLAnchorElement>("[data-dot]"));
     const path = q<SVGPathElement>("#journeyRoutePath");
     const plane = q<SVGGElement>("#journeyPlane");
     const comp = q<HTMLDivElement>("[data-journey]");
 
-    // Load the whole video into memory so seeking backwards (scrolling up) is instant on every browser.
-    let blobUrl = "";
-    if (video && !reduced) {
-      const src = video.currentSrc || video.src;
-      fetch(src).then((r) => r.blob()).then((b) => {
-        blobUrl = URL.createObjectURL(b);
-        const t = video.currentTime;
-        video.src = blobUrl; video.load();
-        video.addEventListener("loadedmetadata", () => { video.currentTime = t; }, { once: true });
-      }).catch(() => {});
-    }
-
     if (reduced) {
       opening?.style.setProperty("display", "none");
       spacer?.style.setProperty("display", "none");
     }
 
-    // Scroll-scrubbed opening video (all-intra encode): eases currentTime toward the scroll target each frame.
+    // Scroll-scrubbed image sequence: eased progress drives camera pose, frame blending and background lines.
     let target = 0, shown = 0, scrubbing = false;
+    const lerp = (x: number, y: number, t: number) => x + (y - x) * t;
+    const paint = () => {
+      const n = BOOK_FRAMES.length - 1;
+      const f = shown * n, i = Math.min(n - 1, Math.floor(f)), t = f - i;
+      const e = t * t * (3 - 2 * t);
+      // Blend only in the middle of each segment so the book holds on each keyframe.
+      const mix = clamp((e - 0.3) / 0.4);
+      frames.forEach((im, k) => {
+        const o = k === i ? 1 - mix : k === i + 1 ? mix : 0;
+        im.style.opacity = String(o);
+        im.style.transform = `scale(${k === i ? 1 + mix * 0.015 : k === i + 1 ? 0.985 + mix * 0.015 : 1})`;
+      });
+      const A = BOOK_POSES[i], B = BOOK_POSES[i + 1];
+      if (bookCam) bookCam.style.transform = `translate3d(${lerp(A.x, B.x, e)}%, ${lerp(A.y, B.y, e)}%, 0) scale(${lerp(A.s, B.s, e)}) rotate(${lerp(A.r, B.r, e)}deg)`;
+      lines.forEach((l, k) => {
+        const L = BOOK_LINES[k];
+        const vis = clamp(Math.min((shown - L.from) / 0.06, (L.to - shown) / 0.06));
+        l.style.opacity = String(vis * 0.9);
+        l.style.transform = `translate3d(0, ${(1 - vis) * (shown < L.from + 0.06 ? 18 : -18)}px, 0)`;
+      });
+    };
     const scrub = () => {
-      const d = video?.duration;
-      if (!video || !d || !Number.isFinite(d)) { scrubbing = false; return; }
-      shown += (target - shown) * 0.18;
+      shown += (target - shown) * 0.14;
       if (Math.abs(target - shown) < 0.0005) shown = target;
-      const t = Math.min(d - 0.04, shown * d);
-      if (Math.abs(video.currentTime - t) > 0.008 && !video.seeking) { video.pause(); video.currentTime = t; }
-      if (shown !== target || video.seeking || Math.abs(video.currentTime - t) > 0.008) requestAnimationFrame(scrub); else scrubbing = false;
+      paint();
+      if (shown !== target) requestAnimationFrame(scrub); else scrubbing = false;
     };
-    const onMeta = () => { video?.pause(); onScroll(); };
-    video?.addEventListener("loadedmetadata", onMeta);
-    // Phones only decode frames after a touch: briefly play then pause to unlock seeking.
-    let unlocked = false;
-    const unlock = () => {
-      if (unlocked || !video) return; unlocked = true;
-      const pr = video.play(); if (pr) pr.then(() => { video.pause(); onScroll(); }).catch(() => { unlocked = false; });
-    };
-    window.addEventListener("touchstart", unlock, { passive: true });
-    window.addEventListener("pointerdown", unlock, { passive: true });
-    const onSeeked = () => { if (!scrubbing && shown !== target) { scrubbing = true; requestAnimationFrame(scrub); } };
-    video?.addEventListener("seeked", onSeeked);
 
     let ticking = false;
     const update = () => {
@@ -160,7 +170,8 @@ function Home() {
         if (!scrubbing) { scrubbing = true; requestAnimationFrame(scrub); }
         const out = clamp((p - 0.88) / 0.12);
         opening.style.opacity = String(1 - out);
-        opening.style.transform = `scale(${1 + out * 0.06})`;
+        opening.style.transform = `scale(${1 + out * 0.18})`;
+        opening.style.filter = out > 0 ? `blur(${out * 6}px)` : "";
         opening.style.visibility = out >= 1 ? "hidden" : "visible";
         opening.style.pointerEvents = out > 0.5 ? "none" : "auto";
       }
@@ -191,15 +202,31 @@ function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     update();
-    return () => { if (blobUrl) URL.revokeObjectURL(blobUrl); video?.removeEventListener("loadedmetadata", onMeta); video?.removeEventListener("seeked", onSeeked); window.removeEventListener("touchstart", unlock); window.removeEventListener("pointerdown", unlock); io.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
 
   return (
     <div ref={root} className="home6 overflow-x-clip">
-      {/* Cinematic opening: scroll-controlled book video, fades into the homepage at the end */}
-      <div data-opening aria-hidden="true" className="fixed inset-0 z-[60] grid place-items-center overflow-hidden bg-background">
-        <video data-book-video src={bookVideo.url} poster={bookPoster.url} muted playsInline preload="auto" disablePictureInPicture tabIndex={-1}
-          className="pointer-events-none block h-full w-full select-none object-contain" />
+      {/* Cinematic opening: scroll-controlled floating book, dissolves into the homepage at the end */}
+      <div data-opening aria-hidden="true" className="book-stage fixed inset-0 z-[60] overflow-hidden bg-background">
+        <div className="absolute inset-0 grid place-items-center px-6">
+          {BOOK_LINES.map((l, k) => (
+            <p key={k} data-book-line className="book-line col-start-1 row-start-1 text-center font-serif leading-[0.95] text-foreground" style={{ opacity: k === 0 ? 0.9 : 0 }}>
+              {l.text.map((t, j) => <span key={j} className={j === l.accent ? "block text-primary" : "block"}>{t}</span>)}
+            </p>
+          ))}
+        </div>
+        <div className="absolute inset-0 grid place-items-center">
+          <div className="book-float relative aspect-[941/1672] h-[min(100svh,calc(100vw*1672/941))] max-h-full">
+            <div data-book-cam className="absolute inset-0 will-change-transform">
+              <div className="book-shadow" />
+              {BOOK_FRAMES.map((f, k) => (
+                <img key={k} data-book-frame src={f.url} alt="" draggable={false} decoding="async" fetchPriority={k < 2 ? "high" : "auto"}
+                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain will-change-[opacity,transform]" style={{ opacity: k === 0 ? 1 : 0 }} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       <div data-opening-spacer className="h-[260vh] md:h-[320vh]" aria-hidden="true" />
 

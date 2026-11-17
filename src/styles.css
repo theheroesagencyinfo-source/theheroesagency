@@ -206,6 +206,14 @@ button.google-btn svg { width: 18px; height: 18px; }
 }
 
 /* Homepage: cinematic book opening, scene depth and reader-journey route */
+.book-line { font-size: clamp(1.9rem, 8.6vw, 9.5rem); letter-spacing: -0.02em; max-width: 14ch; will-change: opacity, transform; }
+.book-float { animation: book-float 6s ease-in-out infinite; }
+@keyframes book-float { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: 0 -1.2%; rotate: 0.4deg; } }
+.book-shadow { position: absolute; left: 18%; right: 18%; top: 76%; height: 5%; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--foreground) 22%, transparent), transparent);
+  filter: blur(14px); animation: book-shadow 6s ease-in-out infinite; }
+@keyframes book-shadow { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(.9); opacity: .65; } }
+@media (prefers-reduced-motion: reduce) { .book-float, .book-shadow { animation: none; } }
 .home6 .reveal { opacity: 0; transform: translate3d(0, 32px, 0); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
 .home6 .reveal.visible { opacity: 1; transform: none; }
 .home6 .scene { transform-style: preserve-3d; will-change: transform, opacity; }
