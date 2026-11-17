@@ -21,7 +21,7 @@ const BOOK_POSES = [
   { s: 1.12, x: 0, y: -2, r: 0 },
 ];
 const BOOK_LINES: { from: number; to: number; text: string[]; accent?: number }[] = [
-  { from: -1, to: 0.2, text: ["THEHEROES", "Author Studio"], accent: 1 },
+  { from: -0.1, to: 0.2, text: ["THE", "HEROES"] },
   { from: 0.18, to: 0.46, text: ["Every great idea", "deserves a bigger story."], accent: 1 },
   { from: 0.46, to: 0.74, text: ["Your book is only", "the beginning."], accent: 1 },
   { from: 0.74, to: 2, text: ["Your ideas deserve", "to go further."], accent: 1 },
@@ -148,8 +148,9 @@ function Home() {
       lines.forEach((l, k) => {
         const L = BOOK_LINES[k]!;
         const vis = clamp(Math.min((shown - L.from) / 0.06, (L.to - shown) / 0.06));
-        l.style.opacity = String(vis * 0.9);
-        l.style.transform = `translate3d(0, ${(1 - vis) * (shown < L.from + 0.06 ? 18 : -18)}px, 0)`;
+        l.style.opacity = String(vis * (k === 0 ? 1 : 0.9));
+        const drift = k === 0 ? -shown * 260 : 0; // gentle parallax for the brand backdrop
+        l.style.transform = `translate3d(0, ${(1 - vis) * (shown < L.from + 0.06 ? 18 : -18) + drift}px, 0)`;
       });
     };
     const scrub = () => {
@@ -210,7 +211,13 @@ function Home() {
       {/* Cinematic opening: scroll-controlled floating book, dissolves into the homepage at the end */}
       <div data-opening aria-hidden="true" className="book-stage fixed inset-0 z-[60] overflow-hidden bg-background">
         <div className="absolute inset-0 grid place-items-center px-6">
-          {BOOK_LINES.map((l, k) => (
+          {BOOK_LINES.map((l, k) => k === 0 ? (
+            <div key={k} data-book-line className="hero-brand col-start-1 row-start-1 w-full" style={{ opacity: 1 }}>
+              <p className="hero-brand-the text-primary">THE</p>
+              <p className="hero-brand-heroes text-foreground">HEROES</p>
+              <p className="hero-brand-studio text-foreground"><span />AUTHOR STUDIO<span /></p>
+            </div>
+          ) : (
             <p key={k} data-book-line className="book-line col-start-1 row-start-1 text-center font-serif leading-[0.95] text-foreground" style={{ opacity: k === 0 ? 0.9 : 0 }}>
               {l.text.map((t, j) => <span key={j} className={j === l.accent ? "block text-primary" : "block"}>{t}</span>)}
             </p>

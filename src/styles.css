@@ -207,6 +207,12 @@ button.google-btn svg { width: 18px; height: 18px; }
 
 /* Homepage: cinematic book opening, scene depth and reader-journey route */
 .book-line { font-size: clamp(1.9rem, 8.6vw, 9.5rem); letter-spacing: -0.02em; max-width: 14ch; will-change: opacity, transform; }
+.hero-brand { position: relative; height: 100svh; display: grid; place-items: center; will-change: opacity, transform; }
+.hero-brand-heroes { font-family: "Bodoni Moda", serif; font-weight: 800; font-size: clamp(5.2rem, 27vw, 30rem); line-height: 0.8; letter-spacing: -0.03em; white-space: nowrap; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.hero-brand-the { position: absolute; left: 8vw; top: calc(50% - clamp(5.2rem, 27vw, 30rem) * 0.62); font-family: "Bodoni Moda", serif; font-weight: 500; font-size: clamp(1.6rem, 6vw, 6.5rem); line-height: 1; letter-spacing: 0.04em; }
+.hero-brand-studio { position: absolute; left: 0; right: 0; bottom: 11svh; display: flex; align-items: center; justify-content: center; gap: 1.1rem; font-family: "Montserrat", sans-serif; font-weight: 500; font-size: clamp(0.68rem, 1.1vw, 0.9rem); letter-spacing: 0.42em; }
+.hero-brand-studio span { width: clamp(2rem, 6vw, 5rem); height: 1px; background: var(--primary); }
+@media (max-width: 640px) { .hero-brand-heroes { font-size: 23vw; letter-spacing: -0.02em; } .hero-brand-the { left: 8vw; top: calc(50% - 23vw * 1.25); font-size: 8vw; } .hero-brand-studio { bottom: 16svh; } }
 .book-float { animation: book-float 6s ease-in-out infinite; }
 @keyframes book-float { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: 0 -1.2%; rotate: 0.4deg; } }
 .book-shadow { position: absolute; left: 18%; right: 18%; top: 76%; height: 5%; border-radius: 50%;
