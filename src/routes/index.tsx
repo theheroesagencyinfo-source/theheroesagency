@@ -6,7 +6,6 @@ import { ProjectRating } from "@/components/project-rating";
 import danielHome from "@/assets/daniel-carter/home.png.asset.json";
 import eleanorHome from "@/assets/eleanor-whitmore/home.png.asset.json";
 import jonathanHome from "@/assets/jonathan-reed/home.png.asset.json";
-import christineHome from "@/assets/christine-rae-dorris/home.jpg.asset.json";
 import sandraHome from "@/assets/sandra-combe/home.jpg.asset.json";
 import treyHome from "@/assets/trey-toler/home.jpg.asset.json";
 import adamHome from "@/assets/adam-courtenay/home.jpg.asset.json";
@@ -47,10 +46,9 @@ const services = [
 ];
 
 const projects = [
-  { to: "/projects/christine-rae-dorris" as const, slug: "christine-rae-dorris", live: true, name: "Christine Rae Dorris", meta: "Live author website", img: christineHome, p: "One home for her memoir, writing and Rooted in Connection™ family support." },
-  { to: "/projects/sandra-combe" as const, slug: "sandra-combe", live: true, name: "Sandra D. Combe", meta: "Live book website", img: sandraHome, p: "A book website for Stop the Bypass, with its trailer, story and author bio." },
-  { to: "/projects/trey-toler" as const, slug: "trey-toler", live: true, name: "Trey Toler", meta: "Live author and speaker website", img: treyHome, p: "A bold home for Good Damage, his press, keynote talks and newsletter." },
   { to: "/projects/adam-courtenay" as const, slug: "adam-courtenay", live: true, name: "Adam Courtenay", meta: "Live author website · 6 pages", img: adamHome, p: "His books, story, speaking and coaching, for a Sydney author and journalist." },
+  { to: "/projects/trey-toler" as const, slug: "trey-toler", live: true, name: "Trey Toler", meta: "Live author and speaker website", img: treyHome, p: "A bold home for Good Damage, his press, keynote talks and newsletter." },
+  { to: "/projects/sandra-combe" as const, slug: "sandra-combe", live: true, name: "Sandra D. Combe", meta: "Live book website", img: sandraHome, p: "A book website for Stop the Bypass, with its trailer, story and author bio." },
   { to: "/projects/daniel-carter" as const, slug: "daniel-carter", name: "Daniel Carter", meta: "Author website · 8 pages", img: danielHome, p: "A digital home bringing his books, ideas, speaking work and reader resources together." },
   { to: "/projects/eleanor-whitmore" as const, slug: "eleanor-whitmore", name: "Eleanor Whitmore", meta: "Author website · 7 pages", img: eleanorHome, p: "A warm, welcoming platform for her book, events, journal and reader resources." },
   { to: "/projects/jonathan-reed" as const, slug: "jonathan-reed", name: "Jonathan Reed", meta: "Literary author website · 6 pages", img: jonathanHome, p: "A considered presentation of his books, essays, speaking events and resources." },
@@ -213,20 +211,20 @@ function Home() {
             <p className="reveal max-w-[290px] text-sm leading-relaxed text-muted-foreground">Each author has a different story, audience and visual language. The work should reflect that.</p>
           </div>
           <div className="work-track -mx-5 flex gap-6 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:items-start md:gap-14 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-[1.13fr_.87fr] md:gap-x-[5vw]">
-            {projects.map((p, i) => (
+            {projects.slice(0, 4).map((p, i) => (
               <article key={p.slug} data-fx="curtain" style={{ ["--i" as string]: i }} className={`reveal w-[82vw] shrink-0 md:w-auto ${i % 2 === 1 ? "md:mt-28" : ""}`}>
                 <Link to={p.to} className="curtain group block aspect-[4/3] overflow-hidden border bg-muted shadow-lg" aria-label={`View the ${p.name} author website`}>
                   <img src={assetSrc(p.img)} alt={`${p.name} author website homepage`} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
                 </Link>
-                <div className="mt-4 flex justify-between gap-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground"><span>{p.meta}</span><span>{String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span></div>
+                <div className="mt-4 flex justify-between gap-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground"><span>{p.meta}</span><span>{String(i + 1).padStart(2, "0")} / 04</span></div>
                 <h3 className="mt-2 font-serif text-[27px] md:text-3xl">{p.name}</h3>
                 {!("live" in p) && <ProjectRating project={p.slug} />}
                 <p className="mt-2 max-w-[460px] text-sm leading-relaxed text-muted-foreground">{p.p}</p>
                 <Link to={p.to} className="mt-4 inline-block border-b border-primary pb-1 text-[11px] uppercase tracking-[0.1em] text-primary">View project ↗</Link>
               </article>
             ))}
-            <div className="reveal hidden self-end md:col-start-2 md:block"><Link to="/work" className="inline-block border-b border-foreground pb-1 text-sm">See all work ↗</Link></div>
           </div>
+          <div className="mt-14"><Link to="/work" className="inline-flex items-center gap-2 border border-foreground px-6 py-3 text-sm transition-colors hover:bg-foreground hover:text-background">See more work <span aria-hidden="true">↗</span></Link></div>
         </div>
       </section>
 

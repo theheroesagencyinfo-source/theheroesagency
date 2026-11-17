@@ -31,7 +31,6 @@ import { Route as WorkRouteImport } from './routes/work'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ProjectsAdamCourtenayRouteImport } from './routes/projects.adam-courtenay'
-import { Route as ProjectsChristineRaeDorrisRouteImport } from './routes/projects.christine-rae-dorris'
 import { Route as ProjectsDanielCarterRouteImport } from './routes/projects.daniel-carter'
 import { Route as ProjectsEleanorWhitmoreRouteImport } from './routes/projects.eleanor-whitmore'
 import { Route as ProjectsJonathanReedRouteImport } from './routes/projects.jonathan-reed'
@@ -154,12 +153,6 @@ const ProjectsAdamCourtenayRoute = ProjectsAdamCourtenayRouteImport.update({
   path: '/projects/adam-courtenay',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsChristineRaeDorrisRoute =
-  ProjectsChristineRaeDorrisRouteImport.update({
-    id: '/projects/christine-rae-dorris',
-    path: '/projects/christine-rae-dorris',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ProjectsDanielCarterRoute = ProjectsDanielCarterRouteImport.update({
   id: '/projects/daniel-carter',
   path: '/projects/daniel-carter',
@@ -236,7 +229,6 @@ export interface FileRoutesByFullPath {
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/projects/adam-courtenay': typeof ProjectsAdamCourtenayRoute
-  '/projects/christine-rae-dorris': typeof ProjectsChristineRaeDorrisRoute
   '/projects/daniel-carter': typeof ProjectsDanielCarterRoute
   '/projects/eleanor-whitmore': typeof ProjectsEleanorWhitmoreRoute
   '/projects/jonathan-reed': typeof ProjectsJonathanReedRoute
@@ -270,7 +262,6 @@ export interface FileRoutesByTo {
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/projects/adam-courtenay': typeof ProjectsAdamCourtenayRoute
-  '/projects/christine-rae-dorris': typeof ProjectsChristineRaeDorrisRoute
   '/projects/daniel-carter': typeof ProjectsDanielCarterRoute
   '/projects/eleanor-whitmore': typeof ProjectsEleanorWhitmoreRoute
   '/projects/jonathan-reed': typeof ProjectsJonathanReedRoute
@@ -306,7 +297,6 @@ export interface FileRoutesById {
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/projects/adam-courtenay': typeof ProjectsAdamCourtenayRoute
-  '/projects/christine-rae-dorris': typeof ProjectsChristineRaeDorrisRoute
   '/projects/daniel-carter': typeof ProjectsDanielCarterRoute
   '/projects/eleanor-whitmore': typeof ProjectsEleanorWhitmoreRoute
   '/projects/jonathan-reed': typeof ProjectsJonathanReedRoute
@@ -342,7 +332,6 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/projects/adam-courtenay'
-    | '/projects/christine-rae-dorris'
     | '/projects/daniel-carter'
     | '/projects/eleanor-whitmore'
     | '/projects/jonathan-reed'
@@ -376,7 +365,6 @@ export interface FileRouteTypes {
     | '/account'
     | '/admin'
     | '/projects/adam-courtenay'
-    | '/projects/christine-rae-dorris'
     | '/projects/daniel-carter'
     | '/projects/eleanor-whitmore'
     | '/projects/jonathan-reed'
@@ -411,7 +399,6 @@ export interface FileRouteTypes {
     | '/_authenticated/account'
     | '/_authenticated/admin'
     | '/projects/adam-courtenay'
-    | '/projects/christine-rae-dorris'
     | '/projects/daniel-carter'
     | '/projects/eleanor-whitmore'
     | '/projects/jonathan-reed'
@@ -445,7 +432,6 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   WorkRoute: typeof WorkRoute
   ProjectsAdamCourtenayRoute: typeof ProjectsAdamCourtenayRoute
-  ProjectsChristineRaeDorrisRoute: typeof ProjectsChristineRaeDorrisRoute
   ProjectsDanielCarterRoute: typeof ProjectsDanielCarterRoute
   ProjectsEleanorWhitmoreRoute: typeof ProjectsEleanorWhitmoreRoute
   ProjectsJonathanReedRoute: typeof ProjectsJonathanReedRoute
@@ -611,13 +597,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsAdamCourtenayRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/christine-rae-dorris': {
-      id: '/projects/christine-rae-dorris'
-      path: '/projects/christine-rae-dorris'
-      fullPath: '/projects/christine-rae-dorris'
-      preLoaderRoute: typeof ProjectsChristineRaeDorrisRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/projects/daniel-carter': {
       id: '/projects/daniel-carter'
       path: '/projects/daniel-carter'
@@ -732,7 +711,6 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   WorkRoute: WorkRoute,
   ProjectsAdamCourtenayRoute: ProjectsAdamCourtenayRoute,
-  ProjectsChristineRaeDorrisRoute: ProjectsChristineRaeDorrisRoute,
   ProjectsDanielCarterRoute: ProjectsDanielCarterRoute,
   ProjectsEleanorWhitmoreRoute: ProjectsEleanorWhitmoreRoute,
   ProjectsJonathanReedRoute: ProjectsJonathanReedRoute,

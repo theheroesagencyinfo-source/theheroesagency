@@ -6,7 +6,6 @@ import { ImagePlaceholder } from "@/components/page";
 import danielHome from "@/assets/daniel-carter/home.png.asset.json";
 import eleanorHome from "@/assets/eleanor-whitmore/home.png.asset.json";
 import jonathanHome from "@/assets/jonathan-reed/home.png.asset.json";
-import christineHome from "@/assets/christine-rae-dorris/home.jpg.asset.json";
 import sandraHome from "@/assets/sandra-combe/home.jpg.asset.json";
 import treyHome from "@/assets/trey-toler/home.jpg.asset.json";
 import adamHome from "@/assets/adam-courtenay/home.jpg.asset.json";
@@ -25,7 +24,7 @@ export const Route = createFileRoute("/work")({
 type CaseStudyCard = {
   slug: string;
   rated?: boolean;
-  to: "/projects/daniel-carter" | "/projects/eleanor-whitmore" | "/projects/jonathan-reed" | "/projects/christine-rae-dorris" | "/projects/sandra-combe" | "/projects/trey-toler" | "/projects/adam-courtenay";
+  to: "/projects/daniel-carter" | "/projects/eleanor-whitmore" | "/projects/jonathan-reed" | "/projects/sandra-combe" | "/projects/trey-toler" | "/projects/adam-courtenay";
   image: string;
   imageAlt: string;
   kind: string;
@@ -36,22 +35,18 @@ type CaseStudyCard = {
 };
 
 const caseStudies: CaseStudyCard[] = [
-  { slug: "christine-rae-dorris", to: "/projects/christine-rae-dorris", image: assetSrc(christineHome), imageAlt: "Christine Rae Dorris author website homepage", kind: "Live author website", title: "Christine Rae Dorris: author website",
-    overview: "A single-page home for an author, freelance writer and founder of Rooted in Connection™.",
-    objectives: ["Bring her writing and her family support work together", "Present the memoir Almost Made It", "Give editors and families a clear next step"],
-    services: ["Author website design", "Book section", "Services section", "Media kit"] },
-  { slug: "sandra-combe", to: "/projects/sandra-combe", image: assetSrc(sandraHome), imageAlt: "Stop the Bypass book website homepage", kind: "Live book website", title: "Sandra D. Combe: Stop the Bypass",
-    overview: "A book website for Stop the Bypass: A Story About Love, with the trailer, author bio and ways to get the book.",
-    objectives: ["Share the story behind the book", "Show the book trailer", "Make buying the book simple"],
-    services: ["Book website design", "Trailer section", "Author bio", "Newsletter signup"] },
-  { slug: "trey-toler", to: "/projects/trey-toler", image: assetSrc(treyHome), imageAlt: "Trey Toler author website homepage", kind: "Live author and speaker website", title: "Trey Toler: author of Good Damage",
-    overview: "A bold author and speaker site for Good Damage, with press, keynote talks, newsletter and media.",
-    objectives: ["Introduce Good Damage", "Show press coverage", "Help organisers book keynotes"],
-    services: ["Author website design", "Speaking section", "Press section", "Newsletter"] },
   { slug: "adam-courtenay", to: "/projects/adam-courtenay", image: assetSrc(adamHome), imageAlt: "Adam Courtenay author website homepage", kind: "Live author website · 6 pages", title: "Adam Courtenay: author website",
     overview: "A six-page site for a Sydney author and journalist, covering his books, story, speaking and coaching.",
     objectives: ["Tell his story from newspapers to history", "Present each book on its own page", "Offer speaking and coaching"],
     services: ["Author website design", "Books and book pages", "Speaking page", "Coaching page"] },
+  { slug: "trey-toler", to: "/projects/trey-toler", image: assetSrc(treyHome), imageAlt: "Trey Toler author website homepage", kind: "Live author and speaker website", title: "Trey Toler: author of Good Damage",
+    overview: "A bold author and speaker site for Good Damage, with press, keynote talks, newsletter and media.",
+    objectives: ["Introduce Good Damage", "Show press coverage", "Help organisers book keynotes"],
+    services: ["Author website design", "Speaking section", "Press section", "Newsletter"] },
+  { slug: "sandra-combe", to: "/projects/sandra-combe", image: assetSrc(sandraHome), imageAlt: "Stop the Bypass book website homepage", kind: "Live book website", title: "Sandra D. Combe: Stop the Bypass",
+    overview: "A book website for Stop the Bypass: A Story About Love, with the trailer, author bio and ways to get the book.",
+    objectives: ["Share the story behind the book", "Show the book trailer", "Make buying the book simple"],
+    services: ["Book website design", "Trailer section", "Author bio", "Newsletter signup"] },
   {
     slug: "daniel-carter",
     to: "/projects/daniel-carter",
