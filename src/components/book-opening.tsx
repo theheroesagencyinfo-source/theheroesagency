@@ -30,9 +30,17 @@ export function BookOpening() {
       // Book sequence runs over the first 86% of scroll; the rest hands over to the homepage.
       const b = clamp(p / 0.86);
       const n = FRAMES.length - 1, f = b * n, i = Math.min(n - 1, Math.floor(f));
-      const mix = ease(clamp((f - i - 0.15) / 0.7));
-      frames.forEach((im, k) => { im.style.opacity = String(k === i ? 1 : k === i + 1 ? mix : 0); });
-      const zoom = 1 + ease(clamp(b / 0.9)) * 0.42;
+      // Hold each frame for most of its segment, then swap in a short, motion-blurred handoff
+      // so two different book shapes are never seen together at full strength.
+      const mix = ease(clamp((f - i - 0.62) / 0.26));
+      const blur = Math.sin(mix * Math.PI);
+      frames.forEach((im, k) => {
+        const o = k === i ? 1 - mix : k === i + 1 ? mix : 0;
+        im.style.opacity = String(o < 0.02 ? 0 : o);
+        im.style.filter = o > 0 && blur > 0.01 ? `blur(${(blur * 6).toFixed(2)}px)` : "none";
+        im.style.transform = k === i ? `scale(${1 + mix * 0.04})` : k === i + 1 ? `scale(${0.96 + mix * 0.04})` : "none";
+      });
+      const zoom = 1 + ease(clamp(b / 0.9)) * 0.42 + blur * 0.03;
       const lift = -Math.sin(b * Math.PI) * 26;
       const tilt = (1 - b) * 6;
       if (cam) cam.style.transform = `translate3d(0,${lift}px,0) scale(${zoom}) rotateX(${tilt}deg)`;
@@ -77,7 +85,7 @@ export function BookOpening() {
               <div data-shadow className="book-opening-shadow" />
               {FRAMES.map((f, k) => (
                 <img key={k} data-frame src={f.url} alt="" draggable={false} decoding="async" fetchPriority={k < 2 ? "high" : "auto"}
-                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain" style={{ opacity: k === 0 ? 1 : 0 }} />
+                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain will-change-[opacity,filter,transform]" style={{ opacity: k === 0 ? 1 : 0 }} />
               ))}
             </div>
           </div>
