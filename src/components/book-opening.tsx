@@ -32,10 +32,11 @@ export function BookOpening() {
       const n = FRAMES.length - 1, f = b * n, i = Math.min(n - 1, Math.floor(f));
       // Hold each frame for most of its segment, then swap in a short, motion-blurred handoff
       // so two different book shapes are never seen together at full strength.
-      const mix = ease(clamp((f - i - 0.62) / 0.26));
+      const mix = ease(clamp((f - i - 0.6) / 0.3));
       const blur = Math.sin(mix * Math.PI);
       frames.forEach((im, k) => {
-        const o = k === i ? 1 - mix : k === i + 1 ? mix : 0;
+        // Sequential handoff: outgoing fully gone before incoming appears, so they never overlap.
+        const o = k === i ? 1 - clamp(mix * 2) : k === i + 1 ? clamp(mix * 2 - 1) : 0;
         im.style.opacity = String(o < 0.02 ? 0 : o);
         im.style.filter = o > 0 && blur > 0.01 ? `blur(${(blur * 6).toFixed(2)}px)` : "none";
         im.style.transform = k === i ? `scale(${1 + mix * 0.04})` : k === i + 1 ? `scale(${0.96 + mix * 0.04})` : "none";
