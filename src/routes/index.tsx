@@ -8,8 +8,9 @@ import eleanorHome from "@/assets/eleanor-whitmore/home.png.asset.json";
 import jonathanHome from "@/assets/jonathan-reed/home.png.asset.json";
 import { BookOpening } from "@/components/book-opening";
 import deskPhoto from "@/assets/banner-writers-desk.png.asset.json";
-import mouBurgundy from "@/assets/mou/burgundy.png.asset.json";
-import mouWhite from "@/assets/mou/white.png.asset.json";
+import heroLibrary from "@/assets/hero_library_book.jpg.asset.json";
+import heroQuote from "@/assets/hero_gold_quote.jpg.asset.json";
+import heroSculpture from "@/assets/hero_sculpture_book.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
@@ -161,9 +162,9 @@ function Home() {
           </div>
           <div className="relative mx-auto h-[400px] w-full max-w-[620px] sm:h-[540px] md:h-[min(650px,60vw)]" style={{ transformStyle: "preserve-3d" }}>
             <p className="absolute left-0 top-[8%] z-[4] text-[9px] uppercase tracking-[0.2em] text-primary [writing-mode:vertical-rl]">Ideas in form · The author studio</p>
-            <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(mouBurgundy)} alt="Mou Barrac seated with a stack of books" decoding="async" className="h-full w-full object-cover object-top" /></div>
-            <div data-depth="0.28" className="absolute bottom-[2%] left-0 z-[3] h-[43%] w-[43%] border-[6px] border-background shadow-xl sm:border-[10px]"><img src={assetSrc(deskPhoto)} alt="A writer's desk with books and notes" decoding="async" className="h-full w-full object-cover " /></div>
-            <div data-depth="0.35" className="absolute -bottom-[2%] right-[5%] z-[1] h-[34%] w-[25%]"><img src={assetSrc(mouWhite)} alt="Mou Barrac, founder of TheHeroes Agency" decoding="async" className="h-full w-full object-cover object-top" /></div>
+            <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(heroLibrary)} alt="An open hardcover book on green marble" decoding="async" className="h-full w-full object-cover" /></div>
+            <div data-depth="0.28" className="absolute bottom-[2%] left-0 z-[3] h-[43%] w-[43%] border-[6px] border-background shadow-xl sm:border-[10px]"><img src={assetSrc(heroQuote)} alt="Gold foil lettering on an open book page" decoding="async" className="h-full w-full object-cover" /></div>
+            <div data-depth="0.35" className="absolute -bottom-[2%] right-[5%] z-[1] h-[34%] w-[25%]"><img src={assetSrc(heroSculpture)} alt="An open book resting on a stone sculpture" decoding="async" className="h-full w-full object-cover" /></div>
           </div>
         </div>
       </section>
