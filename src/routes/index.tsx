@@ -11,6 +11,10 @@ import authorStudy from "@/assets/author-study-portrait.jpg.asset.json";
 import heroLibrary from "@/assets/hero_library_book.jpg.asset.json";
 import heroQuote from "@/assets/hero_gold_quote.jpg.asset.json";
 import heroSculpture from "@/assets/hero_sculpture_book.jpg.asset.json";
+import journeyDiscovery from "@/assets/journey-discovery.jpg.asset.json";
+import journeyConnection from "@/assets/journey-connection.jpg.asset.json";
+import journeyRelationship from "@/assets/journey-relationship.jpg.asset.json";
+import journeyOpportunity from "@/assets/journey-opportunity.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
@@ -45,10 +49,10 @@ const projects = [
 ];
 
 const journey = [
-  { n: "01", label: "Discovery", h: "They find you.", p: "Through your book, a talk, a podcast or a recommendation.", note: "A first point of discovery", cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
-  { n: "02", label: "Connection", h: "They stay.", p: "Your website gives them a useful reason to join your reader list.", note: "A reason to stay", cls: "md:col-start-2 md:row-start-1 md:mt-32", photo: "h-[260px] md:h-[clamp(235px,28vw,365px)]" },
-  { n: "03", label: "Relationship", h: "They get to know you.", p: "Helpful emails build trust and show how your expertise can help.", note: "Trust built over time", cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
-  { n: "04", label: "Opportunity", h: "They take action.", p: "A conversation, client enquiry, speaking invitation or book sale.", note: "The next opportunity", cls: "md:col-start-2 md:row-start-2 md:mt-20", photo: "h-[300px] md:h-[clamp(300px,36vw,465px)]" },
+  { n: "01", label: "Discovery", h: "They find you.", p: "Through your book, a talk, a podcast or a recommendation.", note: "A first point of discovery", img: journeyDiscovery, cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
+  { n: "02", label: "Connection", h: "They stay.", p: "Your website gives them a useful reason to join your reader list.", note: "A reason to stay", img: journeyConnection, cls: "md:col-start-2 md:row-start-1 md:mt-32", photo: "h-[260px] md:h-[clamp(235px,28vw,365px)]" },
+  { n: "03", label: "Relationship", h: "They get to know you.", p: "Helpful emails build trust and show how your expertise can help.", note: "Trust built over time", img: journeyRelationship, cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
+  { n: "04", label: "Opportunity", h: "They take action.", p: "A conversation, client enquiry, speaking invitation or book sale.", note: "The next opportunity", img: journeyOpportunity, cls: "md:col-start-2 md:row-start-2 md:mt-20", photo: "h-[300px] md:h-[clamp(300px,36vw,465px)]" },
 ];
 
 const checks = [
@@ -60,13 +64,6 @@ const checks = [
 
 const ROUTE = "M280 210 C470 150 660 170 760 350 S720 650 450 760 S650 900 790 1010";
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
-
-/** Empty frame kept until the studio supplies its own photograph. */
-function PhotoFrame({ label, className = "" }: { label: string; className?: string }) {
-  return <div role="img" aria-label={label} className={`relative flex items-end overflow-hidden border bg-secondary p-4 ${className}`}>
-    <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</span>
-  </div>;
-}
 
 function Eyebrow({ children, dark = false }: { children: string; dark?: boolean }) {
   return <p className={`reveal text-[11px] font-semibold uppercase tracking-[0.2em] ${dark ? "text-pitch-accent" : "text-primary"}`}>{children}</p>;
@@ -253,7 +250,7 @@ function Home() {
             </svg>
             {journey.map((j) => (
               <article key={j.n} className={`reveal relative z-[1] min-w-0 ${j.cls}`}>
-                <PhotoFrame label={j.note} className={`w-full ${j.photo}`} />
+                <div className={`w-full overflow-hidden border ${j.photo}`}><img src={assetSrc(j.img)} alt={j.note} loading="lazy" decoding="async" className="h-full w-full object-cover object-center" /></div>
                 <div className="mb-3 mt-5 flex items-center gap-3">
                   <span className="text-[10px] font-bold tracking-[0.18em] text-primary">{j.n}</span>
                   <span className="h-px w-8 bg-primary/60" />
