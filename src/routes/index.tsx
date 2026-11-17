@@ -86,8 +86,9 @@ function Home() {
     // Clipped reveals (mask/wipe) have no visible area, so watch their parent and reveal the child.
     const proxy = new Map<Element, Element[]>();
     const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (!e.isIntersecting) return;
-      (proxy.get(e.target) ?? [e.target]).forEach((t) => t.classList.add("visible"));
+      // Reverse when the section drops back below the screen while scrolling up.
+      const show = e.isIntersecting || e.boundingClientRect.top < 0;
+      (proxy.get(e.target) ?? [e.target]).forEach((t) => t.classList.toggle("visible", show));
     }), { threshold: 0.12 });
     reveals.forEach((r) => {
       const fx = (r as HTMLElement).dataset["fx"];
