@@ -30,10 +30,14 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WorkRouteImport } from './routes/work'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as ProjectsAdamCourtenayRouteImport } from './routes/projects.adam-courtenay'
+import { Route as ProjectsChristineRaeDorrisRouteImport } from './routes/projects.christine-rae-dorris'
 import { Route as ProjectsDanielCarterRouteImport } from './routes/projects.daniel-carter'
 import { Route as ProjectsEleanorWhitmoreRouteImport } from './routes/projects.eleanor-whitmore'
 import { Route as ProjectsJonathanReedRouteImport } from './routes/projects.jonathan-reed'
+import { Route as ProjectsSandraCombeRouteImport } from './routes/projects.sandra-combe'
 import { Route as ProjectsTheQuietAdvantageRouteImport } from './routes/projects.the-quiet-advantage'
+import { Route as ProjectsTreyTolerRouteImport } from './routes/projects.trey-toler'
 import { Route as RCodeRouteImport } from './routes/r.$code'
 import { Route as AuthenticatedInvoiceIdRouteImport } from './routes/_authenticated/invoice.$id'
 import { Route as AuthenticatedMyProjectsIdRouteImport } from './routes/_authenticated/my-projects.$id'
@@ -145,6 +149,17 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ProjectsAdamCourtenayRoute = ProjectsAdamCourtenayRouteImport.update({
+  id: '/projects/adam-courtenay',
+  path: '/projects/adam-courtenay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsChristineRaeDorrisRoute =
+  ProjectsChristineRaeDorrisRouteImport.update({
+    id: '/projects/christine-rae-dorris',
+    path: '/projects/christine-rae-dorris',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ProjectsDanielCarterRoute = ProjectsDanielCarterRouteImport.update({
   id: '/projects/daniel-carter',
   path: '/projects/daniel-carter',
@@ -160,12 +175,22 @@ const ProjectsJonathanReedRoute = ProjectsJonathanReedRouteImport.update({
   path: '/projects/jonathan-reed',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsSandraCombeRoute = ProjectsSandraCombeRouteImport.update({
+  id: '/projects/sandra-combe',
+  path: '/projects/sandra-combe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsTheQuietAdvantageRoute =
   ProjectsTheQuietAdvantageRouteImport.update({
     id: '/projects/the-quiet-advantage',
     path: '/projects/the-quiet-advantage',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ProjectsTreyTolerRoute = ProjectsTreyTolerRouteImport.update({
+  id: '/projects/trey-toler',
+  path: '/projects/trey-toler',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RCodeRoute = RCodeRouteImport.update({
   id: '/r/$code',
   path: '/r/$code',
@@ -210,10 +235,14 @@ export interface FileRoutesByFullPath {
   '/work': typeof WorkRoute
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/projects/adam-courtenay': typeof ProjectsAdamCourtenayRoute
+  '/projects/christine-rae-dorris': typeof ProjectsChristineRaeDorrisRoute
   '/projects/daniel-carter': typeof ProjectsDanielCarterRoute
   '/projects/eleanor-whitmore': typeof ProjectsEleanorWhitmoreRoute
   '/projects/jonathan-reed': typeof ProjectsJonathanReedRoute
+  '/projects/sandra-combe': typeof ProjectsSandraCombeRoute
   '/projects/the-quiet-advantage': typeof ProjectsTheQuietAdvantageRoute
+  '/projects/trey-toler': typeof ProjectsTreyTolerRoute
   '/r/$code': typeof RCodeRoute
   '/invoice/$id': typeof AuthenticatedInvoiceIdRoute
   '/my-projects/$id': typeof AuthenticatedMyProjectsIdRoute
@@ -240,10 +269,14 @@ export interface FileRoutesByTo {
   '/work': typeof WorkRoute
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/projects/adam-courtenay': typeof ProjectsAdamCourtenayRoute
+  '/projects/christine-rae-dorris': typeof ProjectsChristineRaeDorrisRoute
   '/projects/daniel-carter': typeof ProjectsDanielCarterRoute
   '/projects/eleanor-whitmore': typeof ProjectsEleanorWhitmoreRoute
   '/projects/jonathan-reed': typeof ProjectsJonathanReedRoute
+  '/projects/sandra-combe': typeof ProjectsSandraCombeRoute
   '/projects/the-quiet-advantage': typeof ProjectsTheQuietAdvantageRoute
+  '/projects/trey-toler': typeof ProjectsTreyTolerRoute
   '/r/$code': typeof RCodeRoute
   '/invoice/$id': typeof AuthenticatedInvoiceIdRoute
   '/my-projects/$id': typeof AuthenticatedMyProjectsIdRoute
@@ -272,10 +305,14 @@ export interface FileRoutesById {
   '/work': typeof WorkRoute
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/projects/adam-courtenay': typeof ProjectsAdamCourtenayRoute
+  '/projects/christine-rae-dorris': typeof ProjectsChristineRaeDorrisRoute
   '/projects/daniel-carter': typeof ProjectsDanielCarterRoute
   '/projects/eleanor-whitmore': typeof ProjectsEleanorWhitmoreRoute
   '/projects/jonathan-reed': typeof ProjectsJonathanReedRoute
+  '/projects/sandra-combe': typeof ProjectsSandraCombeRoute
   '/projects/the-quiet-advantage': typeof ProjectsTheQuietAdvantageRoute
+  '/projects/trey-toler': typeof ProjectsTreyTolerRoute
   '/r/$code': typeof RCodeRoute
   '/_authenticated/invoice/$id': typeof AuthenticatedInvoiceIdRoute
   '/_authenticated/my-projects/$id': typeof AuthenticatedMyProjectsIdRoute
@@ -304,10 +341,14 @@ export interface FileRouteTypes {
     | '/work'
     | '/account'
     | '/admin'
+    | '/projects/adam-courtenay'
+    | '/projects/christine-rae-dorris'
     | '/projects/daniel-carter'
     | '/projects/eleanor-whitmore'
     | '/projects/jonathan-reed'
+    | '/projects/sandra-combe'
     | '/projects/the-quiet-advantage'
+    | '/projects/trey-toler'
     | '/r/$code'
     | '/invoice/$id'
     | '/my-projects/$id'
@@ -334,10 +375,14 @@ export interface FileRouteTypes {
     | '/work'
     | '/account'
     | '/admin'
+    | '/projects/adam-courtenay'
+    | '/projects/christine-rae-dorris'
     | '/projects/daniel-carter'
     | '/projects/eleanor-whitmore'
     | '/projects/jonathan-reed'
+    | '/projects/sandra-combe'
     | '/projects/the-quiet-advantage'
+    | '/projects/trey-toler'
     | '/r/$code'
     | '/invoice/$id'
     | '/my-projects/$id'
@@ -365,10 +410,14 @@ export interface FileRouteTypes {
     | '/work'
     | '/_authenticated/account'
     | '/_authenticated/admin'
+    | '/projects/adam-courtenay'
+    | '/projects/christine-rae-dorris'
     | '/projects/daniel-carter'
     | '/projects/eleanor-whitmore'
     | '/projects/jonathan-reed'
+    | '/projects/sandra-combe'
     | '/projects/the-quiet-advantage'
+    | '/projects/trey-toler'
     | '/r/$code'
     | '/_authenticated/invoice/$id'
     | '/_authenticated/my-projects/$id'
@@ -395,10 +444,14 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   WorkRoute: typeof WorkRoute
+  ProjectsAdamCourtenayRoute: typeof ProjectsAdamCourtenayRoute
+  ProjectsChristineRaeDorrisRoute: typeof ProjectsChristineRaeDorrisRoute
   ProjectsDanielCarterRoute: typeof ProjectsDanielCarterRoute
   ProjectsEleanorWhitmoreRoute: typeof ProjectsEleanorWhitmoreRoute
   ProjectsJonathanReedRoute: typeof ProjectsJonathanReedRoute
+  ProjectsSandraCombeRoute: typeof ProjectsSandraCombeRoute
   ProjectsTheQuietAdvantageRoute: typeof ProjectsTheQuietAdvantageRoute
+  ProjectsTreyTolerRoute: typeof ProjectsTreyTolerRoute
   RCodeRoute: typeof RCodeRoute
 }
 
@@ -551,6 +604,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/projects/adam-courtenay': {
+      id: '/projects/adam-courtenay'
+      path: '/projects/adam-courtenay'
+      fullPath: '/projects/adam-courtenay'
+      preLoaderRoute: typeof ProjectsAdamCourtenayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/christine-rae-dorris': {
+      id: '/projects/christine-rae-dorris'
+      path: '/projects/christine-rae-dorris'
+      fullPath: '/projects/christine-rae-dorris'
+      preLoaderRoute: typeof ProjectsChristineRaeDorrisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/daniel-carter': {
       id: '/projects/daniel-carter'
       path: '/projects/daniel-carter'
@@ -572,11 +639,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsJonathanReedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/sandra-combe': {
+      id: '/projects/sandra-combe'
+      path: '/projects/sandra-combe'
+      fullPath: '/projects/sandra-combe'
+      preLoaderRoute: typeof ProjectsSandraCombeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/the-quiet-advantage': {
       id: '/projects/the-quiet-advantage'
       path: '/projects/the-quiet-advantage'
       fullPath: '/projects/the-quiet-advantage'
       preLoaderRoute: typeof ProjectsTheQuietAdvantageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/trey-toler': {
+      id: '/projects/trey-toler'
+      path: '/projects/trey-toler'
+      fullPath: '/projects/trey-toler'
+      preLoaderRoute: typeof ProjectsTreyTolerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/r/$code': {
@@ -650,10 +731,14 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   WorkRoute: WorkRoute,
+  ProjectsAdamCourtenayRoute: ProjectsAdamCourtenayRoute,
+  ProjectsChristineRaeDorrisRoute: ProjectsChristineRaeDorrisRoute,
   ProjectsDanielCarterRoute: ProjectsDanielCarterRoute,
   ProjectsEleanorWhitmoreRoute: ProjectsEleanorWhitmoreRoute,
   ProjectsJonathanReedRoute: ProjectsJonathanReedRoute,
+  ProjectsSandraCombeRoute: ProjectsSandraCombeRoute,
   ProjectsTheQuietAdvantageRoute: ProjectsTheQuietAdvantageRoute,
+  ProjectsTreyTolerRoute: ProjectsTreyTolerRoute,
   RCodeRoute: RCodeRoute,
 }
 export const routeTree = rootRouteImport
