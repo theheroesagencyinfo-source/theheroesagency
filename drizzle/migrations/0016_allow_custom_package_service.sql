@@ -1,0 +1,2 @@
+ALTER TABLE public.review_requests DROP CONSTRAINT review_requests_service_valid;
+ALTER TABLE public.review_requests ADD CONSTRAINT review_requests_service_valid CHECK (service IN ('author website', 'email funnel', 'launch kit', 'custom package', 'not sure yet'));

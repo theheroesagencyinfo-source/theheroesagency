@@ -113,6 +113,13 @@
       "when": 1794567279244,
       "tag": "0015_admins_create_orders",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1794908417240,
+      "tag": "0016_allow_custom_package_service",
+      "breakpoints": true
     }
   ]
 }
