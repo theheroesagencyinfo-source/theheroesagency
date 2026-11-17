@@ -107,6 +107,18 @@ function Home() {
     const plane = q<SVGGElement>("#journeyPlane");
     const comp = q<HTMLDivElement>("[data-journey]");
 
+    // Load the whole video into memory so seeking backwards (scrolling up) is instant on every browser.
+    let blobUrl = "";
+    if (video && !reduced) {
+      const src = video.currentSrc || video.src;
+      fetch(src).then((r) => r.blob()).then((b) => {
+        blobUrl = URL.createObjectURL(b);
+        const t = video.currentTime;
+        video.src = blobUrl; video.load();
+        video.addEventListener("loadedmetadata", () => { video.currentTime = t; }, { once: true });
+      }).catch(() => {});
+    }
+
     if (reduced) {
       opening?.style.setProperty("display", "none");
       spacer?.style.setProperty("display", "none");
@@ -120,7 +132,7 @@ function Home() {
       shown += (target - shown) * 0.18;
       if (Math.abs(target - shown) < 0.0005) shown = target;
       const t = Math.min(d - 0.04, shown * d);
-      if (Math.abs(video.currentTime - t) > 0.008 && !video.seeking) video.currentTime = t;
+      if (Math.abs(video.currentTime - t) > 0.008 && !video.seeking) { video.pause(); video.currentTime = t; }
       if (shown !== target || video.seeking || Math.abs(video.currentTime - t) > 0.008) requestAnimationFrame(scrub); else scrubbing = false;
     };
     const onMeta = () => { video?.pause(); onScroll(); };
@@ -178,7 +190,7 @@ function Home() {
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     update();
-    return () => { video?.removeEventListener("loadedmetadata", onMeta); video?.removeEventListener("seeked", onSeeked); window.removeEventListener("touchstart", unlock); window.removeEventListener("pointerdown", unlock); io.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+    return () => { if (blobUrl) URL.revokeObjectURL(blobUrl); video?.removeEventListener("loadedmetadata", onMeta); video?.removeEventListener("seeked", onSeeked); window.removeEventListener("touchstart", unlock); window.removeEventListener("pointerdown", unlock); io.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
   }, []);
 
   return (
