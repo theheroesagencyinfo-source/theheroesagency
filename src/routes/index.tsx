@@ -6,26 +6,7 @@ import { ProjectRating } from "@/components/project-rating";
 import danielHome from "@/assets/daniel-carter/home.png.asset.json";
 import eleanorHome from "@/assets/eleanor-whitmore/home.png.asset.json";
 import jonathanHome from "@/assets/jonathan-reed/home.png.asset.json";
-import bookF1 from "@/assets/book_frame_1.webp.asset.json";
-import bookF2 from "@/assets/book_frame_2.webp.asset.json";
-import bookF3 from "@/assets/book_frame_3.webp.asset.json";
-import bookF4 from "@/assets/book_frame_4.webp.asset.json";
-import bookF5 from "@/assets/book_frame_5.webp.asset.json";
-const BOOK_FRAMES = [bookF1, bookF2, bookF3, bookF4, bookF5];
-// Per keyframe camera pose: scale, x/y offset (% of stage), rotation (deg)
-const BOOK_POSES = [
-  { s: 0.92, x: 0, y: 2, r: 0 },
-  { s: 0.97, x: 0, y: 0, r: -1.5 },
-  { s: 1.05, x: 0, y: -1, r: 0 },
-  { s: 1.08, x: 0, y: -1, r: 0.6 },
-  { s: 1.12, x: 0, y: -2, r: 0 },
-];
-const BOOK_LINES: { from: number; to: number; text: string[]; accent?: number }[] = [
-  { from: -0.1, to: 0.2, text: ["THE", "HEROES"] },
-  { from: 0.18, to: 0.46, text: ["Every great idea", "deserves a bigger story."], accent: 1 },
-  { from: 0.46, to: 0.74, text: ["Your book is only", "the beginning."], accent: 1 },
-  { from: 0.74, to: 2, text: ["Your ideas deserve", "to go further."], accent: 1 },
-];
+import { BookOpening } from "@/components/book-opening";
 import deskPhoto from "@/assets/banner-writers-desk.png.asset.json";
 import mouBurgundy from "@/assets/mou/burgundy.png.asset.json";
 import mouWhite from "@/assets/mou/white.png.asset.json";
@@ -113,69 +94,16 @@ function Home() {
       io.observe(t);
     });
 
-    const opening = q<HTMLDivElement>("[data-opening]");
-    const spacer = q<HTMLDivElement>("[data-opening-spacer]");
-    const frames = Array.from(el.querySelectorAll<HTMLImageElement>("[data-book-frame]"));
-    const bookCam = q<HTMLDivElement>("[data-book-cam]");
-    const lines = Array.from(el.querySelectorAll<HTMLElement>("[data-book-line]"));
     const scenes = Array.from(el.querySelectorAll<HTMLElement>("[data-scene]"));
     const dots = Array.from(el.querySelectorAll<HTMLAnchorElement>("[data-dot]"));
     const path = q<SVGPathElement>("#journeyRoutePath");
     const plane = q<SVGGElement>("#journeyPlane");
     const comp = q<HTMLDivElement>("[data-journey]");
 
-    if (reduced) {
-      opening?.style.setProperty("display", "none");
-      spacer?.style.setProperty("display", "none");
-    }
-
-    // Scroll-scrubbed image sequence: eased progress drives camera pose, frame blending and background lines.
-    let target = 0, shown = 0, scrubbing = false;
-    const lerp = (x: number, y: number, t: number) => x + (y - x) * t;
-    const paint = () => {
-      const n = BOOK_FRAMES.length - 1;
-      const f = shown * n, i = Math.min(n - 1, Math.floor(f)), t = f - i;
-      const e = t * t * (3 - 2 * t);
-      // Blend only in the middle of each segment so the book holds on each keyframe.
-      const mix = clamp((e - 0.3) / 0.4);
-      frames.forEach((im, k) => {
-        const o = k === i ? 1 - mix : k === i + 1 ? mix : 0;
-        im.style.opacity = String(o);
-        im.style.transform = `scale(${k === i ? 1 + mix * 0.015 : k === i + 1 ? 0.985 + mix * 0.015 : 1})`;
-      });
-      const A = BOOK_POSES[i]!, B = BOOK_POSES[i + 1]!;
-      if (bookCam) bookCam.style.transform = `translate3d(${lerp(A.x, B.x, e)}%, ${lerp(A.y, B.y, e)}%, 0) scale(${lerp(A.s, B.s, e)}) rotate(${lerp(A.r, B.r, e)}deg)`;
-      lines.forEach((l, k) => {
-        const L = BOOK_LINES[k]!;
-        const vis = clamp(Math.min((shown - L.from) / 0.06, (L.to - shown) / 0.06));
-        l.style.opacity = String(vis * (k === 0 ? 1 : 0.9));
-        const drift = k === 0 ? -shown * 260 : 0; // gentle parallax for the brand backdrop
-        l.style.transform = `translate3d(0, ${(1 - vis) * (shown < L.from + 0.06 ? 18 : -18) + drift}px, 0)`;
-      });
-    };
-    const scrub = () => {
-      shown += (target - shown) * 0.14;
-      if (Math.abs(target - shown) < 0.0005) shown = target;
-      paint();
-      if (shown !== target) requestAnimationFrame(scrub); else scrubbing = false;
-    };
-
     let ticking = false;
     const update = () => {
       ticking = false;
       const vh = window.innerHeight;
-      if (!reduced && opening && spacer) {
-        const range = Math.max(1, spacer.offsetHeight - vh * 0.2);
-        const p = clamp(window.scrollY / range);
-        target = clamp(p / 0.88);
-        if (!scrubbing) { scrubbing = true; requestAnimationFrame(scrub); }
-        const out = clamp((p - 0.88) / 0.12);
-        opening.style.opacity = String(1 - out);
-        opening.style.transform = `scale(${1 + out * 0.18})`;
-        opening.style.filter = out > 0 ? `blur(${out * 6}px)` : "";
-        opening.style.visibility = out >= 1 ? "hidden" : "visible";
-        opening.style.pointerEvents = out > 0.5 ? "none" : "auto";
-      }
       let active = 0;
       scenes.forEach((s, i) => {
         const r = s.getBoundingClientRect();
@@ -208,34 +136,7 @@ function Home() {
 
   return (
     <div ref={root} className="home6 overflow-x-clip">
-      {/* Cinematic opening: scroll-controlled floating book, dissolves into the homepage at the end */}
-      <div data-opening aria-hidden="true" className="book-stage fixed inset-0 z-[60] overflow-hidden bg-background">
-        <div className="absolute inset-0 grid place-items-center px-6">
-          {BOOK_LINES.map((l, k) => k === 0 ? (
-            <div key={k} data-book-line className="hero-brand col-start-1 row-start-1 w-full" style={{ opacity: 1 }}>
-              <p className="hero-brand-the text-primary">THE</p>
-              <p className="hero-brand-heroes text-foreground">HEROES</p>
-              <p className="hero-brand-studio text-foreground"><span />AUTHOR STUDIO<span /></p>
-            </div>
-          ) : (
-            <p key={k} data-book-line className="book-line col-start-1 row-start-1 text-center font-serif leading-[0.95] text-foreground" style={{ opacity: k === 0 ? 0.9 : 0 }}>
-              {l.text.map((t, j) => <span key={j} className={j === l.accent ? "block text-primary" : "block"}>{t}</span>)}
-            </p>
-          ))}
-        </div>
-        <div className="absolute inset-0 grid place-items-center">
-          <div className="book-float relative aspect-[941/1672] h-[min(100svh,calc(100vw*1672/941))] max-h-full">
-            <div data-book-cam className="absolute inset-0 will-change-transform">
-              <div className="book-shadow" />
-              {BOOK_FRAMES.map((f, k) => (
-                <img key={k} data-book-frame src={f.url} alt="" draggable={false} decoding="async" fetchPriority={k < 2 ? "high" : "auto"}
-                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain will-change-[opacity,transform]" style={{ opacity: k === 0 ? 1 : 0 }} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-opening-spacer className="h-[260vh] md:h-[320vh]" aria-hidden="true" />
+      <BookOpening />
 
       {/* Section progress rail */}
       <nav aria-label="Page sections" className="fixed right-5 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2.5 md:flex">
