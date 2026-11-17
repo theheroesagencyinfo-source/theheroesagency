@@ -143,10 +143,10 @@ function Home() {
         im.style.opacity = String(o);
         im.style.transform = `scale(${k === i ? 1 + mix * 0.015 : k === i + 1 ? 0.985 + mix * 0.015 : 1})`;
       });
-      const A = BOOK_POSES[i], B = BOOK_POSES[i + 1];
+      const A = BOOK_POSES[i]!, B = BOOK_POSES[i + 1]!;
       if (bookCam) bookCam.style.transform = `translate3d(${lerp(A.x, B.x, e)}%, ${lerp(A.y, B.y, e)}%, 0) scale(${lerp(A.s, B.s, e)}) rotate(${lerp(A.r, B.r, e)}deg)`;
       lines.forEach((l, k) => {
-        const L = BOOK_LINES[k];
+        const L = BOOK_LINES[k]!;
         const vis = clamp(Math.min((shown - L.from) / 0.06, (L.to - shown) / 0.06));
         l.style.opacity = String(vis * 0.9);
         l.style.transform = `translate3d(0, ${(1 - vis) * (shown < L.from + 0.06 ? 18 : -18)}px, 0)`;
