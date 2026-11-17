@@ -7,7 +7,7 @@ import danielHome from "@/assets/daniel-carter/home.png.asset.json";
 import eleanorHome from "@/assets/eleanor-whitmore/home.png.asset.json";
 import jonathanHome from "@/assets/jonathan-reed/home.png.asset.json";
 import { BookOpening } from "@/components/book-opening";
-import deskPhoto from "@/assets/banner-writers-desk.png.asset.json";
+import authorStudy from "@/assets/author-study-portrait.jpg.asset.json";
 import heroLibrary from "@/assets/hero_library_book.jpg.asset.json";
 import heroQuote from "@/assets/hero_gold_quote.jpg.asset.json";
 import heroSculpture from "@/assets/hero_sculpture_book.jpg.asset.json";
@@ -234,7 +234,7 @@ function Home() {
             <p className="reveal mt-6 max-w-[490px] text-sm leading-loose text-muted-foreground">A lot of author websites stop at introducing the book. We look at the full journey: what a visitor understands, what makes them stay, how they join your audience and where that relationship can lead. Design matters. So does what the design helps people do.</p>
             <a href="#review" className="reveal mt-6 inline-block border-b border-foreground pb-1 text-sm">See what your site could improve ↗</a>
           </div>
-          <div data-depth="0.18" data-fx="zoom" className="reveal"><div className="h-[390px] overflow-hidden border md:h-[600px]"><img src={assetSrc(deskPhoto)} alt="A writer's desk with books and notes" decoding="async" className="h-full w-full object-cover " /></div></div>
+          <div data-depth="0.18" data-fx="zoom" className="reveal"><div className="h-[390px] overflow-hidden border md:h-[600px]"><img src={assetSrc(authorStudy)} alt="An author at his desk in a private library, pen in hand over an open notebook" decoding="async" className="h-full w-full object-cover object-center" /></div></div>
         </div>
       </section>
 
