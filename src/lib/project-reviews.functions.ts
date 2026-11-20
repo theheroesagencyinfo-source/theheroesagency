@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-export const reviewProjects = ["daniel-carter", "eleanor-whitmore", "jonathan-reed"] as const;
+export const reviewProjects = ["adam-courtenay", "trey-toler", "sandra-combe", "daniel-carter", "eleanor-whitmore", "jonathan-reed"] as const;
 
 export const projectReviewSchema = z.object({
   project: z.enum(reviewProjects),

@@ -2,7 +2,7 @@ import { assetSrc } from "@/components/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { PageIntro, ReviewCta } from "@/components/page";
-import { CaseStudy } from "@/components/project-story";
+import { CaseStudy, ProjectReviews } from "@/components/project-story";
 import { Button } from "@/components/ui/button";
 import home from "@/assets/adam-courtenay/home.jpg.asset.json";
 import about from "@/assets/adam-courtenay/about.jpg.asset.json";
@@ -60,6 +60,7 @@ function Project() {
       </div>
     </div></section>
     <CaseStudy sections={[{"heading": "Overview", "body": "A six-page website for Adam Courtenay, Sydney author and journalist, with a calm cream palette, classic serif type and a rust accent."}, {"heading": "The author's goal", "body": "Adam wanted a professional home that told his story from newspapers to history books, presented each title, and offered speaking and coaching."}, {"heading": "What I built", "body": "A homepage, an About page with his story and an in-depth interview, a Books page with individual book pages, a Speaking page, a Coaching page, and a Contact page."}]} />
+    <ProjectReviews project="adam-courtenay" author="Adam Courtenay · Author and journalist" quote="Most web designers treat an author site like a generic template. What set Mou and TheHeroes Agency apart was their genuine respect for the material. They understood immediately that narrative history requires gravitas, quiet confidence, and archival depth. They organized my books, journalism archives, and speaking work into an elegant, coherent home that readers, festival directors, and journalists comment on constantly. The entire collaboration was thoughtful, fast, and completely stress free." />
     <ReviewCta />
   </>;
 }

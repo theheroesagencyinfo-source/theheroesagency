@@ -2,7 +2,7 @@ import { assetSrc } from "@/components/site";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { PageIntro, ReviewCta } from "@/components/page";
-import { CaseStudy } from "@/components/project-story";
+import { CaseStudy, ProjectReviews } from "@/components/project-story";
 import { Button } from "@/components/ui/button";
 import home from "@/assets/trey-toler/home.jpg.asset.json";
 
@@ -46,6 +46,7 @@ function Project() {
       </div>
     </div></section>
     <CaseStudy sections={[{"heading": "Overview", "body": "A bold, single-page website for Trey Toler, author of Good Damage, combining black, white and vivid gradients that reflect the book's colourful cover."}, {"heading": "The author's goal", "body": "Trey needed a site that introduced Good Damage, showed his press coverage, and helped event organisers book him as a keynote speaker."}, {"heading": "What I built", "body": "A homepage with the book introduction, press logos and review quotes, a Good Damage book section, a Speaking section with signature talks, common questions, his newsletter, media and Instagram."}]} />
+    <ProjectReviews project="trey-toler" author="Trey Toler · Author of Good Damage, keynote speaker" quote="Launching a nonfiction book means your platform has to do two distinct jobs: introduce the book and convert readers into keynote speaking clients. TheHeroes Agency struck that balance brilliantly. They captured the bold energy of the book jacket while building a clean, frictionless inquiry path for event coordinators. We saw an immediate lift in speaking inquiries, and event organizers regularly cite how professional and direct the site is." />
     <ReviewCta />
   </>;
 }
