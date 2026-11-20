@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { assetSrc } from "@/components/site";
 import { ReviewForm } from "@/components/ReviewForm";
-import { PackageGrid } from "@/components/package-grid";
 import { ApprovedReviews } from "@/components/approved-reviews";
 import { Button } from "@/components/ui/button";
 import { agencyServices } from "@/lib/agency-services";
@@ -40,7 +39,7 @@ export const Route = createFileRoute("/")({
 });
 
 const sections = [
-  ["top", "Top"], ["studio", "Studio"], ["services", "What we build"], ["packages", "Packages"], ["work", "Case studies"],
+  ["top", "Top"], ["studio", "Studio"], ["services", "What we build"], ["work", "Case studies"],
   ["difference", "Why TheHeroes"], ["journey", "Reader journey"], ["process", "How it works"], ["voices", "Author reviews"], ["review", "Free site review"],
 ] as const;
 
@@ -203,8 +202,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <section id="packages" data-scene className="scene scroll-mt-20 border-t px-5 py-20 sm:px-[7vw]"><div className="mx-auto max-w-[1320px]"><Eyebrow>Author platform packages</Eyebrow><h2 className="reveal mt-4 max-w-[24ch] font-serif text-4xl md:text-6xl">A clear starting point. Space to grow.</h2><p className="reveal mb-10 mt-5 max-w-[60ch] text-muted-foreground">A professional presence, stronger reader relationships or a comprehensive authority platform. See full pricing and payment details on the Pricing page.</p><PackageGrid compact /><Button asChild variant="studioOutline" size="studio" className="mt-8"><Link to="/pricing" hash="packages">Explore packages and full details</Link></Button></div></section>
 
       {/* Selected work */}
       <section id="work" data-scene className="scene scroll-mt-20 bg-secondary px-5 py-24 sm:px-[7vw] md:py-32">
