@@ -18,7 +18,7 @@
 - Use the shared ImagePlaceholder where a visual belongs so pages keep their structure until real assets arrive; never ship generated or stock imagery as a stand-in.
 - Keep the "What I build" list a plain static list with no scroll-driven animation or sticky reveal; the user asked for that motion removed.
 - Keep legal documents in a shared browser-safe policy module and render dedicated policy routes with LegalPage; reuse its revision wording in package and service copy to prevent contradictory promises.
-- Share numeric package prices and cent-exact installment calculations in a browser-safe pricing module so package pages, legal terms, and invoices agree without circular imports.
+- Share numeric package prices and cent-exact installment calculations in a browser-safe pricing module; new package identifiers and a separate legacy order catalog preserve existing client prices and payment schedules.
 - Enforce country access in the server entry before dispatch using trusted request.cf country metadata, never caller headers; disable page prerendering and keep blocked responses uncached so delivery cannot bypass the gate or leak restrictions to other visitors.
 
 - Derive sitemap URLs from explicit staticData.sitemap decisions on every route; exclude the authenticated subtree and transaction pages, and omit lastmod without page-specific change timestamps so the sitemap stays accurate.
@@ -30,3 +30,6 @@
 - Referral share links use the brand domain constant in loyalty.ts and the short /r/<code> route, never the hosting origin.
 - Portal routes (/account, /admin, /my-projects) hide the public header, announcement bar and footer in __root.
 - Homepage scroll effects live in one effect inside src/routes/index.tsx and skip under reduced motion; the opening book overlay is fixed above the global header so __root stays untouched.
+
+- Share service categories and package comparisons between homepage, Services and Pricing so new positioning stays consistent; inquiry budgets are validated and stored separately from request descriptions.
+- Homepage reviews show only approved public review fields through the existing review service, never invented quotes or ratings.

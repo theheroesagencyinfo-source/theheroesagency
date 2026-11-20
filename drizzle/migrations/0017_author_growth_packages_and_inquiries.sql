@@ -1,0 +1,6 @@
+ALTER TABLE public.package_orders DROP CONSTRAINT package_orders_package_check;
+ALTER TABLE public.package_orders ADD CONSTRAINT package_orders_package_check CHECK (package IN ('book-presence', 'reader-to-client', 'book-launch', 'author-starter', 'author-growth', 'author-authority'));
+ALTER TABLE public.review_requests ADD COLUMN budget text NOT NULL DEFAULT '';
+ALTER TABLE public.review_requests DROP CONSTRAINT review_requests_service_valid;
+ALTER TABLE public.review_requests ADD CONSTRAINT review_requests_service_valid CHECK (service IN ('author website', 'email funnel', 'launch kit', 'custom package', 'not sure yet', 'author platform development', 'audience growth and engagement', 'book visibility and promotion', 'website redesign', 'newsletter setup', 'email marketing setup', 'email automation', 'book visibility campaigns'));
+ALTER TABLE public.review_requests ADD CONSTRAINT review_requests_budget_valid CHECK (budget IN ('', 'under $700', '$700–$1,999', '$2,000–$5,399', '$5,400 or more', 'please advise'));

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/custom-package")({
     { title: "Custom package · TheHeroes Agency · Author Studio" },
     { name: "description", content: "Tell me exactly what you need for your nonfiction book and get a custom price before anything is built." },
     { property: "og:title", content: "Request a custom package · TheHeroes Agency" },
-    { property: "og:description", content: "Describe the website, emails or launch support you need and receive a custom quote." },
+    { property: "og:description", content: "Describe the author platform, email marketing or book visibility support you need and receive a custom quote." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
   ] }),
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/custom-package")({
 function CustomPackage() {
   return <>
     <PageIntro label="Custom package" title="Tell me what you need. I'll price it for you.">
-      Not every book fits a set package. Describe the pages, emails, launch support or anything else you have in mind, and I'll reply with a written scope and price. Nothing is charged until you approve it.
+      Not every book fits a set package. Describe the author platform, reader engagement, book visibility or anything else you have in mind, and I'll reply with a written scope and price. Nothing is charged until you approve it.
     </PageIntro>
     <section className="border-t bg-secondary"><div className="mx-auto grid max-w-[1500px] gap-10 px-5 py-16 md:grid-cols-[1fr_1.4fr]">
       <div>

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { packages, progressOf } from "@/lib/packages";
+import { orderPackages as packages, progressOf } from "@/lib/packages";
 import { loadProject } from "@/lib/client-projects";
 import { ProgressBar } from "@/components/progress-bar";
 import { CoverUpload, ProjectMessages, ProjectWorkspace } from "@/components/project-workspace";

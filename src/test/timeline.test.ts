@@ -1,13 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { timelineAnswer, packages } from "@/lib/packages";
-
-describe("delivery timeline", () => {
-  it("states weeks, never a 2 to 5 day promise", () => {
-    expect(timelineAnswer).toContain("2 to 4 weeks");
-    expect(timelineAnswer).not.toMatch(/\bdays\b/);
-  });
-  it("names every package with the time shown on its card", () => {
-    expect(packages).toHaveLength(3);
-    for (const p of packages) expect(timelineAnswer).toContain(`${p.name} takes about ${p.time}`);
-  });
+import { packages } from "@/lib/packages";
+describe("estimated package timelines", () => {
+  it("estimates Starter at two to three weeks", () => { expect(packages.find(p => p.slug === "author-starter")?.deliveryWeeks).toEqual([2, 3]); });
+  it("estimates Growth at three to five weeks", () => { expect(packages.find(p => p.slug === "author-growth")?.deliveryWeeks).toEqual([3, 5]); });
+  it("estimates Authority at six to eight weeks", () => { expect(packages.find(p => p.slug === "author-authority")?.deliveryWeeks).toEqual([6, 8]); });
 });

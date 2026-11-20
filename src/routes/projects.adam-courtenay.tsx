@@ -28,6 +28,7 @@ export const Route = createFileRoute("/projects/adam-courtenay")({
     { name: "description", content: "An author and journalist website for Adam Courtenay in Sydney, covering his books, his story, speaking, coaching and contact." },
     { property: "og:title", content: "Adam Courtenay author website · TheHeroes Agency" },
     { property: "og:description", content: "Adam Courtenay author website showcase by TheHeroes Agency. An author and journalist website for Adam Courtenay in Sydney, covering his books, his story, speaking, coaching and contact." },
+    { property: "og:image", content: assetSrc(home) }, { name: "twitter:image", content: assetSrc(home) },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -37,7 +38,8 @@ export const Route = createFileRoute("/projects/adam-courtenay")({
 function Project() {
   const [active, setActive] = useState(0);
   const viewer = useRef<HTMLDivElement>(null);
-  const page = pages[active] ?? pages[0]!;
+  const page = pages[active] ?? pages[0];
+  if (!page) return null;
   return <>
     <div className="mx-auto max-w-[1500px] px-5 pt-10"><Link to="/work" className="text-sm underline underline-offset-4">← Back to case studies</Link></div>
     <PageIntro label="Author website · 6 pages" title="Adam Courtenay.">An author and journalist website for Adam Courtenay in Sydney, covering his books, his story, speaking, coaching and contact.</PageIntro>

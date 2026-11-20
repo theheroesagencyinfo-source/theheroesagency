@@ -1,22 +1,31 @@
 import { z } from "zod";
-import { revisionLabel } from "@/lib/legal-policy";
-import { packageAmounts, formatPrice } from "@/lib/pricing-values";
+import { packageAmounts, formatPrice, paymentSchedule } from "@/lib/pricing-values";
 export { packageAmounts } from "@/lib/pricing-values";
 
-export const packageSlugs = ["book-presence", "reader-to-client", "book-launch"] as const;
-export type PackageSlug = (typeof packageSlugs)[number];
+export const packageSlugs = ["author-starter", "author-growth", "author-authority"] as const;
+export const legacyPackageSlugs = ["book-presence", "reader-to-client", "book-launch"] as const;
+export const allPackageSlugs = [...packageSlugs, ...legacyPackageSlugs] as const;
+export type PackageSlug = (typeof allPackageSlugs)[number];
+export type Package = { slug: PackageSlug; name: string; price: string; time: string; popular?: boolean; best: string; outcome: string; cta: string; items: string[]; pages?: number; welcomeEmails?: number; revisionRounds?: number; supportDays?: number; deliveryWeeks?: readonly [number, number] };
 
-export const packages: { slug: PackageSlug; name: string; price: string; time: string; popular?: boolean; best: string; outcome: string; cta: string; items: string[] }[] = [
+const revisionLabel = "Unlimited revisions within the original agreed scope";
+export const packages: (Package & { slug: (typeof packageSlugs)[number] })[] = [
+  { slug: "author-starter", name: "Author Starter", price: formatPrice(packageAmounts["author-starter"]), time: "2–3 weeks", deliveryWeeks: [2, 3], revisionRounds: 2, best: "Independent nonfiction authors who need a professional online presence.", outcome: "A clear, professional place to discover your books and get in touch.", cta: "Get started with Starter", items: ["Custom-designed author website", "Author biography page", "Book showcase page", "Contact page and contact form", "Mobile-responsive design", "Social media integration", "Basic SEO", "Two rounds of revisions"] },
+  { slug: "author-growth", name: "Author Growth", price: formatPrice(packageAmounts["author-growth"]), time: "3–5 weeks", deliveryWeeks: [3, 5], pages: 8, welcomeEmails: 3, revisionRounds: 2, popular: true, best: "Authors ready to strengthen their professional presence and reader relationships.", outcome: "A fuller author platform with an email welcome for new readers.", cta: "Get started with Growth", items: ["Everything in Author Starter", "Website of up to 8 pages", "Newsletter subscription integration", "Email marketing platform setup", "Three-email welcome sequence", "Reader engagement strategy", "SEO foundations", "Google Analytics integration", "Two rounds of revisions"] },
+  { slug: "author-authority", name: "Author Authority", price: formatPrice(packageAmounts["author-authority"]), time: "6–8 weeks", deliveryWeeks: [6, 8], pages: 12, welcomeEmails: 5, supportDays: 30, best: "Established nonfiction authors, speakers, consultants and professional personalities.", outcome: "A comprehensive platform for your publications, expertise and audience.", cta: "Get started with Authority", items: ["Custom website of up to 12 pages", "Professional author brand positioning", "Comprehensive book and publication showcase", "Advanced newsletter integration", "Email marketing setup and automation", "Five-email welcome sequence", "Reader subscription and lead capture system", "SEO strategy and implementation", "Analytics and performance tracking setup", "Content and audience engagement strategy", "Social media integration", "30 days of post-launch technical support"] },
+];
+const legacyPackages: Package[] = [
   { slug: "book-presence", name: "Book presence", price: "$1,500", time: "2 weeks", best: "Authors who need a professional home for their book and a way to capture readers.", outcome: "Give readers a clear place to learn about the book, buy it, and join your email list.", cta: "Start with book presence", items: ["Strategy call to define audience, reader journey, and primary next step", "One-page author and book landing page", "Book description, author bio, and testimonials section", "Retailer or preorder links", "Email signup form", "Connection to your email platform", "Mobile optimization", revisionLabel, "Handover walkthrough"] },
   { slug: "reader-to-client", name: "Reader-to-client system", price: "$3,000", time: "3 weeks", popular: true, best: "Authors who want to build an email list and create inquiries beyond book sales.", outcome: "Turn readers into subscribers, and subscribers into conversations, clients, or speaking opportunities.", cta: "Build my reader-to-client system", items: ["Everything in book presence", "Up to 5-page author website", "Reader-magnet strategy: checklist, workbook, template, excerpt, or short guide", "Reader-magnet landing page", "Email platform setup and tagging structure", "Automated 5-email welcome sequence", "3–5 email post-book nurture sequence", "Clear “work with me,” booking, or speaking inquiry path", "Basic analytics setup", revisionLabel, "Handover documentation and training"] },
   { slug: "book-launch", name: "Book launch platform", price: "$5,500", time: "4 weeks", best: "Authors preparing for a major launch or building long-term authority.", outcome: "Launch your book with a coordinated website, email, and video campaign.", cta: "Plan my book launch", items: ["Everything in reader-to-client system", "Launch strategy session and roadmap", "Pre-launch page with waitlist or preorder capture", "5–7 email launch sequence", "3 post-launch follow-up emails", "ARC and reviewer outreach page or form", "8–12 social launch graphics", "2–3 AI-powered short vertical video ads", "Ad-ready copy for Meta, Instagram, YouTube, or LinkedIn", "Launch-week support", "Post-launch review call with recommendations"] },
 ];
 
+export const orderPackages = [...packages, ...legacyPackages];
 // Delivery times are stated once here so the Services and Pricing pages can never disagree.
-export const timelineAnswer = `Most projects take 2 to 4 weeks. ${packages.map(p => `${p.name} takes about ${p.time}`).join(", ")}. Timelines depend on timely feedback, content, and approvals from you.`;
+export const timelineAnswer = `Delivery depends on your package. ${packages.map(p => `${p.name} has an estimated delivery of ${p.time}`).join(", ")}. Timelines depend on timely feedback, content, and approvals from you.`;
 
 
-export const addons = [
+const legacyAddons = [
   { id: "extra-page", name: "Additional book or program page", price: "from $350" },
   { id: "email-sequence", name: "Additional 5-email sequence", price: "from $500" },
   { id: "video-ad", name: "Extra AI video ad", price: "from $250" },
@@ -26,28 +35,33 @@ export const addons = [
   { id: "maintenance", name: "Website maintenance", price: "from $150/month" },
   { id: "ads-management", name: "Paid ads management, excluding ad spend", price: "from $750/month" },
 ] as const;
+export const addons = [
+  { id: "website-redesign", name: "Website redesign", price: "from $500" },
+  { id: "newsletter-setup", name: "Newsletter setup", price: "from $150" },
+  { id: "email-marketing-setup", name: "Email marketing setup", price: "from $300" },
+] as const;
+export const orderAddons = [...addons, ...legacyAddons];
 export const addonIds = addons.map(a => a.id) as [string, ...string[]];
 // Displayed prices are derived from the same numeric values used by invoices.
-for (const pkg of packages) pkg.price = formatPrice(packageAmounts[pkg.slug]);
+for (const pkg of orderPackages) pkg.price = formatPrice(packageAmounts[pkg.slug]);
 export const addonAmounts: Record<string, { amount: number; monthly?: boolean }> = {
+  "website-redesign": { amount: 500 }, "newsletter-setup": { amount: 150 }, "email-marketing-setup": { amount: 300 },
   "extra-page": { amount: 350 }, "email-sequence": { amount: 500 }, "video-ad": { amount: 250 }, "speaker-page": { amount: 400 },
   "magnet-copy": { amount: 400 }, "email-management": { amount: 500, monthly: true }, maintenance: { amount: 150, monthly: true }, "ads-management": { amount: 750, monthly: true },
 };
 export const RUSH_AMOUNT = 150;
 
 export function invoiceLines(pkg: PackageSlug, addonList: string[], rush: boolean) {
-  const selectedPackage = packages.find(p => p.slug === pkg);
+  const selectedPackage = orderPackages.find(p => p.slug === pkg);
   if (!selectedPackage) throw new Error("Unknown package");
   const lines: { label: string; amount: number; monthly?: boolean }[] = [
     { label: selectedPackage.name, amount: packageAmounts[pkg] },
-    ...addonList.map(id => ({ label: addons.find(a => a.id === id)?.name ?? id, ...(addonAmounts[id] ?? { amount: 0 }) })),
+    ...addonList.map(id => ({ label: orderAddons.find(a => a.id === id)?.name ?? id, ...(addonAmounts[id] ?? { amount: 0 }) })),
     ...(rush ? [{ label: "Rush delivery", amount: RUSH_AMOUNT }] : []),
   ];
   const oneOff = lines.filter(l => !l.monthly).reduce((t, l) => t + l.amount, 0);
   const monthly = lines.filter(l => l.monthly).reduce((t, l) => t + l.amount, 0);
-  const schedule = pkg === "book-launch"
-    ? [{ label: "50% deposit to reserve your project", amount: Math.round(oneOff * 0.5) }, { label: "50% before launch", amount: oneOff - Math.round(oneOff * 0.5) }]
-    : [{ label: "40% deposit to reserve your project", amount: Math.round(oneOff * 0.4) }, { label: "30% at design and content approval", amount: Math.round(oneOff * 0.3) }, { label: "30% before launch or handover", amount: oneOff - Math.round(oneOff * 0.4) - Math.round(oneOff * 0.3) }];
+  const schedule = paymentSchedule(pkg, oneOff);
   return { lines, oneOff, monthly, schedule };
 }
 

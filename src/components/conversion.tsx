@@ -1,7 +1,7 @@
 const journey = [
   { h: "Discovery", p: "A reader finds your book, a podcast episode, or a talk, and searches your name." },
   { h: "Free chapter", p: "Your site offers a chapter or workbook in exchange for an email address." },
-  { h: "Welcome sequence", p: "Five emails build trust and show the reader how you work beyond the book." },
+  { h: "Welcome sequence", p: "A welcome sequence builds trust and show the reader how you work beyond the book." },
   { h: "Enquiry", p: "The reader books a call, hires you to speak, or signs up for your program." },
 ];
 
@@ -21,7 +21,7 @@ export function ReaderJourney({ secondary = false }: { secondary?: boolean }) {
     <section aria-labelledby="journey-h" className={`border-t ${secondary ? "bg-secondary" : ""}`}>
       <div className="mx-auto max-w-[1500px] px-5 py-20">
         <Label>The reader journey</Label>
-        <h2 id="journey-h" className="mt-4 max-w-[24ch] text-4xl">From someone who read your book to someone who hires you.</h2>
+        <h2 id="journey-h" className="mt-4 max-w-[24ch] text-4xl">From discovering your work to a lasting reader relationship.</h2>
         <ol className="mt-12 grid gap-0 md:grid-cols-4">
           {journey.map((s, i) => (
             <li key={s.h} className="relative border-l border-foreground/20 pb-10 pl-6 md:border-l-0 md:border-t md:pb-0 md:pl-0 md:pr-6 md:pt-6">

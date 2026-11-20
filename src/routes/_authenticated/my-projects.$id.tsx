@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { packages, progressOf } from "@/lib/packages";
+import { orderPackages as packages, progressOf } from "@/lib/packages";
 import { invoiceReady, loadProject } from "@/lib/client-projects";
 import { ProgressBar } from "@/components/progress-bar";
 import { CoverUpload, ProjectMessages, ProjectWorkspace } from "@/components/project-workspace";

@@ -406,6 +406,7 @@ export type Database = {
       review_requests: {
         Row: {
           book: string
+          budget: string
           created_at: string
           email: string
           id: string
@@ -417,6 +418,7 @@ export type Database = {
         }
         Insert: {
           book: string
+          budget?: string
           created_at?: string
           email: string
           id?: string
@@ -428,6 +430,7 @@ export type Database = {
         }
         Update: {
           book?: string
+          budget?: string
           created_at?: string
           email?: string
           id?: string

@@ -120,6 +120,13 @@
       "when": 1794908417240,
       "tag": "0016_allow_custom_package_service",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1795216791166,
+      "tag": "0017_author_growth_packages_and_inquiries",
+      "breakpoints": true
     }
   ]
 }

@@ -12,6 +12,7 @@ export const submitReview = createServerFn({ method: "POST" })
       website: data.website || null,
       service: data.service,
       message: data.message,
+      budget: data.budget,
       request_type: data.request_type,
     });
     if (error) {

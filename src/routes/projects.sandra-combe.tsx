@@ -18,6 +18,7 @@ export const Route = createFileRoute("/projects/sandra-combe")({
     { name: "description", content: "A book website for Stop the Bypass: A Story About Love by Sandra D. Combe, with the story behind the book, a trailer, the author's bio and ways to get the book." },
     { property: "og:title", content: "Sandra D. Combe author website · TheHeroes Agency" },
     { property: "og:description", content: "Sandra D. Combe author website showcase by TheHeroes Agency. A book website for Stop the Bypass: A Story About Love by Sandra D. Combe, with the story behind the book, a trailer, the author's bio and ways to get the book." },
+    { property: "og:image", content: assetSrc(home) }, { name: "twitter:image", content: assetSrc(home) },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -27,7 +28,8 @@ export const Route = createFileRoute("/projects/sandra-combe")({
 function Project() {
   const [active, setActive] = useState(0);
   const viewer = useRef<HTMLDivElement>(null);
-  const page = pages[active] ?? pages[0]!;
+  const page = pages[active] ?? pages[0];
+  if (!page) return null;
   return <>
     <div className="mx-auto max-w-[1500px] px-5 pt-10"><Link to="/work" className="text-sm underline underline-offset-4">← Back to case studies</Link></div>
     <PageIntro label="Book website · single page" title="Sandra D. Combe.">A book website for Stop the Bypass: A Story About Love by Sandra D. Combe, with the story behind the book, a trailer, the author's bio and ways to get the book.</PageIntro>

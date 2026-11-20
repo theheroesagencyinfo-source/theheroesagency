@@ -1,7 +1,8 @@
-import { Facebook, Instagram, Linkedin, UserRound } from "lucide-react";
+import { Facebook, Instagram, Linkedin, UserRound, Menu, X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { NewsletterSignup } from "@/components/newsletter-signup";
+import { Button } from "@/components/ui/button";
 import logoLight from "@/assets/theheroes-logo.png.asset.json";
 import logoDark from "@/assets/theheroes-logo-dark-trimmed.png.asset.json";
 
@@ -40,26 +41,22 @@ export const BOOKING_LABEL = "Book a 15-minute call";
 
 export const ANNOUNCEMENT_ITEMS = [
   {
-    text: "Built for nonfiction authors: turn readers into opportunities.",
+    text: "Helping nonfiction authors build their presence and connect with readers.",
     cta: "Book a call",
     href: BOOKING_URL,
   },
   {
-    text: "Websites, email automation, and launch creative, built as one system.",
+    text: "Author platforms, audience engagement and book visibility, with one clear direction.",
     cta: "View packages",
     href: "/pricing",
   },
 ] as const;
 
 
-const nav = [
-  { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/work", label: "Work" },
-  { to: "/about", label: "About" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/contact", label: "Contact" },
-] as const;
+const nav: { to: "/" | "/about" | "/services" | "/pricing" | "/work" | "/contact"; label: string; hash?: string }[] = [
+  { to: "/", label: "Home" }, { to: "/about", label: "About" }, { to: "/services", label: "Services" },
+  { to: "/pricing", label: "Pricing" }, { to: "/work", label: "Case Studies" }, { to: "/", hash: "voices", label: "Reviews" }, { to: "/contact", label: "Contact" },
+];
 
 export function Btn({
   children,
@@ -89,11 +86,12 @@ export function Header() {
         <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
           <Logo className="h-8 w-auto sm:h-10" />
         </Link>
-        <nav aria-label="Main" className="hidden items-center gap-7 text-sm md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-4 text-sm xl:gap-6 lg:flex">
           {nav.map((n) => (
             <Link
-              key={n.to}
+              key={n.label}
               to={n.to}
+              {...(n.hash ? { hash: n.hash } : {})}
               activeOptions={{ exact: true }}
               className="hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
@@ -107,27 +105,20 @@ export function Header() {
           <Link to="/account" aria-label="My account" title="My account" className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-foreground/25 text-foreground hover:bg-secondary">
             <UserRound aria-hidden className="h-5 w-5" />
           </Link>
-          <Link to="/" hash="review" className="hidden rounded-md sm:inline-block">
+          <Link to="/" hash="review" className="hidden rounded-md xl:inline-block">
             <Btn className="px-4 py-2">Free review</Btn>
           </Link>
-          <button
-            type="button"
-            className="rounded-md border border-foreground/25 px-3 py-2 text-sm font-semibold md:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? "Close" : "Menu"}
-          </button>
+          <Button variant="studioOutline" size="icon" className="lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(o => !o)}>{open ? <X /> : <Menu />}</Button>
         </div>
       </div>
       {open && (
-        <nav id="mobile-menu" aria-label="Mobile" className="border-t bg-background px-5 pb-8 pt-4 md:hidden">
+        <nav id="mobile-menu" aria-label="Mobile" className="border-t bg-background px-5 pb-8 pt-4 lg:hidden">
           <ul className="divide-y">
             {nav.map((n) => (
-              <li key={n.to}>
+              <li key={n.label}>
                 <Link
                   to={n.to}
+              {...(n.hash ? { hash: n.hash } : {})}
                   onClick={() => setOpen(false)}
                   activeOptions={{ exact: true }}
                   className="block py-4 font-serif text-2xl"
@@ -256,7 +247,8 @@ export function Footer() {
             className="flex max-w-xl flex-wrap gap-x-6 gap-y-4 text-sm text-muted-foreground md:justify-end"
           >
             {nav.map((n) => (
-              <Link key={n.to} to={n.to} className="hover:text-foreground">
+              <Link key={n.label} to={n.to}
+              {...(n.hash ? { hash: n.hash } : {})} className="hover:text-foreground">
                 {n.label}
               </Link>
             ))}
@@ -270,7 +262,7 @@ export function Footer() {
         <div className="mt-10 flex flex-col gap-6 border-t pt-8 text-sm text-muted-foreground md:flex-row md:items-start md:justify-between">
           <div>
             <Logo className="h-10 w-auto" />
-            <p className="mt-1">Websites and launch funnels for nonfiction authors.</p>
+            <p className="mt-1">Author platforms, reader relationships and digital visibility for nonfiction authors.</p>
             <p className="mt-3"><a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4 hover:text-foreground">{CONTACT_EMAIL}</a></p>
             
           </div>

@@ -11,7 +11,7 @@ import { AccountSettings } from "@/components/account-settings";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { BOOKING_URL, SUPPORT_EMAIL } from "@/components/site";
-import { packages, addons, progressOf } from "@/lib/packages";
+import { orderPackages as packages, orderAddons as addons, progressOf } from "@/lib/packages";
 import { coverUrls, invoiceReady, type Order, type Task } from "@/lib/client-projects";
 
 export const Route = createFileRoute("/_authenticated/account")({
@@ -192,7 +192,7 @@ function Account() {
               <Link to="/contact" className="rounded-lg border p-5 transition-colors hover:border-primary"><span className="font-medium">Request a free review</span><span className="mt-1 block text-sm text-muted-foreground">Feedback on your current site.</span></Link>
             </div>
           </div>
-        : <><div className="mb-4 flex flex-wrap items-center justify-between gap-3"><h2 className="font-serif text-2xl">Your projects</h2><Button asChild variant="studioOutline" size="sm"><Link to="/get-started" search={{ package: "reader-to-client" }}>Request another project</Link></Button></div><ul className="grid gap-6">{featured.map((o) => {
+        : <><div className="mb-4 flex flex-wrap items-center justify-between gap-3"><h2 className="font-serif text-2xl">Your projects</h2><Button asChild variant="studioOutline" size="sm"><Link to="/get-started" search={{ package: "author-growth" }}>Request another project</Link></Button></div><ul className="grid gap-6">{featured.map((o) => {
           const mine = tasks.filter(t => t.order_id === o.id);
           const pct = progressOf(mine);
           const next = mine.find(t => !t.done);

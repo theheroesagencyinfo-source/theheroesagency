@@ -1,4 +1,8 @@
 # Roadmap
+- [x] Update positioning, service categories, homepage and navigation without rebuilding or publishing
+- [x] Replace package pricing, deliverables and payment schedules consistently; preserve existing orders
+- [x] Update inquiry fields, individual services, legal conditions and page metadata
+- [x] Verify forms, links, desktop/mobile layouts and rule tests
 - [x] Launch sweep: remove empty mockup sections, fix mobile overflow (About photos, workspace tabs)
 - [x] End-to-end project walk: cover, strategy/copy notes, send for review, approve, progress
 - [x] Client account Messages tab (read/reply to project threads)

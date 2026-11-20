@@ -14,9 +14,10 @@ export const Route = createFileRoute("/work")({
   staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Case studies · TheHeroes Agency · Author Studio" },
-    { name: "description", content: "Author website case studies for Daniel Carter, Eleanor Whitmore, and Jonathan Reed: the goal, the approach, and the services delivered." },
+    { name: "description", content: "Explore live nonfiction author platforms for Adam Courtenay, Trey Toler and Sandra D. Combe, alongside earlier author website design showcases." },
     { property: "og:title", content: "Case studies · TheHeroes Agency · Author Studio" },
-    { property: "og:description", content: "Author website case studies for Daniel Carter, Eleanor Whitmore, and Jonathan Reed." },
+    { property: "og:description", content: "Live author websites and design showcases: books, professional presence and reader connections." },
+    { property: "og:image", content: assetSrc(adamHome) }, { name: "twitter:image", content: assetSrc(adamHome) },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
   ] }), component: Work,
 });
@@ -52,7 +53,7 @@ const caseStudies: CaseStudyCard[] = [
     to: "/projects/daniel-carter",
     image: assetSrc(danielHome),
     imageAlt: "Daniel Carter author website homepage",
-    kind: "Author website · 8 pages",
+    kind: "Design showcase · 8 pages",
     title: "Daniel Carter: author website",
     overview: "A full website for a nonfiction author, from homepage and books to speaking and newsletter.",
     objectives: [
@@ -67,7 +68,7 @@ const caseStudies: CaseStudyCard[] = [
     to: "/projects/eleanor-whitmore",
     image: assetSrc(eleanorHome),
     imageAlt: "Eleanor Whitmore author website homepage",
-    kind: "Author website · 7 pages",
+    kind: "Design showcase · 7 pages",
     title: "Eleanor Whitmore: author website",
     overview: "An author website bringing together The Kindness Effect, journal, events, and reader resources.",
     objectives: [
@@ -82,7 +83,7 @@ const caseStudies: CaseStudyCard[] = [
     to: "/projects/jonathan-reed",
     image: assetSrc(jonathanHome),
     imageAlt: "Jonathan Reed literary author website homepage",
-    kind: "Literary author website · 6 pages",
+    kind: "Design showcase · 6 pages",
     title: "Jonathan Reed: author website",
     overview: "A literary author website bringing together books, journal essays, speaking events, and resources for readers.",
     objectives: [
@@ -96,9 +97,9 @@ const caseStudies: CaseStudyCard[] = [
 
 function Work() {
   return <>
-    <PageIntro label="Work" title="Case studies.">Author websites I've designed and built, with the goal, the approach, and what was delivered for each.</PageIntro>
+    <PageIntro label="Case studies" title="Case studies.">Explore live author platforms and earlier design showcases. Each brings books, expertise and reader connections together, without unverified performance claims.</PageIntro>
     <section className="border-t"><div className="mx-auto grid max-w-[1500px] gap-x-8 gap-y-14 px-5 py-16 md:grid-cols-2">
-      {caseStudies.map(study => <article key={study.slug}>
+      {caseStudies.map((study, index) => <article key={study.slug}>{index === 3 && <h2 className="mb-8 border-t pt-8 text-3xl">Earlier design showcases</h2>}
         <Link to={study.to} aria-label={`View the ${study.title} case study`}><div className="aspect-[4/3] overflow-hidden border bg-muted"><img loading="lazy" decoding="async" src={study.image} alt={study.imageAlt} className="h-full w-full object-cover object-top" /></div></Link>
         <p className="mt-6 text-sm text-muted-foreground">{study.kind}</p>
         <h2 className="mt-3 text-3xl">{study.title}</h2>

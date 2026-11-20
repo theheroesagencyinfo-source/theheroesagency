@@ -8,7 +8,9 @@ describe("owner-confirmed legal policy rules", () => {
   it("reviews eligible refund requests within five business days", () => {
     expect(legalPolicy.refundReviewBusinessDays).toBe(5);
   });
-  it("includes unlimited revisions within the agreed scope", () => {
-    expect(legalPolicy.unlimitedRevisionsWithinScope).toBe(true);
+  it("provides two revision rounds for Starter and Growth", () => {
+    expect(legalPolicy.starterRevisionRounds).toBe(2);
+    expect(legalPolicy.growthRevisionRounds).toBe(2);
+    expect(legalPolicy.unlimitedRevisionsWithinScope).toBe(false);
   });
 });

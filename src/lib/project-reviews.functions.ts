@@ -50,3 +50,13 @@ export const getProjectRatings = createServerFn({ method: "GET" })
     return ratings;
   });
 
+
+// Only approved, already-public review fields may leave this function.
+export const listApprovedReviews = createServerFn({ method: "GET" }).handler(async () => {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin.from("project_reviews")
+    .select("id,name,rating,comment").eq("approved", true)
+    .order("created_at", { ascending: false }).limit(6);
+  if (error) return [];
+  return data ?? [];
+});

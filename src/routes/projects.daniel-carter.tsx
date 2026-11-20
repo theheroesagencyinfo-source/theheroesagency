@@ -31,6 +31,7 @@ export const Route = createFileRoute("/projects/daniel-carter")({
     { name: "description", content: "An eight-page author website design for nonfiction author Daniel Carter: home, about, books, book page, journal, speaking, resources, and contact." },
     { property: "og:title", content: "Daniel Carter author website · TheHeroes Agency" },
     { property: "og:description", content: "Scroll through all eight pages of the Daniel Carter author website design." },
+    { property: "og:image", content: assetSrc(home) }, { name: "twitter:image", content: assetSrc(home) },
     { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
   ] }), component: Project,
 });
@@ -39,10 +40,11 @@ function Project() {
   const [active, setActive] = useState(0);
   const viewer = useRef<HTMLDivElement>(null);
   useEffect(() => { viewer.current?.scrollTo({ top: 0 }); }, [active]);
-  const page = pages[active] ?? pages[0]!;
+  const page = pages[active] ?? pages[0];
+  if (!page) return null;
   return <>
     <div className="mx-auto max-w-[1500px] px-5 pt-10"><Link to="/work" className="text-sm underline underline-offset-4">← Back to case studies</Link></div>
-    <PageIntro label="Author website · 8 pages" title="Daniel Carter.">An eight-page author website design. Pick a page, then scroll up and down to see all of it.</PageIntro>
+    <PageIntro label="Design showcase · 8 pages" title="Daniel Carter.">An eight-page author website design. Pick a page, then scroll up and down to see all of it.</PageIntro>
     <section className="border-t"><div className="mx-auto grid max-w-[1500px] gap-8 px-5 py-12 md:grid-cols-[220px_1fr]">
       <div role="tablist" aria-label="Website pages" className="flex gap-2 overflow-x-auto pb-2 md:flex-col md:overflow-visible md:pb-0">
         {pages.map((p, i) => <button key={p.label} role="tab" aria-selected={i === active} aria-controls="dc-viewer" onClick={() => setActive(i)}

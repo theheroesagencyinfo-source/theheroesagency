@@ -2,6 +2,10 @@ import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { assetSrc } from "@/components/site";
 import { ReviewForm } from "@/components/ReviewForm";
+import { PackageGrid } from "@/components/package-grid";
+import { ApprovedReviews } from "@/components/approved-reviews";
+import { Button } from "@/components/ui/button";
+import { agencyServices } from "@/lib/agency-services";
 import { ProjectRating } from "@/components/project-rating";
 import danielHome from "@/assets/daniel-carter/home.png.asset.json";
 import eleanorHome from "@/assets/eleanor-whitmore/home.png.asset.json";
@@ -23,11 +27,12 @@ export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
   head: () => ({
     meta: [
-      { title: "TheHeroes Agency · Author Studio: websites and funnels for nonfiction authors" },
-      { name: "description", content: "Author websites, email funnels and book launch creative that turn readers into subscribers, client enquiries and speaking invitations. Get a free author site review." },
+      { title: "TheHeroes Agency · Digital growth for nonfiction authors" },
+      { name: "description", content: "Author platform development, author branding and email marketing for nonfiction authors. Build your presence, connect with readers and create more opportunities." },
       { property: "og:title", content: "TheHeroes Agency · Author Studio" },
-      { property: "og:description", content: "Your book opens the door. We build what comes next: websites, email funnels and launch creative for nonfiction authors." },
-      { property: "og:type", content: "website" },
+      { property: "og:description", content: "Helping nonfiction authors build their presence, connect with readers and create more opportunities around their work." },
+      { property: "og:image", content: assetSrc(heroLibrary) }, { name: "twitter:image", content: assetSrc(heroLibrary) },
+    { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
@@ -35,23 +40,19 @@ export const Route = createFileRoute("/")({
 });
 
 const sections = [
-  ["top", "Top"], ["studio", "Studio"], ["services", "What we build"], ["work", "Selected work"],
+  ["top", "Top"], ["studio", "Studio"], ["services", "What we build"], ["packages", "Packages"], ["work", "Case studies"],
   ["difference", "Why TheHeroes"], ["journey", "Reader journey"], ["process", "How it works"], ["voices", "Author reviews"], ["review", "Free site review"],
 ] as const;
 
-const services = [
-  { h: "Author websites", p: "A distinctive digital home for your books, expertise, speaking and services. Designed to establish credibility and make the next step obvious.", to: "/services" as const },
-  { h: "Email & reader funnels", p: "Reader magnets, signup experiences and welcome emails that turn passing interest into an audience you can reach again.", to: "/services" as const },
-  { h: "Book launch creative", p: "Launch pages, email campaigns and supporting creative that give your next release a clear, coordinated digital presence.", to: "/services" as const },
-];
+const services = agencyServices.map(service => ({ h: service.title, p: service.value, to: "/services" as const }));
 
 const projects = [
   { to: "/projects/adam-courtenay" as const, slug: "adam-courtenay", live: true, name: "Adam Courtenay", meta: "Live author website · 6 pages", img: adamHome, p: "His books, story, speaking and coaching, for a Sydney author and journalist." },
   { to: "/projects/trey-toler" as const, slug: "trey-toler", live: true, name: "Trey Toler", meta: "Live author and speaker website", img: treyHome, p: "A bold home for Good Damage, his press, keynote talks and newsletter." },
   { to: "/projects/sandra-combe" as const, slug: "sandra-combe", live: true, name: "Sandra D. Combe", meta: "Live book website", img: sandraHome, p: "A book website for Stop the Bypass, with its trailer, story and author bio." },
-  { to: "/projects/daniel-carter" as const, slug: "daniel-carter", name: "Daniel Carter", meta: "Author website · 8 pages", img: danielHome, p: "A digital home bringing his books, ideas, speaking work and reader resources together." },
-  { to: "/projects/eleanor-whitmore" as const, slug: "eleanor-whitmore", name: "Eleanor Whitmore", meta: "Author website · 7 pages", img: eleanorHome, p: "A warm, welcoming platform for her book, events, journal and reader resources." },
-  { to: "/projects/jonathan-reed" as const, slug: "jonathan-reed", name: "Jonathan Reed", meta: "Literary author website · 6 pages", img: jonathanHome, p: "A considered presentation of his books, essays, speaking events and resources." },
+  { to: "/projects/daniel-carter" as const, slug: "daniel-carter", name: "Daniel Carter", meta: "Design showcase · 8 pages", img: danielHome, p: "A digital home bringing his books, ideas, speaking work and reader resources together." },
+  { to: "/projects/eleanor-whitmore" as const, slug: "eleanor-whitmore", name: "Eleanor Whitmore", meta: "Design showcase · 7 pages", img: eleanorHome, p: "A warm, welcoming platform for her book, events, journal and reader resources." },
+  { to: "/projects/jonathan-reed" as const, slug: "jonathan-reed", name: "Jonathan Reed", meta: "Design showcase · 6 pages", img: jonathanHome, p: "A considered presentation of his books, essays, speaking events and resources." },
 ];
 
 const journey = [
@@ -154,12 +155,12 @@ function Home() {
       <section id="top" data-scene className="scene relative scroll-mt-24 px-5 pb-24 pt-14 sm:px-[7vw] md:min-h-[calc(100svh-70px)] md:pt-20">
         <div className="mx-auto grid max-w-[1320px] items-center gap-12 md:grid-cols-[1.02fr_.98fr] md:gap-[7vw]">
           <div>
-            <Eyebrow>Digital platforms for nonfiction authors</Eyebrow>
+            <Eyebrow>Digital growth for nonfiction authors</Eyebrow>
             <h1 data-fx="mask" className="display reveal mt-5 font-serif text-[clamp(46px,7vw,100px)]">Your book opens the door. <em className="text-primary">We build what comes next.</em></h1>
-            <p className="reveal mt-6 max-w-[500px] leading-relaxed text-muted-foreground sm:text-lg">We design author websites, email funnels and book launch creative that turn your expertise into readers, subscribers, client enquiries and speaking opportunities.</p>
+            <p className="reveal mt-6 max-w-[500px] leading-relaxed text-muted-foreground sm:text-lg">Helping authors build their presence, connect with readers and create more opportunities around their work. We bring together author platforms, branding, email marketing and book visibility for nonfiction authors, speakers and consultants worldwide.</p>
             <div className="reveal mt-9 flex flex-wrap items-center gap-6">
-              <a href="#review" className="inline-flex items-center gap-4 bg-primary px-5 py-3.5 text-sm text-primary-foreground transition hover:-translate-y-0.5">Get my free site review <span aria-hidden>↗</span></a>
-              <a href="#work" className="border-b border-foreground pb-1 text-sm">Explore selected work</a>
+              <Button asChild variant="studio" size="studio"><Link to="/services">Explore our services <span aria-hidden>↗</span></Link></Button>
+              <Button asChild variant="studioOutline" size="studio" className="whitespace-normal"><a href="#review">Request a free website review</a></Button>
             </div>
             <p className="reveal mt-12 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Strategy · Design · Development · Reader growth</p>
           </div>
@@ -178,7 +179,7 @@ function Home() {
           <Eyebrow dark>A platform, not just a website</Eyebrow>
           <div>
             <h2 data-fx="wipe" className="display reveal font-serif text-[clamp(40px,6vw,82px)]">A book builds authority. <em className="text-pitch-accent">A connected platform puts it to work.</em></h2>
-            <p className="reveal mt-6 max-w-[420px] text-sm leading-loose text-pitch-muted">Your website, reader magnet, email journey and launch materials should work together. We bring those pieces into one clear experience, designed around what you want your expertise to do next.</p>
+            <p className="reveal mt-6 max-w-[420px] text-sm leading-loose text-pitch-muted">A strong author platform gives readers and professional contacts a central place to discover your books, work, services and updates. Your website, brand and email relationships should work together, around what you want your expertise to do next.</p>
           </div>
         </div>
       </section>
@@ -187,7 +188,7 @@ function Home() {
       <section id="services" data-scene className="scene scroll-mt-20 px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><Eyebrow>What we build</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">Three parts. <em className="text-primary">One connected system.</em></h2></div>
+            <div><Eyebrow>What we build</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">Three services. <em className="text-primary">One clear direction.</em></h2></div>
             <p className="reveal max-w-[340px] text-sm leading-relaxed text-muted-foreground">The essentials that help nonfiction authors look credible, stay connected to readers and create opportunities beyond the book.</p>
           </div>
           <div className="border-t border-foreground/20">
@@ -203,11 +204,13 @@ function Home() {
         </div>
       </section>
 
+      <section id="packages" data-scene className="scene scroll-mt-20 border-t px-5 py-20 sm:px-[7vw]"><div className="mx-auto max-w-[1320px]"><Eyebrow>Author platform packages</Eyebrow><h2 className="reveal mt-4 max-w-[24ch] font-serif text-4xl md:text-6xl">A clear starting point. Space to grow.</h2><p className="reveal mb-10 mt-5 max-w-[60ch] text-muted-foreground">A professional presence, stronger reader relationships or a comprehensive authority platform. All prices in USD.</p><PackageGrid compact /><Button asChild variant="studioOutline" size="studio" className="mt-8"><Link to="/pricing" hash="packages">Explore packages and full details</Link></Button></div></section>
+
       {/* Selected work */}
       <section id="work" data-scene className="scene scroll-mt-20 bg-secondary px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><Eyebrow>Selected work · Real author projects</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(42px,6vw,82px)]">Different voices.<br /><em className="text-primary">Thoughtful digital homes.</em></h2></div>
+            <div><Eyebrow>Case studies · Author platforms</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(42px,6vw,82px)]">Different voices.<br /><em className="text-primary">Thoughtful digital homes.</em></h2></div>
             <p className="reveal max-w-[290px] text-sm leading-relaxed text-muted-foreground">Each author has a different story, audience and visual language. The work should reflect that.</p>
           </div>
           <div className="work-track -mx-5 flex gap-6 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:items-start md:gap-14 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-[1.13fr_.87fr] md:gap-x-[5vw]">
@@ -224,7 +227,7 @@ function Home() {
               </article>
             ))}
           </div>
-          <div className="mt-14"><Link to="/work" className="inline-flex items-center gap-2 border border-foreground px-6 py-3 text-sm transition-colors hover:bg-foreground hover:text-background">See more work <span aria-hidden="true">↗</span></Link></div>
+          <div className="mt-14"><Link to="/work" className="inline-flex items-center gap-2 border border-foreground px-6 py-3 text-sm transition-colors hover:bg-foreground hover:text-background">See more case studies <span aria-hidden="true">↗</span></Link></div>
         </div>
       </section>
 
@@ -297,15 +300,8 @@ function Home() {
       <section id="voices" data-scene className="scene scroll-mt-20 bg-secondary px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
           <Eyebrow>In authors' words</Eyebrow>
-          <h2 data-fx="mask" className="display reveal mt-4 max-w-[820px] font-serif text-[clamp(40px,5.5vw,76px)]">Reviews from the authors we work with <em className="text-primary">will live here.</em></h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {[0, 1, 2].map((i) => (
-              <figure key={i} data-fx="soft" style={{ ["--i" as string]: i }} className={`reveal flex min-h-[260px] flex-col justify-between border border-dashed border-foreground/25 bg-background p-7 ${i === 1 ? "md:mt-16" : ""}`}>
-                <span aria-hidden className="font-serif text-6xl leading-none text-primary/40">“</span>
-                <figcaption className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Space reserved for a verified author review</figcaption>
-              </figure>
-            ))}
-          </div>
+          <h2 className="reveal mt-4 max-w-[820px] font-serif text-4xl md:text-6xl">Reviews from our author community.</h2>
+          <ApprovedReviews />
         </div>
       </section>
 
@@ -315,7 +311,7 @@ function Home() {
           <div>
             <Eyebrow dark>Your next chapter starts here</Eyebrow>
             <h2 data-fx="mask" className="display reveal mt-4 font-serif text-[clamp(44px,7vw,100px)]">Make more of the attention your book earns.</h2>
-            <p className="reveal mt-6 max-w-[440px] text-sm leading-loose text-pitch-muted">Tell us about your book and your website. We'll review the experience and send practical notes on how to turn more readers into leads and opportunities.</p>
+            <p className="reveal mt-6 max-w-[440px] text-sm leading-loose text-pitch-muted">Tell us about your book and your website. We’ll review the experience and send practical notes on your presence, reader connections and next steps.</p>
           </div>
           <div className="reveal bg-background p-6 text-foreground sm:p-8">
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">Free author site review</p>
@@ -324,6 +320,7 @@ function Home() {
           </div>
         </div>
       </section>
+      <section className="border-t px-5 py-16 sm:px-[7vw]"><div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-7"><div><h2 className="text-3xl md:text-4xl">What comes next for your work?</h2><p className="mt-3 text-muted-foreground">Let’s discuss the platform, audience and opportunities you want to build.</p></div><Button asChild variant="studio" size="studio"><Link to="/contact">Discuss your project</Link></Button></div></section>
     </div>
   );
 }

@@ -18,6 +18,7 @@ export const Route = createFileRoute("/projects/trey-toler")({
     { name: "description", content: "An author and speaker website for Trey Toler, author of Good Damage, bringing together the book, press, keynote talks, newsletter and media." },
     { property: "og:title", content: "Trey Toler author website · TheHeroes Agency" },
     { property: "og:description", content: "Trey Toler author website showcase by TheHeroes Agency. An author and speaker website for Trey Toler, author of Good Damage, bringing together the book, press, keynote talks, newsletter and media." },
+    { property: "og:image", content: assetSrc(home) }, { name: "twitter:image", content: assetSrc(home) },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -27,7 +28,8 @@ export const Route = createFileRoute("/projects/trey-toler")({
 function Project() {
   const [active, setActive] = useState(0);
   const viewer = useRef<HTMLDivElement>(null);
-  const page = pages[active] ?? pages[0]!;
+  const page = pages[active] ?? pages[0];
+  if (!page) return null;
   return <>
     <div className="mx-auto max-w-[1500px] px-5 pt-10"><Link to="/work" className="text-sm underline underline-offset-4">← Back to case studies</Link></div>
     <PageIntro label="Author and speaker website · single page" title="Trey Toler.">An author and speaker website for Trey Toler, author of Good Damage, bringing together the book, press, keynote talks, newsletter and media.</PageIntro>

@@ -13,7 +13,7 @@ export function PageIntro({ label, title, children }: { label: string; title: st
 export function ReviewCta() {
   return <section className="border-t bg-secondary"><div className="mx-auto max-w-[1500px] px-5 py-16">
     <h2 className="max-w-[25ch] text-3xl sm:text-4xl">Let's start with your book.</h2>
-    <Button asChild variant="studio" size="studio" className="mt-6"><Link to="/contact" hash="review">Get my free author site review</Link></Button>
+    <Button asChild variant="studio" size="studio" className="mt-6"><Link to="/" hash="review">Get my free author site review</Link></Button>
   </div></section>;
 }
 

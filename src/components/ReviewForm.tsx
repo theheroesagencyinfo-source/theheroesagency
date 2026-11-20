@@ -1,10 +1,10 @@
 import { useId, useState, type FormEvent } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { reviewSchema, serviceOptions } from "@/lib/review-schema";
+import { reviewSchema, currentServiceOptions, budgetOptions } from "@/lib/review-schema";
 import { submitReview } from "@/lib/review.functions";
 import { Button } from "@/components/ui/button";
 
-type Field = "name" | "email" | "book" | "website" | "service" | "message";
+type Field = "name" | "email" | "book" | "website" | "service" | "message" | "budget";
 const fields: { id: Field; label: string; type: string; optional?: boolean; auto: string; max: number }[] = [
   { id: "name", label: "Name", type: "text", auto: "name", max: 100 },
   { id: "email", label: "Email", type: "email", auto: "email", max: 255 },
@@ -41,22 +41,23 @@ export function ReviewForm({ mode = "review", selectedService }: { mode?: "revie
     <p className="mt-3 text-muted-foreground">{mode === "quote" ? "I'll email you to discuss the scope of your project." : "I'll send your review within 24 hours."} Replies come from info@theheroesagency.org, so please check your inbox and spam folder.</p>
   </div>;
   return <form onSubmit={onSubmit} noValidate className="grid gap-5">
-    {fields.filter(f => mode === "review" || f.id !== "website").map(f => <div key={f.id} className="grid gap-2">
+    {fields.map(f => <div key={f.id} className="grid gap-2">
       <label htmlFor={`${prefix}-${f.id}`} className="text-sm font-medium">{f.label} {f.optional && <span className="text-muted-foreground">(optional)</span>}</label>
       <input id={`${prefix}-${f.id}`} name={f.id} type={f.type} autoComplete={f.auto} maxLength={f.max} required={!f.optional} aria-invalid={!!errors[f.id]} aria-describedby={errors[f.id] ? `${prefix}-${f.id}-err` : undefined} className={inputClass} />
       {errors[f.id] && <p role="alert" id={`${prefix}-${f.id}-err`} className="text-sm text-destructive">{errors[f.id]}</p>}
     </div>)}
     <div className="grid gap-2">
-      <label htmlFor={`${prefix}-service`} className="text-sm font-medium">{mode === "quote" ? "Service" : "What would you like help with?"}</label>
+      <label htmlFor={`${prefix}-service`} className="text-sm font-medium">{mode === "quote" ? "Service of interest" : "What would you like help with?"}</label>
       <select key={selectedService} id={`${prefix}-service`} name="service" defaultValue={selectedService || "not sure yet"} className={inputClass}>
-        {serviceOptions.map(service => <option key={service} value={service}>{service.charAt(0).toUpperCase() + service.slice(1)}</option>)}
+        {currentServiceOptions.map(service => <option key={service} value={service}>{service.charAt(0).toUpperCase() + service.slice(1)}</option>)}
       </select>
     </div>
     {mode === "quote" && <div className="grid gap-2">
-      <label htmlFor={`${prefix}-message`} className="text-sm font-medium">Message</label>
+      <label htmlFor={`${prefix}-message`} className="text-sm font-medium">Project description</label>
       <textarea id={`${prefix}-message`} name="message" required rows={5} maxLength={3000} aria-invalid={!!errors.message} aria-describedby={errors.message ? `${prefix}-message-err` : undefined} className={inputClass} />
       {errors.message && <p role="alert" id={`${prefix}-message-err`} className="text-sm text-destructive">{errors.message}</p>}
     </div>}
+    {mode === "quote" && <div className="grid gap-2"><label htmlFor={`${prefix}-budget`} className="text-sm font-medium">Budget range <span className="text-muted-foreground">(USD)</span></label><select id={`${prefix}-budget`} name="budget" defaultValue="please advise" className={inputClass}>{budgetOptions.map(budget => <option key={budget} value={budget}>{budget.charAt(0).toUpperCase() + budget.slice(1)}</option>)}</select></div>}
     {status === "failed" && <p role="alert" className="text-sm text-destructive">Something went wrong sending your request. Please try again.</p>}
     <Button type="submit" disabled={status === "sending"} variant="studio" size="studio" className="mt-2 justify-self-start">{status === "sending" ? "Sending…" : mode === "quote" ? "Send my quote request" : "Get my free author site review"}</Button>
   </form>;

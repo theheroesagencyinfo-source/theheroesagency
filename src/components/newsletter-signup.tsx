@@ -26,7 +26,7 @@ export function NewsletterSignup() {
   }
   return <div>
     <h2 className="max-w-[34ch] font-serif text-2xl">Build a book platform that works beyond launch day.</h2>
-    <p className="mt-2 max-w-[55ch] text-muted-foreground">Get practical ideas on author websites, email automation, reader magnets, and book launches without the jargon.</p>
+    <p className="mt-2 max-w-[55ch] text-muted-foreground">Get practical ideas on author platforms, branding, email marketing, reader relationships and book visibility without the jargon.</p>
     <form onSubmit={subscribe} className="mt-5 flex max-w-md flex-col gap-3 sm:flex-row">
       <label className="sr-only" htmlFor={id}>Email address</label>
       <input id={id} name="email" type="email" required maxLength={255} autoComplete="email" value={email} onChange={event => setEmail(event.target.value)} placeholder="Enter your email" aria-describedby={`${id}-note`} className="min-w-0 w-full rounded-md border border-input bg-background px-4 py-3 text-sm placeholder:text-muted-foreground/70" />

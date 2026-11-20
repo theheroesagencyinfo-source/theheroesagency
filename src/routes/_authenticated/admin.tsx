@@ -6,7 +6,7 @@ import { LayoutDashboard, ShoppingBag, Star, Inbox, Gift, User, Phone } from "lu
 import { DashboardShell, SectionHeader, StatCard } from "@/components/dashboard-shell";
 import { AdminReferrals } from "@/components/admin-referrals";
 import { NewOrderButton } from "@/components/admin-new-order";
-import { packages, addons, orderStatuses } from "@/lib/packages";
+import { orderPackages as packages, orderAddons as addons, orderStatuses } from "@/lib/packages";
 import type { Database } from "@/integrations/supabase/types";
 
 type Review = Database["public"]["Tables"]["project_reviews"]["Row"];
@@ -165,6 +165,7 @@ function Admin() {
           <p className="text-sm text-muted-foreground"><span className={`mr-2 rounded-full border px-2.5 py-0.5 text-xs font-medium ${m.request_type === "quote" ? "border-brass/50 text-brass" : "border-primary/40 text-primary"}`}>{m.request_type === "quote" ? "Quote request" : "Free review request"}</span>{m.service} · {fmt(m.created_at)}</p>
           <p className="mt-2 font-semibold">{m.name} · <a href={`mailto:${m.email}`} className="underline underline-offset-4">{m.email}</a></p>
           <p className="mt-1">Book: {m.book}</p>
+          {m.budget && <p className="mt-1">Budget: {m.budget} USD</p>}
           {m.website && <p className="mt-1">Website: {m.website}</p>}
           {m.message && <p className="mt-3 max-w-[70ch] whitespace-pre-wrap break-words">{m.message}</p>}
         </div>
