@@ -14,9 +14,9 @@ import treyHome from "@/assets/trey-toler/home.jpg.asset.json";
 import adamHome from "@/assets/adam-courtenay/home.jpg.asset.json";
 import { BookOpening } from "@/components/book-opening";
 import authorStudy from "@/assets/author-study-portrait.jpg.asset.json";
-import heroLibrary from "@/assets/hero_library_book.jpg.asset.json";
-import heroQuote from "@/assets/hero_gold_quote.jpg.asset.json";
-import heroSculpture from "@/assets/hero_sculpture_book.jpg.asset.json";
+import heroLibrary from "@/assets/hero_open_book_desk.jpg.asset.json";
+import heroQuote from "@/assets/hero_author_writing.jpg.asset.json";
+import heroSculpture from "@/assets/hero_book_stack.jpg.asset.json";
 import journeyDiscovery from "@/assets/journey-discovery.jpg.asset.json";
 import journeyConnection from "@/assets/journey-connection.jpg.asset.json";
 import journeyRelationship from "@/assets/journey-relationship.jpg.asset.json";
@@ -165,9 +165,9 @@ function Home() {
           </div>
           <div className="relative mx-auto h-[400px] w-full max-w-[620px] sm:h-[540px] md:h-[min(650px,60vw)]" style={{ transformStyle: "preserve-3d" }}>
             <p className="absolute left-0 top-[8%] z-[4] text-[9px] uppercase tracking-[0.2em] text-primary [writing-mode:vertical-rl]">Ideas in form · The author studio</p>
-            <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(heroLibrary)} alt="An open hardcover book on green marble" decoding="async" className="h-full w-full object-cover" /></div>
-            <div data-depth="0.28" className="absolute bottom-[2%] left-0 z-[3] h-[43%] w-[43%] border-[6px] border-background shadow-xl sm:border-[10px]"><img src={assetSrc(heroQuote)} alt="Gold foil lettering on an open book page" decoding="async" className="h-full w-full object-cover" /></div>
-            <div data-depth="0.35" className="absolute -bottom-[2%] right-[5%] z-[1] h-[34%] w-[25%]"><img src={assetSrc(heroSculpture)} alt="An open book resting on a stone sculpture" decoding="async" className="h-full w-full object-cover" /></div>
+            <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(heroLibrary)} alt="An open hardcover book and handwritten pages on a writer’s desk" decoding="async" className="h-full w-full object-cover" /></div>
+            <div data-depth="0.28" className="absolute bottom-[2%] left-0 z-[3] h-[43%] w-[43%] border-[6px] border-background shadow-xl sm:border-[10px]"><img src={assetSrc(heroQuote)} alt="An author writing with a fountain pen" decoding="async" className="h-full w-full object-cover" /></div>
+            <div data-depth="0.35" className="absolute -bottom-[2%] right-[5%] z-[1] h-[34%] w-[25%]"><img src={assetSrc(heroSculpture)} alt="A stack of hardcover books beside a reading lamp" decoding="async" className="h-full w-full object-cover" /></div>
           </div>
         </div>
       </section>
