@@ -167,7 +167,7 @@ function Home() {
             <p className="absolute left-0 top-[8%] z-[4] text-[9px] uppercase tracking-[0.2em] text-primary [writing-mode:vertical-rl]">Ideas in form · The author studio</p>
             <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(heroLibrary)} alt="An open hardcover book and handwritten pages on a writer’s desk" decoding="async" className="h-full w-full object-cover" /></div>
             <div data-depth="0.28" className="absolute bottom-[2%] left-0 z-[3] h-[43%] w-[43%] border-[6px] border-background shadow-xl sm:border-[10px]"><img src={assetSrc(heroQuote)} alt="An author writing with a fountain pen" decoding="async" className="h-full w-full object-cover" /></div>
-            <div data-depth="0.35" className="absolute -bottom-[2%] right-[5%] z-[1] h-[34%] w-[25%]"><img src={assetSrc(heroSculpture)} alt="A stack of hardcover books beside a reading lamp" decoding="async" className="h-full w-full object-cover" /></div>
+            <div data-depth="0.35" className="absolute -bottom-[2%] right-[5%] z-[4] h-[34%] w-[25%] border-[5px] border-background shadow-lg md:z-[1] md:border-0 md:shadow-none"><img src={assetSrc(heroSculpture)} alt="A stack of hardcover books beside a reading lamp" decoding="async" className="h-full w-full object-cover" /></div>
           </div>
         </div>
       </section>
