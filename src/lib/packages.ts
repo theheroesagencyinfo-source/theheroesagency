@@ -81,7 +81,7 @@ export const orderSchema = z.object({
   wants_call: z.boolean().default(false),
   name: z.string().trim().min(1, "Please add your name").max(100),
   email: z.string().trim().email("Please enter a valid email").max(255),
-  book: z.string().trim().min(1, "Tell me your book title or topic").max(200),
+  book: z.string().trim().min(1, "Tell us your book title or topic").max(200),
   message: z.string().trim().max(3000).default(""),
 });
 export type OrderInput = z.infer<typeof orderSchema>;

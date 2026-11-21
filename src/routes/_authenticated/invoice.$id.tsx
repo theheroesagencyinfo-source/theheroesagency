@@ -59,7 +59,7 @@ function Invoice() {
       <div className="mt-10 border-t pt-6">
         <h2 className="text-xl">Payment schedule</h2>
         <ul className="mt-4 divide-y border-y">{inv.schedule.map(s => <li key={s.label} className="flex justify-between gap-4 py-3"><span>{s.label}</span><span className="font-semibold">{money(s.amount)}</span></li>)}</ul>
-        {order.package === "book-launch" && <p className="mt-3 text-sm text-muted-foreground">Prefer three payments? Your project total can be split into {threePaymentDescription(inv.oneOff)}. Monthly services remain separate. Just reply to let me know.</p>}
+        {order.package === "book-launch" && <p className="mt-3 text-sm text-muted-foreground">Prefer three payments? Your project total can be split into {threePaymentDescription(inv.oneOff)}. Monthly services remain separate. Just reply to let us know.</p>}
       </div>
       <p className="mt-8 text-sm text-muted-foreground">Pay by invoice, card, or bank transfer. Payment details are sent with your confirmation email. All amounts are in USD; the final scope is agreed in writing before work begins. Questions? Email {SUPPORT_EMAIL} and quote {invoiceNo(order)}.</p>
     </article>

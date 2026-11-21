@@ -18,9 +18,9 @@ export const Route = createFileRoute("/contact")({
   ] }), component: Contact,
 });
 const next = [
-  ["Send your details", "Tell me about your book, your website, and what you'd like help with."],
+  ["Send your details", "Tell us about your book, your website, and what you'd like help with."],
   ["We discuss the scope", "We review your goals and recommend the services that fit."],
-  ["Choose your next step", "Use the suggestions yourself, or ask me about working together."],
+  ["Choose your next step", "Use the suggestions yourself, or ask us about working together."],
 ];
 function Contact() {
   const { service } = Route.useSearch();
@@ -30,7 +30,7 @@ function Contact() {
       <ReviewForm mode="quote" selectedService={service} />
       <aside className="md:border-l md:pl-12"><h2 className="text-3xl">Let's talk about your book.</h2><dl className="mt-8 space-y-6"><div><dt className="text-sm text-muted-foreground">Email</dt><dd className="mt-2 break-words text-lg"><a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-4 hover:text-foreground">{CONTACT_EMAIL}</a></dd></div><div><dt className="text-sm text-muted-foreground">Response time</dt><dd className="mt-2">Under 12 hours</dd></div></dl>
         <div className="mt-8 border-t pt-6"><Button asChild variant="studioOutline" size="studio"><a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">{BOOKING_LABEL}</a></Button><p className="mt-4 text-sm text-muted-foreground">Pick a time that suits you. No preparation needed.</p></div>
-        <div className="mt-8 border-t pt-6"><p className="text-sm text-muted-foreground">Find me online</p><ul className="mt-4 space-y-3">{SOCIALS.map((s) => <li key={s.label}><a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline underline-offset-4 hover:text-foreground"><s.icon aria-hidden className="h-4 w-4" />{s.label} · {s.handle}</a></li>)}</ul></div>
+        <div className="mt-8 border-t pt-6"><p className="text-sm text-muted-foreground">Find us online</p><ul className="mt-4 space-y-3">{SOCIALS.map((s) => <li key={s.label}><a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 underline underline-offset-4 hover:text-foreground"><s.icon aria-hidden className="h-4 w-4" />{s.label} · {s.handle}</a></li>)}</ul></div>
       </aside>
     </div></section>
     <section id="review" className="scroll-mt-36 border-t bg-secondary"><div className="mx-auto grid max-w-[1500px] gap-10 px-5 py-16 md:grid-cols-2"><div><h2 className="text-3xl">Complimentary author website audit.</h2><p className="mt-4 max-w-[45ch] text-muted-foreground">Get practical notes on your author website before deciding what to improve.</p><Button asChild variant="studioOutline" size="studio" className="mt-6"><Link to="/" hash="review">Request a free website review</Link></Button></div><ReviewForm /></div></section>

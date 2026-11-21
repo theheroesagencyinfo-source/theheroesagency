@@ -22,9 +22,9 @@ const skills = [
   { title: "Book visibility & promotion", text: "Digital visibility strategies and relevant promotional opportunities for nonfiction work.", icon: Globe },
 ];
 const principles = [
-  ["One point of contact", "You work directly with me, from the first conversation to launch."],
+  ["One point of contact", "You work directly with one dedicated contact, from the first conversation to launch."],
   ["Clear timelines", "We agree on the scope, review points, and timeline before work begins."],
-  ["No jargon", "I explain decisions in plain language, so you know what we're building and why."],
+  ["No jargon", "We explain decisions in plain language, so you know what we're building and why."],
 ];
 function About() {
   return <>

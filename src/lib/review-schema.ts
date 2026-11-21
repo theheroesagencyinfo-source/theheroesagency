@@ -7,7 +7,7 @@ export const budgetOptions = ["under $700", "$700–$1,999", "$2,000–$5,399", 
 export const reviewSchema = z.object({
   name: z.string().trim().min(1, "Please add your name").max(100),
   email: z.string().trim().email("Please enter a valid email").max(255),
-  book: z.string().trim().min(1, "Tell me your book title or topic").max(200),
+  book: z.string().trim().min(1, "Tell us your book title or topic").max(200),
   website: z
     .string()
     .trim()
@@ -21,7 +21,7 @@ export const reviewSchema = z.object({
   request_type: z.enum(["review", "quote"]).default("review"),
 }).superRefine((data, ctx) => {
   if (data.request_type === "quote" && !data.message) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["message"], message: "Tell me a little about your project" });
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["message"], message: "Tell us a little about your project" });
   }
 });
 

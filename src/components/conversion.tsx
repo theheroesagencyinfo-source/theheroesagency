@@ -9,7 +9,7 @@ const reviewParts = [
   { h: "Message clarity", p: "Does your homepage say who you help and why your book matters, within five seconds?" },
   { h: "Reader capture", p: "Where readers leave without giving an email, and what would make them stay." },
   { h: "Mobile reading", p: "How your site looks and loads on a phone, where most readers arrive." },
-  { h: "Three priority fixes", p: "The changes I'd make first, ordered by effort and likely impact." },
+  { h: "Three priority fixes", p: "The changes we'd make first, ordered by effort and likely impact." },
 ];
 
 function Label({ children }: { children: string }) {

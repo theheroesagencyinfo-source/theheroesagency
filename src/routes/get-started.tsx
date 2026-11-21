@@ -92,9 +92,9 @@ function GetStarted() {
     <p className="text-sm font-semibold text-muted-foreground">Request received</p>
     <h1 className="mt-6 text-4xl leading-[1.08] sm:text-5xl">Thank you, your {pkg.name.toLowerCase()} request is in.</h1>
     {wantsCall ? <>
-      <p className="mt-6 text-lg text-muted-foreground">I've noted that you'd like to talk first. Pick a time below and we'll go through your package together.</p>
+      <p className="mt-6 text-lg text-muted-foreground">We've noted that you'd like to talk first. Pick a time below and we'll go through your package together.</p>
       <Button asChild variant="studio" size="studio" className="mt-8"><a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book my 15-minute call</a></Button>
-    </> : <p className="mt-6 text-lg text-muted-foreground">I'll contact you shortly, and I'll email your invoice so we can get started.</p>}
+    </> : <p className="mt-6 text-lg text-muted-foreground">We'll contact you shortly and email your invoice so we can get started.</p>}
     {signedIn ? <div className="mt-12 border-t pt-8">
       <h2 className="text-2xl">It's in your account</h2>
       <p className="mt-3 max-w-[60ch] text-muted-foreground">Your new request appears with your other projects, so you can follow it at every stage.</p>
@@ -120,7 +120,7 @@ function GetStarted() {
               <input type="radio" name="pkg" checked={p.slug === slug} onChange={() => setSlug(p.slug)} className="mt-1.5 accent-primary" />
               <span className="flex-1"><span className="flex flex-wrap justify-between gap-2"><span className="font-semibold">{p.name}{p.popular && <span className="ml-2 text-xs text-primary">Most popular</span>}</span><span>{p.price} USD · {p.time}</span></span><span className="mt-1 block text-sm text-muted-foreground">{p.outcome}</span></span>
             </label>)}
-              <Link to="/custom-package" className="flex items-start gap-4 rounded-md border border-dashed p-4 hover:border-primary"><span className="flex-1"><span className="font-semibold">Custom package</span><span className="mt-1 block text-sm text-muted-foreground">Tell me what you need and request a custom price.</span></span><span className="text-sm underline underline-offset-4">Request price</span></Link>
+              <Link to="/custom-package" className="flex items-start gap-4 rounded-md border border-dashed p-4 hover:border-primary"><span className="flex-1"><span className="font-semibold">Custom package</span><span className="mt-1 block text-sm text-muted-foreground">Tell us what you need and request a custom price.</span></span><span className="text-sm underline underline-offset-4">Request price</span></Link>
             </div>
           </fieldset>
           <details className="mt-6 border-y py-4"><summary className="cursor-pointer text-sm font-semibold">What's included in {pkg.name.toLowerCase()}</summary>
@@ -138,7 +138,7 @@ function GetStarted() {
 
         {step === "method" && <div className="grid gap-4">
           <p className="text-muted-foreground">Your {pkg.name.toLowerCase()} package comes to an estimated {money(inv.oneOff)}{inv.monthly ? ` plus ${money(inv.monthly)}/month` : ""}. Choose one and it's sent straight away.</p>
-          {([[false, "I'm ready. Email me the invoice", "I'll confirm the details and email your invoice so we can get started."], [true, "I'd like a call first", "We'll talk it through on a 15-minute call before anything is invoiced."]] as const).map(([call, t, d]) =>
+          {([[false, "I'm ready. Email me the invoice", "We'll confirm the details and email your invoice so we can get started."], [true, "I'd like a call first", "We'll talk it through on a 15-minute call before anything is invoiced."]] as const).map(([call, t, d]) =>
             <Button key={String(call)} variant="studioOutline" type="button" disabled={status === "sending"} onClick={() => sendWith(call)} className="block h-auto whitespace-normal rounded-md p-6 text-left">
               <span className="block text-2xl">{status === "sending" && wantsCall === call ? "Sending…" : t}</span><span className="mt-2 block text-muted-foreground">{d}</span></Button>)}
           {status === "failed" && <p role="alert" className="text-sm text-destructive">Something went wrong sending your request. Please try again.</p>}

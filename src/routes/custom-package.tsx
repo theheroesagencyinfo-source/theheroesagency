@@ -6,7 +6,7 @@ export const Route = createFileRoute("/custom-package")({
   staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Custom package · TheHeroes Agency · Author Studio" },
-    { name: "description", content: "Tell me exactly what you need for your nonfiction book and get a custom price before anything is built." },
+    { name: "description", content: "Tell us exactly what you need for your nonfiction book and get a custom price before anything is built." },
     { property: "og:title", content: "Request a custom package · TheHeroes Agency" },
     { property: "og:description", content: "Describe the author platform, email marketing or book visibility support you need and receive a custom quote." },
     { property: "og:type", content: "website" },
@@ -17,8 +17,8 @@ export const Route = createFileRoute("/custom-package")({
 
 function CustomPackage() {
   return <>
-    <PageIntro label="Custom package" title="Tell me what you need. I'll price it for you.">
-      Not every book fits a set package. Describe the author platform, reader engagement, book visibility or anything else you have in mind, and I'll reply with a written scope and price. Nothing is charged until you approve it.
+    <PageIntro label="Custom package" title="Tell us what you need. We'll price it for you.">
+      Not every book fits a set package. Describe the author platform, reader engagement, book visibility or anything else you have in mind, and we'll reply with a written scope and price. Nothing is charged until you approve it.
     </PageIntro>
     <section className="border-t bg-secondary"><div className="mx-auto grid max-w-[1500px] gap-10 px-5 py-16 md:grid-cols-[1fr_1.4fr]">
       <div>

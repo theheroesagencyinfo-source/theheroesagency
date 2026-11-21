@@ -24,7 +24,6 @@ const faqs = [
   ["Do I need a published book?", "No. We can plan an author platform for a forthcoming nonfiction book. We agree on the content and deliverables before work begins."],
   ["Can you improve my existing site?", "Yes. Website redesign starts at $500, with a separate quotation based on the agreed scope."],
   ["Who supplies the content?", "You provide approved biographies, photographs and book information unless otherwise agreed. Copywriting or additional content can be included in a separate written scope."],
-  ["Are SEO rankings or reader growth guaranteed?", "No. SEO and audience work support your visibility and reader relationships, but rankings, audience growth, sales and professional opportunities are not guaranteed."],
 ];
 function Pricing() {
   return <>

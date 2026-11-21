@@ -24,15 +24,15 @@ const offers = agencyServices.map(service => ({ title: service.title, service: s
 const steps = [
   { title: "Free review", text: "We start with your book and your current author site." },
   { title: "Scoping call", text: "We agree on the right service, deliverables, and timeline." },
-  { title: "Build", text: "I build the pages and assets, with agreed review points along the way." },
+  { title: "Build", text: "We build the pages and assets, with agreed review points along the way." },
   { title: "Launch", text: "We check the finished work and get it ready to go live." },
 ];
 const faqs = [
   ["How long will it take?", timelineAnswer],
-  ["What do you need from me?", "Your book cover, description, bio, headshot, retailer links, and access to any accounts we're building on. I'll send a short checklist after our scoping call."],
+  ["What do you need from me?", "Your book cover, description, bio, headshot, retailer links, and access to any accounts we're building on. We'll send a short checklist after our scoping call."],
   ["How do revisions work?", revisionAnswer],
-  ["Which tools do you build on?", "I can build on any major website hosting platform, so you can keep the tools you already use."],
-  ["How does payment work?", "You'll get an invoice, and you can pay by card or bank transfer."],
+  ["Which tools do you build on?", "We can build on any major website hosting platform, so you can keep the tools you already use."],
+  ["How does payment work?", "Projects are billed in clear milestones: a 50% deposit to start and 50% before final launch for Author Starter and Author Growth, or 40%, 30% and 30% for Author Authority. Invoices can be paid by card or bank transfer."],
 ];
 function Services() {
   const [selected, setSelected] = useState<string>();
