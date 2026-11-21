@@ -1,7 +1,7 @@
 import { assetSrc } from "@/components/site";
 import mouPortrait from "@/assets/mou/burgundy.png.asset.json";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ImagePlaceholder } from "@/components/page";
+import authorWorkspace from "@/assets/author_workspace.jpg.asset.json";
 import { PhotoStack } from "@/components/photo-stack";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Globe, Users, Compass, PanelsTopLeft, Mail, Megaphone } from "lucide-react";
@@ -70,7 +70,10 @@ function About() {
           <p>That's why we focus on helping authors establish professional digital platforms that bring their books, expertise, audience and opportunities together.</p>
         </div>
       </div>
-      <ImagePlaceholder portrait label="Author workspace photograph" className="mx-auto max-w-md" />
+      <figure className="mx-auto max-w-md">
+        <img src={assetSrc(authorWorkspace)} alt="An author's writing desk with a stack of books, an open manuscript, reading glasses, a fountain pen and a brass lamp beside a bright window" width={1122} height={1402} loading="lazy" decoding="async" className="aspect-[4/5] w-full rounded-md border object-cover shadow-lg" />
+        <figcaption className="mt-3 text-center text-sm text-muted-foreground">The workspace where author platforms take shape.</figcaption>
+      </figure>
     </div></section>
 
     <section className="border-t bg-secondary"><div className="mx-auto max-w-[1500px] px-5 py-20">
