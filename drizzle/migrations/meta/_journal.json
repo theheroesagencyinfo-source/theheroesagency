@@ -127,6 +127,13 @@
       "when": 1795216791166,
       "tag": "0017_author_growth_packages_and_inquiries",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1795356137281,
+      "tag": "0018_widen_project_reviews_projects",
+      "breakpoints": true
     }
   ]
 }

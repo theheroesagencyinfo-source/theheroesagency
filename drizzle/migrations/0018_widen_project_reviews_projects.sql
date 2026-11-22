@@ -1,0 +1,2 @@
+ALTER TABLE public.project_reviews DROP CONSTRAINT IF EXISTS project_reviews_project_check;
+ALTER TABLE public.project_reviews ADD CONSTRAINT project_reviews_project_check CHECK (project IN ('adam-courtenay','trey-toler','sandra-combe','daniel-carter','eleanor-whitmore','jonathan-reed'));
