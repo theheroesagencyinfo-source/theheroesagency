@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/motion";
 import { listProjectReviews, submitProjectReview, reviewProjects } from "@/lib/project-reviews.functions";
 
 type ProjectKey = (typeof reviewProjects)[number];
@@ -10,11 +11,23 @@ export function Stars({ value, label }: { value: number; label?: string }) {
   </span>;
 }
 
-export function CaseStudy({ sections }: { sections: { heading: string; body: string }[] }) {
-  return <>{sections.map((s) => <section key={s.heading} className="border-t"><div className="mx-auto grid max-w-[1500px] gap-6 px-5 py-12 md:grid-cols-[1fr_1.4fr]">
-    <h2 className="text-3xl sm:text-4xl">{s.heading}</h2>
-    <p className="max-w-[60ch] text-lg text-muted-foreground">{s.body}</p>
-  </div></section>)}</>;
+const headingMap: Record<string, string> = { "The author's goal": "The brief", "What I built": "Work completed", "What we built": "Work completed", Overview: "Design and strategy decisions" };
+const headingOrder = ["The brief", "Work completed", "Design and strategy decisions"];
+
+// Every case study reads in the same order, and is clearly labelled as client work or a concept.
+export function CaseStudy({ sections, kind }: { sections: { heading: string; body: string }[]; kind: "client" | "concept" }) {
+  const mapped = sections.map(s => ({ heading: headingMap[s.heading] ?? s.heading, body: s.body }))
+    .sort((a, b) => (headingOrder.indexOf(a.heading) + 99) % 99 - (headingOrder.indexOf(b.heading) + 99) % 99);
+  const outcome = kind === "client"
+    ? "The website is live and open to visit. We only publish performance figures once they have been verified with the author."
+    : "This is a concept design showcase created by the studio, not a commissioned client project. No results are claimed.";
+  return <>
+    <div className="mx-auto max-w-[1500px] px-5 pt-4"><span className="inline-block border border-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">{kind === "client" ? "Client project" : "Concept showcase"}</span></div>
+    {[...mapped, { heading: "Outcomes", body: outcome }].map((s) => <section key={s.heading} className="border-t"><Reveal className="mx-auto grid max-w-[1500px] gap-6 px-5 py-12 md:grid-cols-[1fr_1.4fr]">
+      <h2 className="text-3xl sm:text-4xl">{s.heading}</h2>
+      <p className="max-w-[60ch] text-lg text-muted-foreground">{s.body}</p>
+    </Reveal></section>)}
+  </>;
 }
 
 export function ProjectReviews({ project, author, quote }: { project: ProjectKey; author: string; quote: string }) {

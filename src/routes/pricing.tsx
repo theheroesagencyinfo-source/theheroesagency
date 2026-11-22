@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageIntro, ReviewCta } from "@/components/page";
 import { PackageGrid } from "@/components/package-grid";
 import { IndividualServices } from "@/components/individual-services";
+import { LiftCard, Reveal } from "@/components/motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { timelineAnswer, packages } from "@/lib/packages";
@@ -35,14 +36,14 @@ function PackageFit() {
   return <section className="border-t"><div className="mx-auto max-w-[1500px] px-5 py-16">
     <h2 className="text-4xl">Which package fits you?</h2>
     <p className="mt-4 max-w-[60ch] text-muted-foreground">Who each package is for, what it solves, what it leaves out and how long it takes.</p>
-    <div className="mt-10 grid gap-6 md:grid-cols-3">{packages.map(p => { const f = fit[p.slug]; return <article key={p.slug} className="border-t-2 border-primary pt-6">
+    <div className="mt-10 grid gap-6 md:grid-cols-3">{packages.map(p => { const f = fit[p.slug]; return <Reveal key={p.slug} delay={0.08 * packages.indexOf(p)}><LiftCard className="h-full border-t-2 border-primary bg-card p-6 shadow-sm transition-shadow hover:shadow-lg"><article>
       <h3 className="text-2xl">{p.name}</h3>
       <dl className="mt-5 space-y-4 text-sm"><div><dt className="font-semibold">Who it's for</dt><dd className="mt-1 text-muted-foreground">{p.best}</dd></div>
       <div><dt className="font-semibold">The problem it solves</dt><dd className="mt-1 text-muted-foreground">{f?.solves}</dd></div>
       <div><dt className="font-semibold">What you receive</dt><dd className="mt-1 text-muted-foreground">{p.outcome}</dd></div>
       <div><dt className="font-semibold">Not included</dt><dd className="mt-1 text-muted-foreground">{f?.excludes} Available as add-ons or a custom scope.</dd></div>
       <div><dt className="font-semibold">Estimated delivery</dt><dd className="mt-1 text-muted-foreground">{p.time}</dd></div></dl>
-    </article>; })}</div>
+    </article></LiftCard></Reveal>; })}</div>
     <h3 className="mt-14 text-2xl">What happens after you enquire</h3>
     <ol className="mt-6 grid gap-6 md:grid-cols-4">{nextSteps.map((n, i) => <li key={n} className="border-t pt-4 text-sm text-muted-foreground"><span className="block font-serif text-lg text-primary">0{i + 1}</span>{n}</li>)}</ol>
   </div></section>;

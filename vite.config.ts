@@ -27,6 +27,7 @@ export default defineConfig({
         "class-variance-authority",
         "clsx",
         "lucide-react",
+        "motion/react",
         "tailwind-merge",
       ],
     },

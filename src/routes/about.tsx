@@ -3,6 +3,7 @@ import mouPortrait from "@/assets/mou/burgundy.png.asset.json";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import authorWorkspace from "@/assets/author_workspace.jpg.asset.json";
 import { PhotoStack } from "@/components/photo-stack";
+import { Reveal } from "@/components/motion";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Globe, Users, Compass, PanelsTopLeft, Mail, Megaphone } from "lucide-react";
 
@@ -35,6 +36,12 @@ const approach = [
   ["Build with purpose.", "Every website, email sequence and digital strategy should serve a clear purpose within your wider author platform."],
   ["Communicate clearly.", "We believe in straightforward communication, agreed project timelines and keeping clients informed throughout the process."],
   ["Think beyond launch.", "A website going live is not the end goal. We want to help authors build digital foundations they can continue developing as their work and audience grow."],
+];
+const expectations = [
+  ["A written scope first.", "Deliverables, timeline and payments are agreed in writing before any work begins."],
+  ["One point of contact.", "You speak with the founder directly, with no account managers in between."],
+  ["A shared project space.", "Your client account holds updates, messages, files and progress in one place."],
+  ["Honest advice.", "We recommend what your platform needs now, and say plainly when something can wait."],
 ];
 const Eyebrow = ({ children }: { children: string }) => <p className="text-sm font-semibold text-primary">{children}</p>;
 
@@ -114,12 +121,21 @@ function About() {
         <Eyebrow>Meet the founder</Eyebrow>
         <h2 className="mt-4 text-4xl sm:text-5xl">Mou Barrac</h2>
         <div className="mt-8 space-y-5 text-lg text-muted-foreground">
-          <p>TheHeroes Agency is founded by Mou Barrac, a digital professional with a background in website design, email marketing automation and digital creative development.</p>
-          <p>Through TheHeroes Agency, Mou brings these capabilities together to help nonfiction authors build stronger online platforms and create meaningful connections with their readers.</p>
-          <p>His approach combines thoughtful design, practical technology and a clear understanding of how digital platforms can support an author's professional goals.</p>
+          <p>Hello, I'm Mou Barrac, founder of TheHeroes Agency. My background is in website design, email marketing automation and digital creative development.</p>
+          <p>I chose to work with nonfiction authors because their books do more than entertain. They carry expertise, research and lived experience that readers, organisers and clients want to act on. Too often that work sits behind a website that only says "buy the book".</p>
+          <p>So every project connects three things: a website that presents the author with authority, an email relationship that keeps readers close, and visibility work that brings the right new readers in. Each one makes the others stronger.</p>
+          <p>You work with me directly, from the first conversation to launch day and beyond.</p>
           <p className="font-serif text-2xl text-foreground">At TheHeroes Agency, the focus is simple: helping authors make more of the work they've already put into the world.</p>
         </div>
       </div>
+    </div></section>
+
+    <section className="border-t"><div className="mx-auto max-w-[1500px] px-5 py-20">
+      <Eyebrow>Working together</Eyebrow>
+      <h2 className="mt-4 max-w-[22ch] text-4xl sm:text-5xl">What you can expect.</h2>
+      <ul className="mt-12 grid gap-10 md:grid-cols-4">
+        {expectations.map(([t, d], i) => <li key={t} className="border-t pt-5"><Reveal delay={i * 0.08}><h3 className="text-xl">{t}</h3><p className="mt-3 text-muted-foreground">{d}</p></Reveal></li>)}
+      </ul>
     </div></section>
 
     <section className="border-t bg-secondary"><div className="mx-auto max-w-[1500px] px-5 py-20">
