@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { assetSrc } from "@/components/site";
 import { ReviewForm } from "@/components/ReviewForm";
-import { ApprovedReviews } from "@/components/approved-reviews";
+import { ApprovedReviews, approvedReviewsQuery } from "@/components/approved-reviews";
+import { BOOKING_URL } from "@/components/site";
 import { Button } from "@/components/ui/button";
 import { agencyServices } from "@/lib/agency-services";
 import { ProjectRating } from "@/components/project-rating";
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(approvedReviewsQuery).catch(() => []),
   component: Home,
 });
 
@@ -43,7 +45,8 @@ const sections = [
   ["difference", "Why TheHeroes"], ["journey", "Reader journey"], ["process", "How it works"], ["voices", "Author reviews"], ["review", "Free site review"],
 ] as const;
 
-const services = agencyServices.map(service => ({ h: service.title, p: service.value, to: "/services" as const }));
+const pathSteps = ["Platform", "Audience", "Visibility"];
+const services = agencyServices.map((service, i) => ({ h: service.title, p: service.value, step: pathSteps[i] ?? "", to: "/services" as const }));
 
 const projects = [
   { to: "/projects/adam-courtenay" as const, slug: "adam-courtenay", live: true, name: "Adam Courtenay", meta: "Live author website · 6 pages", img: adamHome, p: "His books, story, speaking and coaching, for a Sydney author and journalist." },
@@ -155,11 +158,11 @@ function Home() {
         <div className="mx-auto grid max-w-[1320px] items-center gap-12 md:grid-cols-[1.02fr_.98fr] md:gap-[7vw]">
           <div>
             <Eyebrow>Digital growth for nonfiction authors</Eyebrow>
-            <h1 data-fx="mask" className="display reveal mt-5 font-serif text-[clamp(46px,7vw,100px)]">Your book opens the door. <em className="text-primary">We build what comes next.</em></h1>
+            <h1 data-fx="mask" className="display reveal mt-5 font-serif text-[clamp(46px,7vw,100px)]">A book is only the beginning. <em className="text-primary">We build what comes next.</em></h1>
             <p className="reveal mt-6 max-w-[500px] leading-relaxed text-muted-foreground sm:text-lg">Helping authors build their presence, connect with readers and create more opportunities around their work. We bring together author platforms, branding, email marketing and book visibility for nonfiction authors, speakers and consultants worldwide.</p>
             <div className="reveal mt-9 flex flex-wrap items-center gap-6">
-              <Button asChild variant="studio" size="studio"><Link to="/services">Explore our services <span aria-hidden>↗</span></Link></Button>
-              <Button asChild variant="studioOutline" size="studio" className="whitespace-normal"><a href="#review">Request a free website review</a></Button>
+              <Button asChild variant="studio" size="studio" className="whitespace-normal"><a href="#review">Request a free website review <span aria-hidden>↓</span></a></Button>
+              <Button asChild variant="studioOutline" size="studio" className="whitespace-normal"><a href={BOOKING_URL} target="_blank" rel="noreferrer">Book a 15-minute call</a></Button>
             </div>
             <p className="reveal mt-12 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Strategy · Design · Development · Reader growth</p>
           </div>
@@ -188,13 +191,13 @@ function Home() {
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div><Eyebrow>What we build</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">Three services. <em className="text-primary">One clear direction.</em></h2></div>
-            <p className="reveal max-w-[340px] text-sm leading-relaxed text-muted-foreground">The essentials that help nonfiction authors look credible, stay connected to readers and create opportunities beyond the book.</p>
+            <p className="reveal max-w-[340px] text-sm leading-relaxed text-muted-foreground">Each step builds on the one before: a credible platform gives readers somewhere to land, an audience keeps them close, and visibility brings new readers in. The essentials that help nonfiction authors look credible, stay connected to readers and create opportunities beyond the book.</p>
           </div>
           <div className="border-t border-foreground/20">
             {services.map((s, i) => (
               <Link key={s.h} to={s.to} data-fx="slide" style={{ ["--i" as string]: i }} className="reveal grid grid-cols-[36px_1fr_24px] items-center gap-3 border-b border-foreground/20 py-6 transition-all hover:px-2 md:grid-cols-[90px_1fr_1fr_42px] md:gap-6 md:py-8 md:hover:px-4">
                 <span className="font-serif text-lg text-primary">0{i + 1}</span>
-                <h3 className="font-serif text-[26px] tracking-tight md:text-[clamp(25px,3vw,40px)]">{s.h}</h3>
+                <h3 className="font-serif text-[26px] tracking-tight md:text-[clamp(25px,3vw,40px)]"><span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">{s.step}{i < services.length - 1 ? " → " + (services[i + 1]?.step ?? "") : ""}</span>{s.h}</h3>
                 <p className="col-start-2 row-start-2 max-w-[430px] text-sm leading-relaxed text-muted-foreground md:col-start-3 md:row-start-1">{s.p}</p>
                 <span aria-hidden className="col-start-3 row-span-2 row-start-1 text-2xl text-primary md:col-start-4 md:row-span-1">↗</span>
               </Link>
@@ -213,8 +216,8 @@ function Home() {
           <div className="work-track -mx-5 flex gap-6 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:items-start md:gap-14 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-[1.13fr_.87fr] md:gap-x-[5vw]">
             {projects.slice(0, 4).map((p, i) => (
               <article key={p.slug} data-fx="curtain" style={{ ["--i" as string]: i }} className={`reveal w-[82vw] shrink-0 md:w-auto ${i % 2 === 1 ? "md:mt-28" : ""}`}>
-                <Link to={p.to} className="curtain group block aspect-[4/3] overflow-hidden border bg-muted shadow-lg" aria-label={`View the ${p.name} author website`}>
-                  <img src={assetSrc(p.img)} alt={`${p.name} author website homepage`} loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+                <Link to={p.to} className="curtain group block aspect-[4/3] overflow-hidden border bg-muted shadow-lg transition-shadow duration-500 hover:shadow-2xl" aria-label={`View the ${p.name} author website`}>
+                  <img src={assetSrc(p.img)} alt={`${p.name} author website homepage`} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-[900ms] ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
                 </Link>
                 <div className="mt-4 flex justify-between gap-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground"><span>{p.meta}</span><span>{String(i + 1).padStart(2, "0")} / 04</span></div>
                 <h3 className="mt-2 font-serif text-[27px] md:text-3xl">{p.name}</h3>
