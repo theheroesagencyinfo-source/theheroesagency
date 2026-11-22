@@ -134,11 +134,34 @@ function Home() {
         plane.setAttribute("transform", `translate(${pt.x} ${pt.y}) rotate(${(Math.atan2(ah.y - pt.y, ah.x - pt.x) * 180) / Math.PI})`);
       }
     };
+    // Gentle pointer movement on the hero image stack (the "book mockup" feel).
+    const tilt = q<HTMLElement>("[data-tilt]");
+    let tTarget = { x: 0, y: 0 }, tNow = { x: 0, y: 0 }, tRaf = 0;
+    const paintTilt = () => {
+      tNow.x += (tTarget.x - tNow.x) * 0.08; tNow.y += (tTarget.y - tNow.y) * 0.08;
+      if (tilt) tilt.style.transform = `perspective(1200px) rotateX(${(-tNow.y * 4.5).toFixed(2)}deg) rotateY(${(tNow.x * 5.5).toFixed(2)}deg)`;
+      tRaf = Math.abs(tTarget.x - tNow.x) > 0.002 || Math.abs(tTarget.y - tNow.y) > 0.002 ? requestAnimationFrame(paintTilt) : 0;
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (!tilt || reduced || window.innerWidth < 768 || e.pointerType !== "mouse") return;
+      const r = tilt.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      tTarget = { x: clamp((e.clientX - r.left - r.width / 2) / (r.width / 2), -1, 1), y: clamp((e.clientY - r.top - r.height / 2) / (r.height / 2), -1, 1) };
+      if (!tRaf) tRaf = requestAnimationFrame(paintTilt);
+    };
+    const onPointerOut = () => { tTarget = { x: 0, y: 0 }; if (!tRaf) tRaf = requestAnimationFrame(paintTilt); };
+    window.addEventListener("pointermove", onPointer, { passive: true });
+    document.addEventListener("pointerleave", onPointerOut);
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     update();
-    return () => { io.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+    return () => {
+      io.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll);
+      window.removeEventListener("pointermove", onPointer); document.removeEventListener("pointerleave", onPointerOut);
+      if (tRaf) cancelAnimationFrame(tRaf);
+      if (tilt) tilt.style.transform = "";
+    };
   }, []);
 
   return (
@@ -166,7 +189,7 @@ function Home() {
             </div>
             <p className="reveal mt-12 text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Strategy · Design · Development · Reader growth</p>
           </div>
-          <div className="relative mx-auto h-[400px] w-full max-w-[620px] sm:h-[540px] md:h-[min(650px,60vw)]" style={{ transformStyle: "preserve-3d" }}>
+          <div data-tilt className="relative mx-auto h-[400px] w-full max-w-[620px] sm:h-[540px] md:h-[min(650px,60vw)]" style={{ transformStyle: "preserve-3d" }}>
             <p className="absolute left-0 top-[8%] z-[4] text-[9px] uppercase tracking-[0.2em] text-primary [writing-mode:vertical-rl]">Ideas in form · The author studio</p>
             <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(heroLibrary)} alt="An open hardcover book and handwritten pages on a writer’s desk" decoding="async" className="h-full w-full object-cover" /></div>
             <div data-depth="0.28" className="absolute bottom-[2%] left-0 z-[3] h-[43%] w-[43%] border-[6px] border-background shadow-xl sm:border-[10px]"><img src={assetSrc(heroQuote)} alt="An author writing with a fountain pen" decoding="async" className="h-full w-full object-cover" /></div>
