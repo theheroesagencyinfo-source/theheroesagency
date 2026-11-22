@@ -1,36 +1,23 @@
 import * as React from 'react'
-import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from '@react-email/components'
+import { Hr, Text } from '@react-email/components'
 import type { TemplateEntry } from './registry'
+import { BRAND, BrandEmail, CTA, P } from './brand-layout'
 
-interface Props {
-  kind?: string
-  rows?: { label: string; value: string }[]
-  message?: string
-}
+interface Props { kind?: string; rows?: { label: string; value: string }[]; message?: string }
+const label = { margin: 0, fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: BRAND.muted }
+const value = { margin: '3px 0 16px', fontSize: '15px', color: BRAND.ink, lineHeight: '1.5' }
 
 const OwnerNotification = ({ kind = 'New enquiry', rows = [], message }: Props) => (
-  <Html lang="en" dir="ltr">
-    <Head />
-    <Preview>{`${kind} from your website`}</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Section style={header}>
-          <Text style={brand}>TheHeroes Agency</Text>
-          <Text style={tag}>Digital growth for nonfiction authors</Text>
-        </Section>
-        <Section style={content}>
-          <Heading style={h1}>{kind}</Heading>
-          <Text style={lead}>Someone just reached out through your website. Reply to this email to answer them directly.</Text>
-          {rows.filter((r) => r.value).map((r) => (
-            <Text key={r.label} style={row}><span style={label}>{r.label}</span><br />{r.value}</Text>
-          ))}
-          {message ? (<><Hr style={hr} /><Text style={label}>Message</Text><Text style={msg}>{message}</Text></>) : null}
-          <Button href="https://theheroesagency.org/admin" style={button}>Open admin</Button>
-        </Section>
-        <Text style={footer}>TheHeroes Agency · theheroesagency.org</Text>
-      </Container>
-    </Body>
-  </Html>
+  <BrandEmail preview={`${kind} from your website`} eyebrow="New on your website" title={kind}>
+    <P>Someone just reached out through theheroesagency.org. Press Reply to answer them directly.</P>
+    <div style={{ backgroundColor: '#ffffff', border: `1px solid ${BRAND.line}`, borderRadius: '6px', padding: '22px 24px 6px', margin: '0 0 22px' }}>
+      {rows.filter((r) => r.value).map((r) => (
+        <React.Fragment key={r.label}><Text style={label}>{r.label}</Text><Text style={value}>{r.value}</Text></React.Fragment>
+      ))}
+      {message ? (<><Hr style={{ borderColor: BRAND.line, margin: '4px 0 16px' }} /><Text style={label}>Message</Text><Text style={{ ...value, whiteSpace: 'pre-wrap' }}>{message}</Text></>) : null}
+    </div>
+    <CTA href="https://theheroesagency.org/admin">Open admin</CTA>
+  </BrandEmail>
 )
 
 export const template = {
@@ -44,19 +31,3 @@ export const template = {
     message: 'I would love feedback on my author website.',
   },
 } satisfies TemplateEntry
-
-const serif = 'Georgia, "Times New Roman", serif'
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif', margin: 0, padding: '24px 0' }
-const container = { maxWidth: '560px', margin: '0 auto', border: '1px solid #e6dfd0', borderRadius: '6px', overflow: 'hidden' }
-const header = { backgroundColor: '#1f3a2e', padding: '24px 28px' }
-const brand = { fontFamily: serif, fontSize: '22px', color: '#f6f1e7', margin: 0 }
-const tag = { fontSize: '12px', letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#c9b98f', margin: '4px 0 0' }
-const content = { backgroundColor: '#fbf8f1', padding: '28px' }
-const h1 = { fontFamily: serif, fontSize: '24px', color: '#1f3a2e', margin: '0 0 8px' }
-const lead = { fontSize: '14px', color: '#4a4a40', lineHeight: '1.6', margin: '0 0 20px' }
-const row = { fontSize: '15px', color: '#22221d', margin: '0 0 14px', lineHeight: '1.5' }
-const label = { fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase' as const, color: '#7a7466' }
-const msg = { fontSize: '15px', color: '#22221d', lineHeight: '1.6', whiteSpace: 'pre-wrap' as const }
-const hr = { borderColor: '#e6dfd0', margin: '20px 0' }
-const button = { backgroundColor: '#1f3a2e', color: '#f6f1e7', padding: '12px 22px', borderRadius: '4px', fontSize: '14px', textDecoration: 'none', marginTop: '12px' }
-const footer = { fontSize: '12px', color: '#7a7466', textAlign: 'center' as const, padding: '16px' }

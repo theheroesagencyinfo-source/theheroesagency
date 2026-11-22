@@ -9,7 +9,7 @@ import { EmailChangeEmail } from '@/lib/email-templates/email-change'
 import { ReauthenticationEmail } from '@/lib/email-templates/reauthentication'
 
 // Configuration
-const SITE_NAME = "TheHeroes Agency Author Studio"
+const SITE_NAME = "TheHeroes Agency"
 const SENDER_DOMAIN = "info.theheroesagency.org"
 const ROOT_DOMAIN = "theheroesagency.org"
 const FROM_DOMAIN = "theheroesagency.org"
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/lovable/email/auth/webhook")({
           sendUrl: process.env['LOVABLE_SEND_URL'],
           emails: {
             signup: {
-              subject: 'Confirm your email',
+              subject: 'Welcome to TheHeroes Agency: confirm your email',
               render: (data) =>
                 React.createElement(SignupEmail, {
                   siteName: SITE_NAME,
