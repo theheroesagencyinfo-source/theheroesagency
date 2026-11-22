@@ -11,3 +11,6 @@
 - [x] Shorter referral link, no "lovable" in it
 - [x] Chat: distinct client vs studio colours; send files and images
 - [x] Blend opening video background into page cream (#F3F4FB); video has no transparency
+- [x] Homepage motion: headline reveals, image parallax, pointer movement on hero stack, button press feedback
+- [x] Review forms end-to-end: homepage free review and case study review submissions
+- [x] Concept showcase quotes kept (confirmed real by author)
