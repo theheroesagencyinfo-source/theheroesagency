@@ -37,6 +37,8 @@ export const Route = createFileRoute("/")({
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(approvedReviewsQuery).catch(() => []),
+  errorComponent: () => <section className="mx-auto max-w-[1320px] px-5 py-24"><h1 className="font-serif text-4xl">We couldn't load this page.</h1><p className="mt-4 text-muted-foreground">Please refresh, or contact us about your author project.</p><Button asChild variant="studio" className="mt-6"><Link to="/contact">Contact TheHeroes Agency</Link></Button></section>,
+  notFoundComponent: () => <section className="mx-auto max-w-[1320px] px-5 py-24"><h1 className="font-serif text-4xl">Page not found.</h1><Link to="/" className="mt-4 inline-block underline">Return home</Link></section>,
   component: Home,
 });
 
@@ -323,8 +325,8 @@ function Home() {
       {/* Credibility: spaces reserved for verified author reviews only */}
       <section id="voices" data-scene className="scene scroll-mt-20 bg-secondary px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
-          <Eyebrow>In authors' words</Eyebrow>
-          <h2 className="reveal mt-4 max-w-[820px] font-serif text-4xl md:text-6xl">Reviews from our author community.</h2>
+          <Eyebrow>Author platforms · Reviews</Eyebrow>
+          <h2 className="reveal mt-4 max-w-[820px] font-serif text-4xl md:text-6xl">Work you can explore.</h2>
           <ApprovedReviews />
         </div>
       </section>

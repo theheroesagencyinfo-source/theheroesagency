@@ -14,3 +14,6 @@
 - [x] Homepage motion: headline reveals, image parallax, pointer movement on hero stack, button press feedback
 - [x] Review forms end-to-end: homepage free review and case study review submissions
 - [x] Concept showcase quotes kept (confirmed real by author)
+- [x] Final refinements: live-project-only homepage review feed with bounded editorial fallback; package differentiation and live/concept preview labels
+- [x] Verify free review and project enquiry save and notify the owner; newsletter stores subscriptions; booking opens the 15-minute event; remove QA entries
+- [x] Desktop/mobile light/dark layouts, public links, lazy images, reduced motion and phone menu checked; no full accessibility or production performance audit claimed

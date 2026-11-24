@@ -32,4 +32,4 @@
 - Homepage scroll effects live in one effect inside src/routes/index.tsx and skip under reduced motion; the opening book overlay is fixed above the global header so __root stays untouched.
 
 - Share service categories and package comparisons between homepage, Services and Pricing so new positioning stays consistent; inquiry budgets are validated and stored separately from request descriptions.
-- Homepage reviews show only approved public review fields through the existing review service, never invented quotes or ratings.
+- Homepage reviews show approved public review fields for live client projects only, with a bounded editorial fallback on unavailable data; concept feedback must not become a client rating.

@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { publicReviewProjects } from "./public-review-policy";
 
 export const reviewProjects = ["adam-courtenay", "trey-toler", "sandra-combe", "daniel-carter", "eleanor-whitmore", "jonathan-reed"] as const;
 
@@ -56,6 +57,7 @@ export const listApprovedReviews = createServerFn({ method: "GET" }).handler(asy
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin.from("project_reviews")
     .select("id,name,rating,comment").eq("approved", true)
+    .in("project", [...publicReviewProjects])
     .order("created_at", { ascending: false }).limit(6);
   if (error) return [];
   return data ?? [];

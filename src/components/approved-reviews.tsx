@@ -2,7 +2,23 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { listApprovedReviews } from "@/lib/project-reviews.functions";
 
-export const approvedReviewsQuery = queryOptions({ queryKey: ["approved-author-reviews"], queryFn: () => listApprovedReviews(), staleTime: 300000 });
+async function loadReviews() {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      listApprovedReviews(),
+      new Promise<Awaited<ReturnType<typeof listApprovedReviews>>>(resolve => {
+        timeout = setTimeout(() => resolve([]), 6000);
+      }),
+    ]);
+  } catch {
+    return [];
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+export const approvedReviewsQuery = queryOptions({ queryKey: ["approved-author-reviews", "live-projects"], queryFn: loadReviews, staleTime: 300000 });
 
 const liveWork = [
   { to: "/projects/adam-courtenay" as const, name: "Adam Courtenay", note: "Author and journalist website, live" },
@@ -28,7 +44,7 @@ export function ApprovedReviews() {
   const { data: reviews } = useSuspenseQuery(approvedReviewsQuery);
   if (!reviews.length) return (
     <div className="mt-10 grid gap-8 border-t border-foreground/20 pt-8 md:grid-cols-[.8fr_1.2fr]">
-      <div><Stars value={0} /><p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-muted-foreground">No published reviews yet. Approved author reviews appear here. In the meantime, each of these author websites is live and open to visit.</p></div>
+      <div><h3 className="font-serif text-3xl">Explore the live work.</h3><p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-muted-foreground">A closer look at three author platforms: books, speaking, press and reader connections. Visit the case studies and see each website for yourself.</p></div>
       <ul className="divide-y divide-foreground/15 border-y border-foreground/15">
         {liveWork.map(w => <li key={w.to}><Link to={w.to} className="group flex items-baseline justify-between gap-4 py-5 transition-colors hover:text-primary"><span className="font-serif text-2xl">{w.name}</span><span className="text-right text-xs uppercase tracking-[0.12em] text-muted-foreground">{w.note} <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">↗</span></span></Link></li>)}
       </ul>
@@ -41,12 +57,12 @@ export function ApprovedReviews() {
         <p className="text-2xl font-semibold">{label(avg)}</p>
         <div className="mt-2"><Stars value={avg} size="h-8 w-8" /></div>
         <p className="mt-3 text-sm text-muted-foreground">Based on <span className="font-semibold text-foreground underline underline-offset-2">{reviews.length} approved {reviews.length === 1 ? "review" : "reviews"}</span></p>
-        <p className="mt-1 text-xs text-muted-foreground">Rated {avg} / 5 on our case study pages</p>
+        <p className="mt-1 text-xs text-muted-foreground">Rated {avg} / 5 from the latest published case study reviews</p>
       </div>
-      <ul className="-mx-5 flex snap-x gap-4 overflow-x-auto px-5 pb-3 lg:mx-0 lg:px-0">
+      <ul tabIndex={0} aria-label="Published case study reviews" className="-mx-5 flex min-w-0 snap-x gap-4 overflow-x-auto px-5 pb-3 focus-visible:outline-2 focus-visible:outline-ring lg:mx-0 lg:px-0">
         {reviews.map(r => <li key={r.id} className="w-[78vw] max-w-[300px] shrink-0 snap-start border bg-card p-5 shadow-sm">
           <div className="flex items-center justify-between gap-3"><Stars value={r.rating} size="h-5 w-5" /><span className="text-[11px] text-muted-foreground">✓ Approved</span></div>
-          <p className="mt-4 line-clamp-5 break-words text-sm leading-relaxed">{r.comment}</p>
+          <p className="mt-4 break-words text-sm leading-relaxed">{r.comment}</p>
           <p className="mt-4 text-sm font-semibold">{r.name}</p>
         </li>)}
       </ul>
