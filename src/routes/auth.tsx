@@ -6,11 +6,12 @@ import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { SUPPORT_EMAIL } from "@/components/site";
 import banner from "@/assets/banner-writers-desk.png.asset.json";
-import signupPhoto from "@/assets/mou/white.png.asset.json";
+import signupPhoto from "@/assets/author_workspace.jpg.asset.json";
 import { REF_STORAGE_KEY, isReferralCode } from "@/lib/loyalty";
 
 export const Route = createFileRoute("/auth")({
   staticData: { sitemap: true },
+  validateSearch: (s: Record<string, unknown>): { mode?: "up"; ref?: string } => ({ ...(s["mode"] === "up" ? { mode: "up" as const } : {}), ...(typeof s["ref"] === "string" ? { ref: s["ref"].slice(0, 11) } : {}) }),
   head: () => ({ meta: [
     { title: "Client sign in · TheHeroes Agency" },
     { name: "description", content: "Sign in to your private client space with TheHeroes Agency." },
@@ -46,7 +47,14 @@ async function applyPendingReferral() {
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"in" | "up">("in");
+  const search = Route.useSearch();
+  const [mode, setMode] = useState<"in" | "up">(search.mode ?? "in");
+  const [refCode, setRefCode] = useState("");
+  // Fill the referral field from the link or the code saved on arrival (browser storage, so after hydration).
+  useEffect(() => {
+    const c = (search.ref ?? localStorage.getItem(REF_STORAGE_KEY) ?? "").toUpperCase();
+    if (isReferralCode(c)) { setRefCode(c); localStorage.setItem(REF_STORAGE_KEY, c); }
+  }, [search.ref]);
   const [msg, setMsg] = useState("");
   const [sent, setSent] = useState("");
   const [show, setShow] = useState(false);
@@ -97,7 +105,7 @@ function AuthPage() {
 
   return <section className="mx-auto grid max-w-[1500px] items-stretch gap-10 px-5 py-12 lg:grid-cols-2 lg:gap-16 lg:py-20">
     <div className="relative flex min-h-[520px] flex-col justify-end overflow-hidden rounded-2xl bg-pitch p-8 text-pitch-foreground sm:p-12">
-      <img key={mode} src={mode === "in" ? banner.url : signupPhoto.url} alt="" aria-hidden fetchPriority="high" className={`absolute inset-0 h-full w-full object-cover animate-in fade-in duration-700 ${mode === "in" ? "opacity-40" : "object-top opacity-35"}`} />
+      <img key={mode} src={mode === "in" ? banner.url : signupPhoto.url} alt="" aria-hidden fetchPriority="high" className={`absolute inset-0 h-full w-full object-cover animate-in fade-in duration-700 ${mode === "in" ? "opacity-40" : "opacity-40"}`} />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-pitch via-pitch/70 to-transparent" />
       <div className="relative">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-pitch-accent">{mode === "in" ? "Private client space" : "Join the studio"}</p>
@@ -143,7 +151,7 @@ function AuthPage() {
             {mode === "up" && <p className="text-xs text-muted-foreground">At least 8 characters.</p>}
           </div>
           {mode === "up" && <div className="grid gap-2"><label htmlFor="a-ref" className="text-xs font-semibold uppercase tracking-wider">Referral code (optional)</label>
-            <input id="a-ref" name="ref" placeholder="HERO-XXXXXX" maxLength={11} className={`${inputClass} uppercase`} /><p className="text-xs text-muted-foreground">If a friend sent you a link, we have already saved their code.</p></div>}
+            <input id="a-ref" name="ref" value={refCode} onChange={(e) => setRefCode(e.target.value.toUpperCase())} placeholder="HERO-XXXXXX" maxLength={11} className={`${inputClass} uppercase`} /><p className="text-xs text-muted-foreground">If a friend sent you a link, we have already saved their code.</p></div>}
           {msg && <p role="alert" className="rounded-md border border-destructive/40 px-4 py-3 text-sm text-destructive">{msg}</p>}
           <Button type="submit" disabled={busy} variant="studio" size="studio" className="w-full">{busy ? "Please wait…" : mode === "in" ? "Sign in" : "Create account"}</Button>
         </form>

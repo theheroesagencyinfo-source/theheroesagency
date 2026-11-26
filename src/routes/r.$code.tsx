@@ -1,7 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { codeFromShort } from "@/lib/loyalty";
 
-// Short referral links: the root ReferralCapture stores the code from this path, then we go home.
+// Short referral links go straight to account creation with the code prefilled.
 export const Route = createFileRoute("/r/$code")({
   staticData: { sitemap: false },
   head: () => ({ meta: [
@@ -17,6 +18,7 @@ export const Route = createFileRoute("/r/$code")({
 
 function ShortRef() {
   const navigate = useNavigate();
-  useEffect(() => { const t = setTimeout(() => navigate({ to: "/", replace: true }), 50); return () => clearTimeout(t); }, [navigate]);
+  const { code } = Route.useParams();
+  useEffect(() => { const t = setTimeout(() => navigate({ to: "/auth", search: { mode: "up", ref: codeFromShort(code) }, replace: true }), 50); return () => clearTimeout(t); }, [navigate]);
   return <p className="mx-auto max-w-[1500px] px-5 py-20 text-muted-foreground">Taking you to TheHeroes Agency…</p>;
 }
