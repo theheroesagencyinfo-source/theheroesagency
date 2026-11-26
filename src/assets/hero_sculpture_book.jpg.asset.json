@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "431caf55-8d13-4061-94ad-9c85df1df5a8",
+  "asset_id": "cb8a822b-8d63-4994-848b-bdede1e1ecf8",
   "project_id": "e81b352a-5fc2-4a56-8001-b5a0ad32cd56",
-  "url": "/__l5e/assets-v1/431caf55-8d13-4061-94ad-9c85df1df5a8/hero_sculpture_book.jpg",
-  "r2_key": "a/v1/e81b352a-5fc2-4a56-8001-b5a0ad32cd56/431caf55-8d13-4061-94ad-9c85df1df5a8/hero_sculpture_book.jpg",
-  "original_filename": "hero_sculpture_book.jpg",
-  "size": 319839,
-  "content_type": "image/jpeg",
-  "created_at": "2026-11-17T14:49:00Z"
+  "url": "/__l5e/assets-v1/cb8a822b-8d63-4994-848b-bdede1e1ecf8/hero_sculpture_book.webp",
+  "r2_key": "a/v1/e81b352a-5fc2-4a56-8001-b5a0ad32cd56/cb8a822b-8d63-4994-848b-bdede1e1ecf8/hero_sculpture_book.webp",
+  "original_filename": "hero_sculpture_book.webp",
+  "size": 77886,
+  "content_type": "image/webp",
+  "created_at": "2026-11-26T03:35:31Z"
 }

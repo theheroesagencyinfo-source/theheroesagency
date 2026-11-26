@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "1c00918f-88ca-4fcc-83bf-60c0544abc00",
+  "asset_id": "6bd37122-f60c-4ce9-aa61-bf8f0e7b67df",
   "project_id": "e81b352a-5fc2-4a56-8001-b5a0ad32cd56",
-  "url": "/__l5e/assets-v1/1c00918f-88ca-4fcc-83bf-60c0544abc00/hero_book_stack.jpg",
-  "r2_key": "a/v1/e81b352a-5fc2-4a56-8001-b5a0ad32cd56/1c00918f-88ca-4fcc-83bf-60c0544abc00/hero_book_stack.jpg",
-  "original_filename": "hero_book_stack.jpg",
-  "size": 391341,
-  "content_type": "image/jpeg",
-  "created_at": "2026-11-21T15:53:31Z"
+  "url": "/__l5e/assets-v1/6bd37122-f60c-4ce9-aa61-bf8f0e7b67df/hero_book_stack.webp",
+  "r2_key": "a/v1/e81b352a-5fc2-4a56-8001-b5a0ad32cd56/6bd37122-f60c-4ce9-aa61-bf8f0e7b67df/hero_book_stack.webp",
+  "original_filename": "hero_book_stack.webp",
+  "size": 82020,
+  "content_type": "image/webp",
+  "created_at": "2026-11-26T03:35:18Z"
 }

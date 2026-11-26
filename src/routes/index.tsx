@@ -193,7 +193,7 @@ function Home() {
           </div>
           <div data-tilt className="relative mx-auto h-[400px] w-full max-w-[620px] sm:h-[540px] md:h-[min(650px,60vw)]" style={{ transformStyle: "preserve-3d" }}>
             <p className="absolute left-0 top-[8%] z-[4] text-[9px] uppercase tracking-[0.2em] text-primary [writing-mode:vertical-rl]">Ideas in form · The author studio</p>
-            <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(heroLibrary)} alt="An open hardcover book and handwritten pages on a writer’s desk" decoding="async" className="h-full w-full object-cover" /></div>
+            <div data-depth="0.16" className="absolute right-0 top-[4%] z-[2] h-[82%] w-[72%] shadow-xl"><img src={assetSrc(heroLibrary)} fetchPriority="high" alt="An open hardcover book and handwritten pages on a writer’s desk" decoding="async" className="h-full w-full object-cover" /></div>
             <div data-depth="0.28" className="absolute bottom-[2%] left-0 z-[3] h-[43%] w-[43%] border-[6px] border-background shadow-xl sm:border-[10px]"><img src={assetSrc(heroQuote)} alt="An author writing with a fountain pen" decoding="async" className="h-full w-full object-cover" /></div>
             <div data-depth="0.35" className="absolute -bottom-[2%] right-[5%] z-[4] h-[34%] w-[25%] border-[5px] border-background shadow-lg md:z-[1] md:border-0 md:shadow-none"><img src={assetSrc(heroSculpture)} alt="A stack of hardcover books beside a reading lamp" decoding="async" className="h-full w-full object-cover" /></div>
           </div>
@@ -266,7 +266,7 @@ function Home() {
             <p className="reveal mt-6 max-w-[490px] text-sm leading-loose text-muted-foreground">A lot of author websites stop at introducing the book. We look at the full journey: what a visitor understands, what makes them stay, how they join your audience and where that relationship can lead. Design matters. So does what the design helps people do.</p>
             <a href="#review" className="reveal mt-6 inline-block border-b border-foreground pb-1 text-sm">See what your site could improve ↗</a>
           </div>
-          <div data-depth="0.18" data-fx="zoom" className="reveal"><div className="h-[390px] overflow-hidden border md:h-[600px]"><img src={assetSrc(authorStudy)} alt="An author at his desk in a private library, pen in hand over an open notebook" decoding="async" className="h-full w-full object-cover object-center" /></div></div>
+          <div data-depth="0.18" data-fx="zoom" className="reveal"><div className="h-[390px] overflow-hidden border md:h-[600px]"><img src={assetSrc(authorStudy)} alt="An author at his desk in a private library, pen in hand over an open notebook" loading="lazy" decoding="async" className="h-full w-full object-cover object-center" /></div></div>
         </div>
       </section>
 
