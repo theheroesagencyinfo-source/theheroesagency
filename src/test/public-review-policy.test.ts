@@ -3,9 +3,8 @@ import { publicReviewProjects } from "../lib/public-review-policy";
 import { packageAmounts } from "../lib/pricing-values";
 
 describe("Homepage review eligibility", () => {
-  it("excludes conceptual showcases from the client review feed", () => {
-    expect([...publicReviewProjects]).toEqual(["adam-courtenay", "trey-toler", "sandra-combe"]);
-    expect(publicReviewProjects.some(project => String(project) === "daniel-carter")).toBe(false);
+  it("shows approved reviews from all six showcases", () => {
+    expect([...publicReviewProjects]).toEqual(["adam-courtenay", "trey-toler", "sandra-combe", "daniel-carter", "eleanor-whitmore", "jonathan-reed"]);
   });
 });
 

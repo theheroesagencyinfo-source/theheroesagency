@@ -1,2 +1,2 @@
-// Concept showcase feedback is not evidence of commissioned client work.
-export const publicReviewProjects = ["adam-courtenay", "trey-toler", "sandra-combe"] as const;
+// Every showcase whose approved reviews may appear in the homepage review widget.
+export const publicReviewProjects = ["adam-courtenay", "trey-toler", "sandra-combe", "daniel-carter", "eleanor-whitmore", "jonathan-reed"] as const;
