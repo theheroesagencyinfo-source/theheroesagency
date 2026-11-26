@@ -134,6 +134,13 @@
       "when": 1795356137281,
       "tag": "0018_widen_project_reviews_projects",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1795660674701,
+      "tag": "0019_remove_first_admin_auto_assign",
+      "breakpoints": true
     }
   ]
 }
