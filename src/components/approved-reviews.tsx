@@ -53,10 +53,13 @@ export function ApprovedReviews() {
       if (!cards.length) return;
       const visibleCards = window.matchMedia("(min-width: 1024px)").matches ? 3 : 1;
       const currentIndex = cards.reduce((index, card, i) =>
-        card.offsetLeft <= track.scrollLeft + 8 ? i : index, 0);
+        card.offsetLeft - track.offsetLeft <= track.scrollLeft + 8 ? i : index, 0);
       const nextIndex = currentIndex >= cards.length - visibleCards ? 0 : currentIndex + 1;
-      track.scrollTo({ left: cards[nextIndex].offsetLeft, behavior: "smooth" });
-    }, 4500);
+      track.scrollTo({
+        left: cards[nextIndex].offsetLeft - track.offsetLeft,
+        behavior: "smooth",
+      });
+    }, 3000);
 
     return () => window.clearInterval(interval);
   }, []);
