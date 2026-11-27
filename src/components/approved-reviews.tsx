@@ -66,10 +66,6 @@ export function ApprovedReviews() {
           </article>
         ))}
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[#e3e8e5] bg-white px-5 py-3 text-[10px] text-[#77817c] sm:px-8">
-        <span>Reviews supplied for TheHeroes Agency</span>
-        <span>6 reviews · 5/5 ratings</span>
-      </div>
     </section>
   );
 }
