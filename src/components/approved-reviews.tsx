@@ -26,18 +26,6 @@ const liveWork = [
   { to: "/projects/sandra-combe" as const, name: "Sandra D. Combe", note: "Book website for Stop the Bypass, live" },
 ];
 
-function Stars({ value, size = "h-5 w-5" }: { value: number; size?: string }) {
-  return <span role="img" aria-label={`Rated ${value} out of 5`} className="inline-flex gap-1">
-    {[1, 2, 3, 4, 5].map(n => {
-      const fill = Math.max(0, Math.min(1, value - n + 1));
-      return <span key={n} aria-hidden className={`relative inline-flex ${size} items-center justify-center overflow-hidden rounded-[2px] bg-[#d9e8e2]`}>
-        <span className="absolute inset-y-0 left-0 bg-[#00a878]" style={{ width: `${fill * 100}%` }} />
-        <svg viewBox="0 0 24 24" className="relative h-[68%] w-[68%] fill-white"><path d="M12 2.5l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.7l7.1-.6z" /></svg>
-      </span>;
-    })}
-  </span>;
-}
-
 const suppliedReviews = [
   { id: "daniel-foster", name: "Daniel Foster", location: "United Kingdom", date: "January 22, 2026", comment: "I had been putting off updating my author website for quite some time, so I'm glad I reached out to TheHeroes Agency. They understood what I was looking for and made some really useful suggestions. The communication was good, and I was happy with how everything came together." },
   { id: "megan-walsh", name: "Megan Walsh", location: "United States", date: "March 17, 2026", comment: "What I liked most was that they actually took the time to understand my project instead of just offering a standard service. They were helpful, patient with my questions, and open to feedback. Overall, a very positive experience." },
