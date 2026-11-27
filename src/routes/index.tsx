@@ -215,19 +215,26 @@ function Home() {
       <section id="services" data-scene className="scene scroll-mt-20 px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><Eyebrow>What we build</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">Three services. <em className="text-primary">One clear direction.</em></h2></div>
-            <p className="reveal max-w-[340px] text-sm leading-relaxed text-muted-foreground">Each step builds on the one before: a credible platform gives readers somewhere to land, an audience keeps them close, and visibility brings new readers in. The essentials that help nonfiction authors look credible, stay connected to readers and create opportunities beyond the book.</p>
+            <div>
+              <Eyebrow>What we build</Eyebrow>
+              <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">The right foundations. <em className="text-primary">Room to grow.</em></h2>
+            </div>
+            <p className="reveal max-w-[360px] text-sm leading-relaxed text-muted-foreground">Your author platform should do more than look professional. It should help people discover your work, give readers a reason to stay connected and make it easier for the right opportunities to find you.</p>
           </div>
-          <div className="border-t border-foreground/20">
+          <div className="grid gap-4 md:grid-cols-3">
             {services.map((s, i) => (
-              <Link key={s.h} to={s.to} data-fx="slide" style={{ ["--i" as string]: i }} className="reveal grid grid-cols-[36px_1fr_24px] items-center gap-3 border-b border-foreground/20 py-6 transition-all hover:px-2 md:grid-cols-[90px_1fr_1fr_42px] md:gap-6 md:py-8 md:hover:px-4">
-                <span className="font-serif text-lg text-primary">0{i + 1}</span>
-                <h3 className="font-serif text-[26px] tracking-tight md:text-[clamp(25px,3vw,40px)]"><span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">{s.step}{i < services.length - 1 ? " → " + (services[i + 1]?.step ?? "") : ""}</span>{s.h}</h3>
-                <p className="col-start-2 row-start-2 max-w-[430px] text-sm leading-relaxed text-muted-foreground md:col-start-3 md:row-start-1">{s.p}</p>
-                <span aria-hidden className="col-start-3 row-span-2 row-start-1 text-2xl text-primary md:col-start-4 md:row-span-1">↗</span>
+              <Link key={s.h} to={s.to} data-fx="slide" style={{ ["--i" as string]: i }} className="reveal group flex min-h-[310px] flex-col border border-foreground/15 bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg sm:p-8">
+                <div className="flex items-center justify-between">
+                  <span className="font-serif text-2xl text-primary">0{i + 1}</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{s.step}</span>
+                </div>
+                <h3 className="mt-12 max-w-[15ch] font-serif text-[clamp(25px,2.5vw,34px)] leading-tight tracking-tight">{s.h}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.p}</p>
+                <span className="mt-auto flex items-center gap-2 pt-8 text-xs font-semibold uppercase tracking-[0.13em] text-primary">Explore service <span aria-hidden className="transition-transform group-hover:translate-x-1">↗</span></span>
               </Link>
             ))}
           </div>
+          <p className="reveal mt-8 max-w-[620px] text-xs leading-relaxed text-muted-foreground">You can start with one area or bring the services together around your goals. We’ll help you work out what makes sense for your next stage.</p>
         </div>
       </section>
 
