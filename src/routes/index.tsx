@@ -358,7 +358,7 @@ function Home() {
       <section id="voices" data-scene className="scene scroll-mt-20 bg-secondary px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
           <Eyebrow>Author platforms · Reviews</Eyebrow>
-          <h2 className="reveal mt-4 max-w-[820px] font-serif text-4xl md:text-6xl">Work you can explore.</h2>
+          <h2 className="reveal mt-4 max-w-[820px] font-serif text-4xl md:text-6xl">Author feedback &amp; project work.</h2>
           <ApprovedReviews />
         </div>
       </section>
