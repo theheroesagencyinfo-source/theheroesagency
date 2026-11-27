@@ -243,16 +243,19 @@ function Home() {
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div><Eyebrow>Case studies · Author platforms</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(42px,6vw,82px)]">Different voices.<br /><em className="text-primary">Thoughtful digital homes.</em></h2></div>
-            <p className="reveal max-w-[290px] text-sm leading-relaxed text-muted-foreground">Each author has a different story, audience and visual language. The work should reflect that.</p>
+            <div className="reveal max-w-[360px]">
+              <p className="text-sm leading-relaxed text-muted-foreground">Each author has a different story, audience and visual language. The work should reflect that.</p>
+              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">Explore three live client websites and three concept design showcases. Concepts are design examples, not launched client projects.</p>
+            </div>
           </div>
-          <div className="work-track -mx-5 flex gap-6 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:items-start md:gap-14 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-[1.13fr_.87fr] md:gap-x-[5vw]">
-            {projects.slice(0, 4).map((p, i) => (
-              <article key={p.slug} data-fx="curtain" style={{ ["--i" as string]: i }} className={`reveal w-[82vw] shrink-0 md:w-auto ${i % 2 === 1 ? "md:mt-28" : ""}`}>
+          <div className="grid gap-x-8 gap-y-14 md:grid-cols-[1.13fr_.87fr] md:gap-x-[5vw] md:gap-y-20">
+            {projects.map((p, i) => (
+              <article key={p.slug} data-fx="curtain" style={{ ["--i" as string]: i }} className={`reveal min-w-0 ${i % 2 === 1 ? "md:mt-24" : ""}`}>
                 <Link to={p.to} className="curtain group relative block aspect-[4/3] overflow-hidden border bg-muted shadow-lg transition-shadow duration-500 hover:shadow-2xl" aria-label={`View the ${p.name} author website`}>
                   <span className={`absolute left-3 top-3 z-[2] inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] shadow-sm ${"live" in p ? "border-primary bg-primary text-primary-foreground" : "border-foreground/20 bg-background/95 text-foreground"}`}>{"live" in p ? <><span aria-hidden className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-foreground motion-reduce:animate-none" />Live client site</> : "Concept showcase"}</span>
                   <img src={assetSrc(p.img)} alt={`${p.name} author website homepage`} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-[900ms] ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
                 </Link>
-                <div className="mt-4 flex justify-between gap-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground"><span>{p.meta}</span><span>{String(i + 1).padStart(2, "0")} / 04</span></div>
+                <div className="mt-4 flex justify-between gap-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground"><span>{p.meta}</span><span>{String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span></div>
                 <h3 className="mt-2 font-serif text-[27px] md:text-3xl">{p.name}</h3>
                 {!("live" in p) && <ProjectRating project={p.slug} />}
                 <p className="mt-2 max-w-[460px] text-sm leading-relaxed text-muted-foreground">{p.p}</p>
