@@ -332,18 +332,25 @@ function Home() {
       <section id="process" data-scene className="scene scroll-mt-20 px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto grid max-w-[1320px] gap-12 md:grid-cols-[.8fr_1.2fr] md:gap-[8vw]">
           <div>
-            <Eyebrow>A clear starting point</Eyebrow>
-            <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">Find out what your site is costing you.</h2>
-            <p className="reveal mt-5 max-w-[330px] text-sm leading-loose text-muted-foreground">Start with a free author site review. No pressure, no vague advice. Just a practical look at what could work harder.</p>
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">A clearer starting point for your author platform.</h2>
+            <p className="reveal mt-5 max-w-[360px] text-sm leading-loose text-muted-foreground">Tell us about your book, your website and what you want to achieve. We’ll review your current online presence and send practical recommendations, with no pressure to commit.</p>
+            <div className="reveal mt-8 border-l border-primary/50 pl-4">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-primary">Your first step</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Share a few details through the free review form. We’ll take it from there.</p>
+            </div>
           </div>
-          <ol className="border-t border-foreground/20">
+          <div>
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">What we’ll look at</p>
+            <ol className="border-t border-foreground/20">
             {checks.map((c, i) => (
               <li key={c.h} style={{ ["--i" as string]: i }} className="reveal grid grid-cols-[44px_1fr] gap-5 border-b border-foreground/20 py-6 md:grid-cols-[55px_1fr]">
                 <span className="font-serif text-lg text-primary">0{i + 1}</span>
                 <div><h3 className="font-serif text-2xl">{c.h}</h3><p className="mt-1.5 max-w-[500px] text-sm leading-relaxed text-muted-foreground">{c.p}</p></div>
               </li>
             ))}
-          </ol>
+            </ol>
+          </div>
         </div>
       </section>
 
