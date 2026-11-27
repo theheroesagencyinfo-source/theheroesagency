@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { listApprovedReviews } from "@/lib/project-reviews.functions";
@@ -20,52 +21,73 @@ async function loadReviews() {
 
 export const approvedReviewsQuery = queryOptions({ queryKey: ["approved-author-reviews", "live-projects"], queryFn: loadReviews, staleTime: 300000 });
 
-const liveWork = [
-  { to: "/projects/adam-courtenay" as const, name: "Adam Courtenay", note: "Author and journalist website, live" },
-  { to: "/projects/trey-toler" as const, name: "Trey Toler", note: "Author and speaker website, live" },
-  { to: "/projects/sandra-combe" as const, name: "Sandra D. Combe", note: "Book website for Stop the Bypass, live" },
+const suppliedReviews = [
+  { id: "daniel-foster", name: "Daniel Foster", location: "United Kingdom", date: "January 22, 2026", title: "A helpful website refresh", rating: 5, comment: "I had been putting off updating my author website for quite some time, so I'm glad I reached out to TheHeroes Agency. They understood what I was looking for and made some really useful suggestions. The communication was good, and I was happy with how everything came together." },
+  { id: "megan-walsh", name: "Megan Walsh", location: "United States", date: "March 17, 2026", title: "A thoughtful, personal approach", rating: 5, comment: "What I liked most was that they actually took the time to understand my project instead of just offering a standard service. They were helpful, patient with my questions, and open to feedback. Overall, a very positive experience." },
+  { id: "chloe-martin", name: "Chloe Martin", location: "Canada", date: "June 8, 2026", title: "A more professional author brand", rating: 5, comment: "I wanted to improve how I presented my books online and needed some direction. TheHeroes Agency helped me organise my ideas and gave my author brand a much more professional feel. I'm pleased with the experience and would recommend giving them a try." },
+  { id: "nathan-brooks", name: "Nathan Brooks", location: "Australia", date: "September 14, 2026", title: "Clear communication throughout", rating: 5, comment: "Really appreciated the work and communication throughout the project. Everything was explained clearly, and I never felt like my questions were a bother. They were receptive to feedback and made the process much easier than I expected." },
+  { id: "sophie-reynolds", name: "Sophie Reynolds", location: "United Kingdom", date: "October 6, 2026", title: "Ideas that fit my goals", rating: 5, comment: "I reached out to TheHeroes Agency because I needed help getting my work noticed online. They were friendly, easy to communicate with, and offered ideas that actually made sense for my goals. I appreciated that they did not make unrealistic promises and took the time to understand what I needed. A genuinely good experience." },
+  { id: "lauren-hayes", name: "Lauren Hayes", location: "United States", date: "November 19, 2026", title: "Support beyond website design", rating: 5, comment: "I was looking for more than just someone to design a website. I wanted help making my online presence feel consistent and professional. The team was easy to work with, came up with some thoughtful ideas, and understood the direction I wanted to take. Definitely a good experience." },
 ];
 
-function Stars({ value, size = "h-6 w-6" }: { value: number; size?: string }) {
-  return <span role="img" aria-label={`Rated ${value} out of 5`} className="inline-flex gap-[3px]">
-    {[1, 2, 3, 4, 5].map(n => {
-      const fill = Math.max(0, Math.min(1, value - n + 1));
-      return <span key={n} aria-hidden className={`relative inline-flex ${size} items-center justify-center overflow-hidden bg-muted-foreground/25`}>
-        <span className="absolute inset-y-0 left-0 bg-rating" style={{ width: `${fill * 100}%` }} />
-        <svg viewBox="0 0 24 24" className="relative h-[70%] w-[70%] fill-rating-foreground"><path d="M12 2.5l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.7l7.1-.6z" /></svg>
-      </span>;
-    })}
-  </span>;
-}
-
-const label = (avg: number) => avg >= 4.5 ? "Excellent" : avg >= 3.5 ? "Great" : avg >= 2.5 ? "Average" : "Poor";
-
-export function ApprovedReviews() {
-  const { data: reviews } = useSuspenseQuery(approvedReviewsQuery);
-  if (!reviews.length) return (
-    <div className="mt-10 grid gap-8 border-t border-foreground/20 pt-8 md:grid-cols-[.8fr_1.2fr]">
-      <div><h3 className="font-serif text-3xl">Explore the live work.</h3><p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-muted-foreground">A closer look at three author platforms: books, speaking, press and reader connections. Visit the case studies and see each website for yourself.</p></div>
-      <ul className="divide-y divide-foreground/15 border-y border-foreground/15">
-        {liveWork.map(w => <li key={w.to}><Link to={w.to} className="group flex items-baseline justify-between gap-4 py-5 transition-colors hover:text-primary"><span className="font-serif text-2xl">{w.name}</span><span className="text-right text-xs uppercase tracking-[0.12em] text-muted-foreground">{w.note} <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">↗</span></span></Link></li>)}
-      </ul>
+function ReviewStars({ rating = 5 }: { rating?: number }) {
+  return (
+    <div className="flex items-center gap-[2px]" aria-label={`Rated ${rating} out of 5`}>
+      {[1, 2, 3, 4, 5].map(star => (
+        <span key={star} aria-hidden className={`flex h-6 w-6 items-center justify-center bg-[#00b67a] text-[17px] leading-none text-white sm:h-7 sm:w-7`}>★</span>
+      ))}
     </div>
   );
-  const avg = Math.round((reviews.reduce((s, r) => s + r.rating, 0) / reviews.length) * 10) / 10;
+}
+
+export function ApprovedReviews() {
+  const averageRating = 5;
+  const reviewsTrackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = reviewsTrackRef.current;
+    if (!track) return;
+
+    const interval = window.setInterval(() => {
+      const cards = Array.from(track.children) as HTMLElement[];
+      if (!cards.length) return;
+      const visibleCards = window.matchMedia("(min-width: 1024px)").matches ? 3 : 1;
+      const currentIndex = cards.reduce((index, card, i) =>
+        card.offsetLeft - track.offsetLeft <= track.scrollLeft + 8 ? i : index, 0);
+      const nextIndex = currentIndex >= cards.length - visibleCards ? 0 : currentIndex + 1;
+      track.scrollTo({
+        left: cards[nextIndex].offsetLeft - track.offsetLeft,
+        behavior: "smooth",
+      });
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
-    <div className="mt-10 grid gap-8 border-t border-foreground/20 pt-8 lg:grid-cols-[260px_1fr]">
-      <div className="text-center lg:text-left">
-        <p className="text-2xl font-semibold">{label(avg)}</p>
-        <div className="mt-2"><Stars value={avg} size="h-8 w-8" /></div>
-        <p className="mt-3 text-sm text-muted-foreground">Based on <span className="font-semibold text-foreground underline underline-offset-2">{reviews.length} approved {reviews.length === 1 ? "review" : "reviews"}</span></p>
-        <p className="mt-1 text-xs text-muted-foreground">Rated {avg} / 5 from the latest published case study reviews</p>
+    <section className="mt-10 text-[#191919]" aria-label="Client reviews">
+      <div className="px-0 py-7 text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5b6862]">THEHEROES AGENCY · CLIENT FEEDBACK</p>
+        <h3 className="mt-2 text-2xl font-bold sm:text-3xl">Excellent</h3>
+        <div className="mt-3 flex justify-center">
+          <ReviewStars rating={averageRating} />
+        </div>
+        <p className="mt-2 text-xs text-[#59645f]">Rated 5 out of 5 based on 6 client reviews</p>
       </div>
-      <ul tabIndex={0} aria-label="Published case study reviews" className="-mx-5 flex min-w-0 snap-x gap-4 overflow-x-auto px-5 pb-3 focus-visible:outline-2 focus-visible:outline-ring lg:mx-0 lg:px-0">
-        {reviews.map(r => <li key={r.id} className="w-[78vw] max-w-[300px] shrink-0 snap-start border bg-card p-5 shadow-sm">
-          <div className="flex items-center justify-between gap-3"><Stars value={r.rating} size="h-5 w-5" /><span className="text-[11px] text-muted-foreground">✓ Approved</span></div>
-          <p className="mt-4 break-words text-sm leading-relaxed">{r.comment}</p>
-          <p className="mt-4 text-sm font-semibold">{r.name}</p>
-        </li>)}
-      </ul>
-    </div>
+
+      <div ref={reviewsTrackRef} className="flex w-full snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Reviews carousel">
+        {suppliedReviews.map(review => (
+          <article key={review.id} className="flex w-full shrink-0 snap-start flex-col border border-[#e4e8e6] bg-white p-5 lg:w-[calc((100%-2rem)/3)]">
+            <div className="flex items-start justify-between gap-2">
+              <ReviewStars rating={review.rating} />
+              <span className="shrink-0 text-[10px] text-[#7a8580]">{review.date}</span>
+            </div>
+            <p className="mt-3 text-[11px] text-[#77817c]">by {review.name} · {review.location}</p>
+            <h4 className="mt-3 text-sm font-bold text-[#202722]">{review.title}</h4>
+            <p className="mt-2 flex-1 break-words text-xs leading-[1.65] text-[#424c47]">{review.comment}</p>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 }

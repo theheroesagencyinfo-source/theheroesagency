@@ -60,10 +60,10 @@ const projects = [
 ];
 
 const journey = [
-  { n: "01", label: "Discovery", h: "They find you.", p: "Through your book, a talk, a podcast or a recommendation.", note: "A first point of discovery", img: journeyRelationship, cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
-  { n: "02", label: "Connection", h: "They stay.", p: "Your website gives them a useful reason to join your reader list.", note: "A reason to stay", img: journeyConnection, cls: "md:col-start-2 md:row-start-1 md:mt-32", photo: "h-[260px] md:h-[clamp(235px,28vw,365px)]" },
-  { n: "03", label: "Relationship", h: "They get to know you.", p: "Helpful emails build trust and show how your expertise can help.", note: "Trust built over time", img: journeyDiscovery, cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
-  { n: "04", label: "Opportunity", h: "They take action.", p: "A conversation, client enquiry, speaking invitation or book sale.", note: "The next opportunity", img: journeyOpportunity, cls: "md:col-start-2 md:row-start-2 md:mt-20", photo: "h-[300px] md:h-[clamp(300px,36vw,465px)]" },
+  { n: "01", label: "Discovery", h: "They find your work.", p: "A reader comes across your book, a talk, a podcast or a recommendation.", action: "Give them a clear introduction to your books, expertise and point of view.", note: "A first point of discovery", img: journeyDiscovery, cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
+  { n: "02", label: "Connection", h: "They explore and connect.", p: "Your website helps them learn more and find something useful to stay in touch for.", action: "Offer a focused reader resource and a simple way to join your email list.", note: "A reason to stay connected", img: journeyConnection, cls: "md:col-start-2 md:row-start-1 md:mt-32", photo: "h-[260px] md:h-[clamp(235px,28vw,365px)]" },
+  { n: "03", label: "Relationship", h: "They get to know you.", p: "Thoughtful, relevant updates give readers a reason to keep hearing from you.", action: "Use welcome emails and occasional useful updates to build familiarity over time.", note: "A relationship that grows", img: journeyRelationship, cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
+  { n: "04", label: "Opportunity", h: "They take the next step.", p: "That could mean buying a book, making an enquiry, booking you to speak or starting a conversation.", action: "Make the next step clear, relevant and easy to take.", note: "A clear next step", img: journeyOpportunity, cls: "md:col-start-2 md:row-start-2 md:mt-20", photo: "h-[300px] md:h-[clamp(300px,36vw,465px)]" },
 ];
 
 const checks = [
@@ -184,7 +184,7 @@ function Home() {
           <div>
             <Eyebrow>Digital growth for nonfiction authors</Eyebrow>
             <h1 data-fx="mask" className="display reveal mt-5 font-serif text-[clamp(46px,7vw,100px)]">A book is only the beginning. <em className="text-primary">We build what comes next.</em></h1>
-            <p className="reveal mt-6 max-w-[500px] leading-relaxed text-muted-foreground sm:text-lg">Helping authors build their presence, connect with readers and create more opportunities around their work. We bring together author platforms, branding, email marketing and book visibility for nonfiction authors, speakers and consultants worldwide.</p>
+            <p className="reveal mt-6 max-w-[500px] leading-relaxed text-muted-foreground sm:text-lg">We help nonfiction authors turn their books and expertise into a stronger digital presence. From author websites and brand positioning to email marketing and book visibility, we bring the pieces together so readers can discover your work, stay connected and take the next step.</p>
             <div className="reveal mt-9 flex flex-wrap items-center gap-6">
               <Button asChild variant="studio" size="studio" className="whitespace-normal"><a href="#review">Request a free website review <span aria-hidden>↓</span></a></Button>
               <Button asChild variant="studioOutline" size="studio" className="whitespace-normal"><a href={BOOKING_URL} target="_blank" rel="noreferrer">Book a 15-minute call</a></Button>
@@ -215,19 +215,26 @@ function Home() {
       <section id="services" data-scene className="scene scroll-mt-20 px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><Eyebrow>What we build</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">Three services. <em className="text-primary">One clear direction.</em></h2></div>
-            <p className="reveal max-w-[340px] text-sm leading-relaxed text-muted-foreground">Each step builds on the one before: a credible platform gives readers somewhere to land, an audience keeps them close, and visibility brings new readers in. The essentials that help nonfiction authors look credible, stay connected to readers and create opportunities beyond the book.</p>
+            <div>
+              <Eyebrow>What we build</Eyebrow>
+              <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">The right foundations. <em className="text-primary">Room to grow.</em></h2>
+            </div>
+            <p className="reveal max-w-[360px] text-sm leading-relaxed text-muted-foreground">Your author platform should do more than look professional. It should help people discover your work, give readers a reason to stay connected and make it easier for the right opportunities to find you.</p>
           </div>
-          <div className="border-t border-foreground/20">
+          <div className="grid gap-4 md:grid-cols-3">
             {services.map((s, i) => (
-              <Link key={s.h} to={s.to} data-fx="slide" style={{ ["--i" as string]: i }} className="reveal grid grid-cols-[36px_1fr_24px] items-center gap-3 border-b border-foreground/20 py-6 transition-all hover:px-2 md:grid-cols-[90px_1fr_1fr_42px] md:gap-6 md:py-8 md:hover:px-4">
-                <span className="font-serif text-lg text-primary">0{i + 1}</span>
-                <h3 className="font-serif text-[26px] tracking-tight md:text-[clamp(25px,3vw,40px)]"><span className="mb-1 block text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">{s.step}{i < services.length - 1 ? " → " + (services[i + 1]?.step ?? "") : ""}</span>{s.h}</h3>
-                <p className="col-start-2 row-start-2 max-w-[430px] text-sm leading-relaxed text-muted-foreground md:col-start-3 md:row-start-1">{s.p}</p>
-                <span aria-hidden className="col-start-3 row-span-2 row-start-1 text-2xl text-primary md:col-start-4 md:row-span-1">↗</span>
+              <Link key={s.h} to={s.to} data-fx="slide" style={{ ["--i" as string]: i }} className="reveal group flex min-h-[310px] flex-col border border-foreground/15 bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg sm:p-8">
+                <div className="flex items-center justify-between">
+                  <span className="font-serif text-2xl text-primary">0{i + 1}</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{s.step}</span>
+                </div>
+                <h3 className="mt-12 max-w-[15ch] font-serif text-[clamp(25px,2.5vw,34px)] leading-tight tracking-tight">{s.h}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.p}</p>
+                <span className="mt-auto flex items-center gap-2 pt-8 text-xs font-semibold uppercase tracking-[0.13em] text-primary">Explore service <span aria-hidden className="transition-transform group-hover:translate-x-1">↗</span></span>
               </Link>
             ))}
           </div>
+          <p className="reveal mt-8 max-w-[620px] text-xs leading-relaxed text-muted-foreground">You can start with one area or bring the services together around your goals. We’ll help you work out what makes sense for your next stage.</p>
         </div>
       </section>
 
@@ -236,16 +243,19 @@ function Home() {
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div><Eyebrow>Case studies · Author platforms</Eyebrow><h2 className="display reveal mt-4 font-serif text-[clamp(42px,6vw,82px)]">Different voices.<br /><em className="text-primary">Thoughtful digital homes.</em></h2></div>
-            <p className="reveal max-w-[290px] text-sm leading-relaxed text-muted-foreground">Each author has a different story, audience and visual language. The work should reflect that.</p>
+            <div className="reveal max-w-[360px]">
+              <p className="text-sm leading-relaxed text-muted-foreground">Each author has a different story, audience and visual language. The work should reflect that.</p>
+              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">Explore three live client websites and three concept design showcases. Concepts are design examples, not launched client projects.</p>
+            </div>
           </div>
-          <div className="work-track -mx-5 flex gap-6 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:items-start md:gap-14 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-[1.13fr_.87fr] md:gap-x-[5vw]">
-            {projects.slice(0, 4).map((p, i) => (
-              <article key={p.slug} data-fx="curtain" style={{ ["--i" as string]: i }} className={`reveal w-[82vw] shrink-0 md:w-auto ${i % 2 === 1 ? "md:mt-28" : ""}`}>
+          <div className="grid gap-x-8 gap-y-14 md:grid-cols-[1.13fr_.87fr] md:gap-x-[5vw] md:gap-y-20">
+            {projects.map((p, i) => (
+              <article key={p.slug} data-fx="curtain" style={{ ["--i" as string]: i }} className={`reveal min-w-0 ${i % 2 === 1 ? "md:mt-24" : ""}`}>
                 <Link to={p.to} className="curtain group relative block aspect-[4/3] overflow-hidden border bg-muted shadow-lg transition-shadow duration-500 hover:shadow-2xl" aria-label={`View the ${p.name} author website`}>
                   <span className={`absolute left-3 top-3 z-[2] inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] shadow-sm ${"live" in p ? "border-primary bg-primary text-primary-foreground" : "border-foreground/20 bg-background/95 text-foreground"}`}>{"live" in p ? <><span aria-hidden className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary-foreground motion-reduce:animate-none" />Live client site</> : "Concept showcase"}</span>
                   <img src={assetSrc(p.img)} alt={`${p.name} author website homepage`} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-[900ms] ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
                 </Link>
-                <div className="mt-4 flex justify-between gap-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground"><span>{p.meta}</span><span>{String(i + 1).padStart(2, "0")} / 04</span></div>
+                <div className="mt-4 flex justify-between gap-5 text-[10px] uppercase tracking-[0.12em] text-muted-foreground"><span>{p.meta}</span><span>{String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span></div>
                 <h3 className="mt-2 font-serif text-[27px] md:text-3xl">{p.name}</h3>
                 {!("live" in p) && <ProjectRating project={p.slug} />}
                 <p className="mt-2 max-w-[460px] text-sm leading-relaxed text-muted-foreground">{p.p}</p>
@@ -263,8 +273,22 @@ function Home() {
           <div>
             <Eyebrow>Why TheHeroes</Eyebrow>
             <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.7vw,78px)]">Not just a good-looking site. <em className="text-primary">A reason for readers to stay.</em></h2>
-            <p className="reveal mt-6 max-w-[490px] text-sm leading-loose text-muted-foreground">A lot of author websites stop at introducing the book. We look at the full journey: what a visitor understands, what makes them stay, how they join your audience and where that relationship can lead. Design matters. So does what the design helps people do.</p>
-            <a href="#review" className="reveal mt-6 inline-block border-b border-foreground pb-1 text-sm">See what your site could improve ↗</a>
+            <p className="reveal mt-6 max-w-[490px] text-sm leading-loose text-muted-foreground">Your book, expertise and goals should shape the digital platform around you. We bring the important pieces together, so your website is not working in isolation.</p>
+            <div className="mt-8 max-w-[520px] border-t border-foreground/15">
+              <div className="reveal grid grid-cols-[42px_1fr] gap-4 border-b border-foreground/15 py-5">
+                <span className="font-serif text-lg text-primary">01</span>
+                <div><h3 className="font-serif text-xl">Built around your work</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">Your books, expertise, audience and next goals guide the direction.</p></div>
+              </div>
+              <div className="reveal grid grid-cols-[42px_1fr] gap-4 border-b border-foreground/15 py-5">
+                <span className="font-serif text-lg text-primary">02</span>
+                <div><h3 className="font-serif text-xl">Connected from the start</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">Bring your website, reader signups, email communication and promotion into a clearer experience.</p></div>
+              </div>
+              <div className="reveal grid grid-cols-[42px_1fr] gap-4 border-b border-foreground/15 py-5">
+                <span className="font-serif text-lg text-primary">03</span>
+                <div><h3 className="font-serif text-xl">Focused on useful next steps</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">Prioritise improvements that make it easier for readers and opportunities to take action.</p></div>
+              </div>
+            </div>
+            <a href="#review" className="reveal mt-7 inline-block border-b border-foreground pb-1 text-sm">See what your site could improve ↗</a>
           </div>
           <div data-depth="0.18" data-fx="zoom" className="reveal"><div className="h-[390px] overflow-hidden border md:h-[600px]"><img src={assetSrc(authorStudy)} alt="An author at his desk in a private library, pen in hand over an open notebook" loading="lazy" decoding="async" className="h-full w-full object-cover object-center" /></div></div>
         </div>
@@ -274,8 +298,8 @@ function Home() {
       <section id="journey" data-scene className="scene scroll-mt-20 px-5 py-24 sm:px-[7vw] md:py-36">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><Eyebrow>The reader journey</Eyebrow><h2 className="display reveal mt-4 max-w-[760px] font-serif text-[clamp(42px,6vw,82px)]">From discovering your work to taking the next step.</h2></div>
-            <p className="reveal max-w-[290px] text-sm leading-relaxed text-muted-foreground">A book creates the first connection. A thoughtful digital experience gives that connection somewhere to go.</p>
+            <div><Eyebrow>The reader journey</Eyebrow><h2 className="display reveal mt-4 max-w-[760px] font-serif text-[clamp(42px,6vw,82px)]">Give every first impression somewhere to go.</h2></div>
+            <p className="reveal max-w-[330px] text-sm leading-relaxed text-muted-foreground">Your book may introduce people to your work. A connected author platform can help them explore, stay in touch and decide what to do next.</p>
           </div>
           <div data-journey className="relative isolate grid gap-10 md:grid-cols-[1.12fr_.88fr] md:gap-x-[8%] md:gap-y-16">
             <svg className="journey-route pointer-events-none absolute inset-0 -z-0 hidden h-full w-full overflow-visible md:block" viewBox="0 0 1000 1150" preserveAspectRatio="none" aria-hidden="true">
@@ -293,6 +317,7 @@ function Home() {
                 </div>
                 <h3 className="font-serif text-[clamp(27px,3vw,39px)] leading-tight tracking-tight">{j.h}</h3>
                 <p className="mt-2 max-w-[370px] text-sm leading-relaxed text-muted-foreground">{j.p}</p>
+                <p className="mt-4 max-w-[370px] border-l border-primary/50 pl-3 text-xs leading-relaxed text-foreground/75"><span className="mb-1 block text-[9px] font-semibold uppercase tracking-[0.16em] text-primary">Your platform</span>{j.action}</p>
               </article>
             ))}
           </div>
@@ -307,18 +332,25 @@ function Home() {
       <section id="process" data-scene className="scene scroll-mt-20 px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto grid max-w-[1320px] gap-12 md:grid-cols-[.8fr_1.2fr] md:gap-[8vw]">
           <div>
-            <Eyebrow>A clear starting point</Eyebrow>
-            <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">Find out what your site is costing you.</h2>
-            <p className="reveal mt-5 max-w-[330px] text-sm leading-loose text-muted-foreground">Start with a free author site review. No pressure, no vague advice. Just a practical look at what could work harder.</p>
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.5vw,76px)]">A clearer starting point for your author platform.</h2>
+            <p className="reveal mt-5 max-w-[360px] text-sm leading-loose text-muted-foreground">Tell us about your book, your website and what you want to achieve. We’ll review your current online presence and send practical recommendations, with no pressure to commit.</p>
+            <div className="reveal mt-8 border-l border-primary/50 pl-4">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-primary">Your first step</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Share a few details through the free review form. We’ll take it from there.</p>
+            </div>
           </div>
-          <ol className="border-t border-foreground/20">
+          <div>
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">What we’ll look at</p>
+            <ol className="border-t border-foreground/20">
             {checks.map((c, i) => (
               <li key={c.h} style={{ ["--i" as string]: i }} className="reveal grid grid-cols-[44px_1fr] gap-5 border-b border-foreground/20 py-6 md:grid-cols-[55px_1fr]">
                 <span className="font-serif text-lg text-primary">0{i + 1}</span>
                 <div><h3 className="font-serif text-2xl">{c.h}</h3><p className="mt-1.5 max-w-[500px] text-sm leading-relaxed text-muted-foreground">{c.p}</p></div>
               </li>
             ))}
-          </ol>
+            </ol>
+          </div>
         </div>
       </section>
 
@@ -326,7 +358,7 @@ function Home() {
       <section id="voices" data-scene className="scene scroll-mt-20 bg-secondary px-5 py-24 sm:px-[7vw] md:py-32">
         <div className="mx-auto max-w-[1320px]">
           <Eyebrow>Author platforms · Reviews</Eyebrow>
-          <h2 className="reveal mt-4 max-w-[820px] font-serif text-4xl md:text-6xl">Work you can explore.</h2>
+          <h2 className="reveal mt-4 max-w-[820px] font-serif text-4xl md:text-6xl">Author feedback &amp; project work.</h2>
           <ApprovedReviews />
         </div>
       </section>
