@@ -81,7 +81,7 @@ export function ApprovedReviews() {
               <p className="mt-5 flex-1 break-words text-sm leading-relaxed text-[#34443b]">{review.comment}</p>
               <div className="mt-6 border-t border-[#e5ebe7] pt-4">
                 <p className="text-sm font-semibold">{review.name}</p>
-                <p className="mt-1 text-[10px] uppercase tracking-[0.13em] text-[#718078]">Verified project feedback</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.13em] text-[#718078]">Approved project feedback</p>
               </div>
             </article>
           ))}
