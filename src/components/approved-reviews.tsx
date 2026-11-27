@@ -30,7 +30,7 @@ function Stars({ value, size = "h-5 w-5" }: { value: number; size?: string }) {
   return <span role="img" aria-label={`Rated ${value} out of 5`} className="inline-flex gap-1">
     {[1, 2, 3, 4, 5].map(n => {
       const fill = Math.max(0, Math.min(1, value - n + 1));
-      return <span key={n} aria-hidden className={`relative inline-flex ${size} items-center justify-center overflow-hidden bg-foreground/15`}>
+      return <span key={n} aria-hidden className={`relative inline-flex ${size} items-center justify-center overflow-hidden rounded-[2px] bg-[#d9e8e2]`}>
         <span className="absolute inset-y-0 left-0 bg-[#00a878]" style={{ width: `${fill * 100}%` }} />
         <svg viewBox="0 0 24 24" className="relative h-[68%] w-[68%] fill-white"><path d="M12 2.5l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.7l7.1-.6z" /></svg>
       </span>;
@@ -38,46 +38,75 @@ function Stars({ value, size = "h-5 w-5" }: { value: number; size?: string }) {
   </span>;
 }
 
-const label = (avg: number) => avg >= 4.5 ? "Excellent" : avg >= 3.5 ? "Great" : avg >= 2.5 ? "Average" : "Needs improvement";
+const ratingLabel = (avg: number) => avg >= 4.5 ? "Excellent" : avg >= 3.5 ? "Great" : avg >= 2.5 ? "Average" : "Needs improvement";
 
 export function ApprovedReviews() {
   const { data: reviews } = useSuspenseQuery(approvedReviewsQuery);
-  if (!reviews.length) return (
-    <div className="mt-10 grid gap-8 border-t border-foreground/20 pt-8 md:grid-cols-[.8fr_1.2fr]">
-      <div><h3 className="font-serif text-3xl">Explore the live work.</h3><p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-muted-foreground">A closer look at three author platforms: books, speaking, press and reader connections. Visit the case studies and see each website for yourself.</p></div>
-      <ul className="divide-y divide-foreground/15 border-y border-foreground/15">
-        {liveWork.map(w => <li key={w.to}><Link to={w.to} className="group flex items-baseline justify-between gap-4 py-5 transition-colors hover:text-primary"><span className="font-serif text-2xl">{w.name}</span><span className="text-right text-xs uppercase tracking-[0.12em] text-muted-foreground">{w.note} <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">↗</span></span></Link></li>)}
-      </ul>
-    </div>
-  );
-  const avg = Math.round((reviews.reduce((s, r) => s + r.rating, 0) / reviews.length) * 10) / 10;
+  const hasReviews = reviews.length > 0;
+  const avg = hasReviews
+    ? Math.round((reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length) * 10) / 10
+    : null;
+
   return (
-    <div className="mt-10 overflow-hidden border border-foreground/10 bg-card shadow-sm">
-      <div className="grid gap-6 border-b border-foreground/10 bg-background p-6 sm:p-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+    <div className="mt-10 overflow-hidden rounded-sm border border-[#dce5e0] bg-white text-[#17251f] shadow-sm">
+      <div className="flex flex-col gap-6 border-b border-[#e5ebe7] p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Author project reviews</p>
-          <div className="mt-3 flex flex-wrap items-center gap-3">
-            <span className="font-serif text-4xl tabular-nums">{avg.toFixed(1)}<span className="ml-1 text-lg text-muted-foreground">/ 5</span></span>
-            <Stars value={avg} size="h-6 w-6" />
-          </div>
-          <p className="mt-2 text-sm text-muted-foreground"> <span className="font-semibold text-foreground">{label(avg)}</span> · Based on {reviews.length} approved {reviews.length === 1 ? "review" : "reviews"}</p>
+          <p className="text-xs font-semibold tracking-wide text-[#52635a]">THEHEROES AGENCY</p>
+          <h3 className="mt-2 font-serif text-3xl sm:text-4xl">Client reviews</h3>
+          <p className="mt-2 text-sm text-[#52635a]">Feedback from authors we've worked with.</p>
         </div>
-        <div className="md:text-right">
-          <p className="text-3xl font-serif tabular-nums">{reviews.length}</p>
-          <p className="mt-1 text-xs uppercase tracking-[0.14em] text-muted-foreground">Published reviews</p>
+        <div className="min-w-[220px] md:text-right">
+          {hasReviews ? (
+            <>
+              <div className="flex items-center gap-3 md:justify-end">
+                <span className="font-serif text-4xl tabular-nums">{avg!.toFixed(1)}<span className="ml-1 text-base text-[#718078]">/ 5</span></span>
+                <Stars value={avg!} size="h-6 w-6" />
+              </div>
+              <p className="mt-2 text-sm text-[#52635a]"><strong className="text-[#17251f]">{ratingLabel(avg!)}</strong> · Based on {reviews.length} {reviews.length === 1 ? "review" : "reviews"}</p>
+            </>
+          ) : (
+            <>
+              <p className="font-serif text-2xl">Reviews coming soon</p>
+              <p className="mt-2 text-sm text-[#52635a]">No published reviews yet.</p>
+            </>
+          )}
         </div>
       </div>
-      <ul tabIndex={0} aria-label="Published author project reviews" className="flex min-w-0 snap-x gap-4 overflow-x-auto p-5 focus-visible:outline-2 focus-visible:outline-ring sm:p-6">
-        {reviews.map(r => <li key={r.id} className="w-[min(82vw,340px)] shrink-0 snap-start border border-foreground/10 bg-background p-5 sm:p-6">
-          <Stars value={r.rating} />
-          <p className="mt-4 break-words text-sm leading-relaxed">{r.comment}</p>
-          <div className="mt-6 border-t border-foreground/10 pt-4">
-            <p className="text-sm font-semibold">{r.name}</p>
-            <p className="mt-1 text-[10px] uppercase tracking-[0.13em] text-muted-foreground">Approved project review</p>
+
+      {hasReviews ? (
+        <div className="grid gap-px bg-[#e5ebe7] sm:grid-cols-2 lg:grid-cols-3">
+          {reviews.map(review => (
+            <article key={review.id} className="flex min-w-0 flex-col bg-white p-6 sm:p-7">
+              <Stars value={review.rating} />
+              <p className="mt-5 flex-1 break-words text-sm leading-relaxed text-[#34443b]">{review.comment}</p>
+              <div className="mt-6 border-t border-[#e5ebe7] pt-4">
+                <p className="text-sm font-semibold">{review.name}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.13em] text-[#718078]">Verified project feedback</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div className="grid gap-8 border-t border-[#e5ebe7] bg-[#f7faf8] p-6 sm:p-8 md:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <p className="text-sm leading-relaxed text-[#52635a]">We're building this collection with genuine feedback from authors. In the meantime, explore some of the live websites we've created.</p>
           </div>
-        </li>)}
-      </ul>
-      <p className="border-t border-foreground/10 px-6 py-3 text-[10px] leading-relaxed text-muted-foreground">Ratings and comments shown here are reviews submitted for TheHeroes Agency projects. This is an independent review display, not a Trustpilot widget.</p>
+          <ul className="divide-y divide-[#dce5e0] border-y border-[#dce5e0]">
+            {liveWork.map(work => (
+              <li key={work.to}>
+                <Link to={work.to} className="group flex items-baseline justify-between gap-4 py-4 transition-colors hover:text-[#008b63]">
+                  <span className="font-serif text-xl sm:text-2xl">{work.name}</span>
+                  <span className="text-right text-[10px] uppercase tracking-[0.1em] text-[#718078]">{work.note} <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">↗</span></span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#e5ebe7] px-6 py-3 text-[10px] tracking-wide text-[#718078] sm:px-8">
+        <span>Independent reviews shared by TheHeroes Agency clients</span>
+        <span>{hasReviews ? `${reviews.length} published ${reviews.length === 1 ? "review" : "reviews"}` : "Awaiting first published review"}</span>
+      </div>
     </div>
   );
 }
