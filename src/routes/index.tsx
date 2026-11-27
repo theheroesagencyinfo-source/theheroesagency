@@ -184,7 +184,7 @@ function Home() {
           <div>
             <Eyebrow>Digital growth for nonfiction authors</Eyebrow>
             <h1 data-fx="mask" className="display reveal mt-5 font-serif text-[clamp(46px,7vw,100px)]">A book is only the beginning. <em className="text-primary">We build what comes next.</em></h1>
-            <p className="reveal mt-6 max-w-[500px] leading-relaxed text-muted-foreground sm:text-lg">Helping authors build their presence, connect with readers and create more opportunities around their work. We bring together author platforms, branding, email marketing and book visibility for nonfiction authors, speakers and consultants worldwide.</p>
+            <p className="reveal mt-6 max-w-[500px] leading-relaxed text-muted-foreground sm:text-lg">We help nonfiction authors turn their books and expertise into a stronger digital presence. From author websites and brand positioning to email marketing and book visibility, we bring the pieces together so readers can discover your work, stay connected and take the next step.</p>
             <div className="reveal mt-9 flex flex-wrap items-center gap-6">
               <Button asChild variant="studio" size="studio" className="whitespace-normal"><a href="#review">Request a free website review <span aria-hidden>↓</span></a></Button>
               <Button asChild variant="studioOutline" size="studio" className="whitespace-normal"><a href={BOOKING_URL} target="_blank" rel="noreferrer">Book a 15-minute call</a></Button>
