@@ -43,8 +43,8 @@ export function ApprovedReviews() {
   const averageRating = 5;
 
   return (
-    <section className="mt-10 overflow-hidden rounded-md border border-[#e3e8e5] bg-[#f7f8f8] text-[#191919] shadow-sm" aria-label="Client reviews">
-      <div className="border-b border-[#e5e9e7] bg-white px-5 py-7 text-center sm:px-8">
+    <section className="mt-10 text-[#191919]" aria-label="Client reviews">
+      <div className="px-0 py-7 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5b6862]">THEHEROES AGENCY · CLIENT FEEDBACK</p>
         <h3 className="mt-2 text-2xl font-bold sm:text-3xl">Excellent</h3>
         <div className="mt-3 flex justify-center">
@@ -53,7 +53,7 @@ export function ApprovedReviews() {
         <p className="mt-2 text-xs text-[#59645f]">Rated 5 out of 5 based on 6 client reviews</p>
       </div>
 
-      <div className="grid gap-3 p-3 sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
+      <div className="grid gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
         {suppliedReviews.map(review => (
           <article key={review.id} className="flex min-w-0 flex-col border border-[#e4e8e6] bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)] sm:p-5">
             <div className="flex items-start justify-between gap-2">
