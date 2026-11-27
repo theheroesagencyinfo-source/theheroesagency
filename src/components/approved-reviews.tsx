@@ -38,74 +38,58 @@ function Stars({ value, size = "h-5 w-5" }: { value: number; size?: string }) {
   </span>;
 }
 
-const ratingLabel = (avg: number) => avg >= 4.5 ? "Excellent" : avg >= 3.5 ? "Great" : avg >= 2.5 ? "Average" : "Needs improvement";
+const suppliedReviews = [
+  { id: "daniel-foster", name: "Daniel Foster", location: "United Kingdom", date: "January 22, 2026", comment: "I had been putting off updating my author website for quite some time, so I'm glad I reached out to TheHeroes Agency. They understood what I was looking for and made some really useful suggestions. The communication was good, and I was happy with how everything came together." },
+  { id: "megan-walsh", name: "Megan Walsh", location: "United States", date: "March 17, 2026", comment: "What I liked most was that they actually took the time to understand my project instead of just offering a standard service. They were helpful, patient with my questions, and open to feedback. Overall, a very positive experience." },
+  { id: "chloe-martin", name: "Chloe Martin", location: "Canada", date: "June 8, 2026", comment: "I wanted to improve how I presented my books online and needed some direction. TheHeroes Agency helped me organise my ideas and gave my author brand a much more professional feel. I'm pleased with the experience and would recommend giving them a try." },
+  { id: "nathan-brooks", name: "Nathan Brooks", location: "Australia", date: "September 14, 2026", comment: "Really appreciated the work and communication throughout the project. Everything was explained clearly, and I never felt like my questions were a bother. They were receptive to feedback and made the process much easier than I expected." },
+  { id: "lauren-hayes", name: "Lauren Hayes", location: "United States", date: "November 19, 2026", comment: "I was looking for more than just someone to design a website. I wanted help making my online presence feel consistent and professional. The team was easy to work with, came up with some thoughtful ideas, and understood the direction I wanted to take. Definitely a good experience." },
+];
+
 
 export function ApprovedReviews() {
   const { data: reviews } = useSuspenseQuery(approvedReviewsQuery);
-  const hasReviews = reviews.length > 0;
-  const avg = hasReviews
-    ? Math.round((reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length) * 10) / 10
-    : null;
+  const displayReviews = reviews.length > 0
+    ? reviews.slice(0, 5).map(review => ({
+        id: review.id,
+        name: review.name,
+        location: "",
+        date: "",
+        comment: review.comment,
+      }))
+    : suppliedReviews;
 
   return (
     <div className="mt-10 overflow-hidden rounded-sm border border-[#dce5e0] bg-white text-[#17251f] shadow-sm">
-      <div className="flex flex-col gap-6 border-b border-[#e5ebe7] p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-4 border-b border-[#e5ebe7] p-6 sm:p-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs font-semibold tracking-wide text-[#52635a]">THEHEROES AGENCY</p>
           <h3 className="mt-2 font-serif text-3xl sm:text-4xl">Client reviews</h3>
           <p className="mt-2 text-sm text-[#52635a]">Feedback from authors we've worked with.</p>
         </div>
-        <div className="min-w-[220px] md:text-right">
-          {hasReviews ? (
-            <>
-              <div className="flex items-center gap-3 md:justify-end">
-                <span className="font-serif text-4xl tabular-nums">{avg!.toFixed(1)}<span className="ml-1 text-base text-[#718078]">/ 5</span></span>
-                <Stars value={avg!} size="h-6 w-6" />
-              </div>
-              <p className="mt-2 text-sm text-[#52635a]"><strong className="text-[#17251f]">{ratingLabel(avg!)}</strong> · Based on {reviews.length} {reviews.length === 1 ? "review" : "reviews"}</p>
-            </>
-          ) : (
-            <>
-              <p className="font-serif text-2xl">Reviews coming soon</p>
-              <p className="mt-2 text-sm text-[#52635a]">No published reviews yet.</p>
-            </>
-          )}
+        <div className="sm:text-right">
+          <p className="font-serif text-3xl tabular-nums">{displayReviews.length} <span className="text-base text-[#718078]">{displayReviews.length === 1 ? "review" : "reviews"}</span></p>
+          <p className="mt-1 text-sm text-[#52635a]">Client feedback</p>
         </div>
       </div>
 
-      {hasReviews ? (
-        <div className="grid gap-px bg-[#e5ebe7] sm:grid-cols-2 lg:grid-cols-3">
-          {reviews.map(review => (
-            <article key={review.id} className="flex min-w-0 flex-col bg-white p-6 sm:p-7">
-              <Stars value={review.rating} />
-              <p className="mt-5 flex-1 break-words text-sm leading-relaxed text-[#34443b]">{review.comment}</p>
-              <div className="mt-6 border-t border-[#e5ebe7] pt-4">
-                <p className="text-sm font-semibold">{review.name}</p>
-                <p className="mt-1 text-[10px] uppercase tracking-[0.13em] text-[#718078]">Approved project feedback</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <div className="grid gap-8 border-t border-[#e5ebe7] bg-[#f7faf8] p-6 sm:p-8 md:grid-cols-[.8fr_1.2fr]">
-          <div>
-            <p className="text-sm leading-relaxed text-[#52635a]">We're building this collection with genuine feedback from authors. In the meantime, explore some of the live websites we've created.</p>
-          </div>
-          <ul className="divide-y divide-[#dce5e0] border-y border-[#dce5e0]">
-            {liveWork.map(work => (
-              <li key={work.to}>
-                <Link to={work.to} className="group flex items-baseline justify-between gap-4 py-4 transition-colors hover:text-[#008b63]">
-                  <span className="font-serif text-xl sm:text-2xl">{work.name}</span>
-                  <span className="text-right text-[10px] uppercase tracking-[0.1em] text-[#718078]">{work.note} <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">↗</span></span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className="grid gap-px bg-[#e5ebe7] sm:grid-cols-2 lg:grid-cols-3">
+        {displayReviews.map(review => (
+          <article key={review.id} className="flex min-w-0 flex-col bg-white p-6 sm:p-7">
+            <p className="flex-1 break-words text-sm leading-relaxed text-[#34443b]">“{review.comment}”</p>
+            <div className="mt-6 border-t border-[#e5ebe7] pt-4">
+              <p className="text-sm font-semibold">{review.name}</p>
+              {(review.location || review.date) && (
+                <p className="mt-1 text-xs text-[#718078]">{[review.location, review.date].filter(Boolean).join(" · ")}</p>
+              )}
+              <p className="mt-2 text-[10px] uppercase tracking-[0.13em] text-[#718078]">Client feedback</p>
+            </div>
+          </article>
+        ))}
+      </div>
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#e5ebe7] px-6 py-3 text-[10px] tracking-wide text-[#718078] sm:px-8">
-        <span>Independent reviews shared by TheHeroes Agency clients</span>
-        <span>{hasReviews ? `${reviews.length} published ${reviews.length === 1 ? "review" : "reviews"}` : "Awaiting first published review"}</span>
+        <span>Client feedback shared with TheHeroes Agency</span>
+        <span>{displayReviews.length} published {displayReviews.length === 1 ? "review" : "reviews"}</span>
       </div>
     </div>
   );
