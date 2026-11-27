@@ -60,10 +60,10 @@ const projects = [
 ];
 
 const journey = [
-  { n: "01", label: "Discovery", h: "They find you.", p: "Through your book, a talk, a podcast or a recommendation.", note: "A first point of discovery", img: journeyRelationship, cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
-  { n: "02", label: "Connection", h: "They stay.", p: "Your website gives them a useful reason to join your reader list.", note: "A reason to stay", img: journeyConnection, cls: "md:col-start-2 md:row-start-1 md:mt-32", photo: "h-[260px] md:h-[clamp(235px,28vw,365px)]" },
-  { n: "03", label: "Relationship", h: "They get to know you.", p: "Helpful emails build trust and show how your expertise can help.", note: "Trust built over time", img: journeyDiscovery, cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
-  { n: "04", label: "Opportunity", h: "They take action.", p: "A conversation, client enquiry, speaking invitation or book sale.", note: "The next opportunity", img: journeyOpportunity, cls: "md:col-start-2 md:row-start-2 md:mt-20", photo: "h-[300px] md:h-[clamp(300px,36vw,465px)]" },
+  { n: "01", label: "Discovery", h: "They find your work.", p: "A reader comes across your book, a talk, a podcast or a recommendation.", action: "Give them a clear introduction to your books, expertise and point of view.", note: "A first point of discovery", img: journeyDiscovery, cls: "md:col-start-1 md:row-start-1", photo: "h-[330px] md:h-[clamp(330px,43vw,570px)]" },
+  { n: "02", label: "Connection", h: "They explore and connect.", p: "Your website helps them learn more and find something useful to stay in touch for.", action: "Offer a focused reader resource and a simple way to join your email list.", note: "A reason to stay connected", img: journeyConnection, cls: "md:col-start-2 md:row-start-1 md:mt-32", photo: "h-[260px] md:h-[clamp(235px,28vw,365px)]" },
+  { n: "03", label: "Relationship", h: "They get to know you.", p: "Thoughtful, relevant updates give readers a reason to keep hearing from you.", action: "Use welcome emails and occasional useful updates to build familiarity over time.", note: "A relationship that grows", img: journeyRelationship, cls: "ml-[10%] md:col-start-1 md:row-start-2 md:ml-[15%]", photo: "h-[280px] md:h-[clamp(250px,30vw,390px)]" },
+  { n: "04", label: "Opportunity", h: "They take the next step.", p: "That could mean buying a book, making an enquiry, booking you to speak or starting a conversation.", action: "Make the next step clear, relevant and easy to take.", note: "A clear next step", img: journeyOpportunity, cls: "md:col-start-2 md:row-start-2 md:mt-20", photo: "h-[300px] md:h-[clamp(300px,36vw,465px)]" },
 ];
 
 const checks = [
@@ -298,8 +298,8 @@ function Home() {
       <section id="journey" data-scene className="scene scroll-mt-20 px-5 py-24 sm:px-[7vw] md:py-36">
         <div className="mx-auto max-w-[1320px]">
           <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><Eyebrow>The reader journey</Eyebrow><h2 className="display reveal mt-4 max-w-[760px] font-serif text-[clamp(42px,6vw,82px)]">From discovering your work to taking the next step.</h2></div>
-            <p className="reveal max-w-[290px] text-sm leading-relaxed text-muted-foreground">A book creates the first connection. A thoughtful digital experience gives that connection somewhere to go.</p>
+            <div><Eyebrow>The reader journey</Eyebrow><h2 className="display reveal mt-4 max-w-[760px] font-serif text-[clamp(42px,6vw,82px)]">Give every first impression somewhere to go.</h2></div>
+            <p className="reveal max-w-[330px] text-sm leading-relaxed text-muted-foreground">Your book may introduce people to your work. A connected author platform can help them explore, stay in touch and decide what to do next.</p>
           </div>
           <div data-journey className="relative isolate grid gap-10 md:grid-cols-[1.12fr_.88fr] md:gap-x-[8%] md:gap-y-16">
             <svg className="journey-route pointer-events-none absolute inset-0 -z-0 hidden h-full w-full overflow-visible md:block" viewBox="0 0 1000 1150" preserveAspectRatio="none" aria-hidden="true">
@@ -317,6 +317,7 @@ function Home() {
                 </div>
                 <h3 className="font-serif text-[clamp(27px,3vw,39px)] leading-tight tracking-tight">{j.h}</h3>
                 <p className="mt-2 max-w-[370px] text-sm leading-relaxed text-muted-foreground">{j.p}</p>
+                <p className="mt-4 max-w-[370px] border-l border-primary/50 pl-3 text-xs leading-relaxed text-foreground/75"><span className="mb-1 block text-[9px] font-semibold uppercase tracking-[0.16em] text-primary">Your platform</span>{j.action}</p>
               </article>
             ))}
           </div>
