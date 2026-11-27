@@ -511,6 +511,7 @@ export type Database = {
     }
     Functions: {
       apply_referral_code: { Args: { p_code: string }; Returns: boolean }
+      current_verified_email: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

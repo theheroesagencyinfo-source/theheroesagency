@@ -141,6 +141,13 @@
       "when": 1795660674701,
       "tag": "0019_remove_first_admin_auto_assign",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1795748080228,
+      "tag": "0020_verified_email_order_ownership",
+      "breakpoints": true
     }
   ]
 }
