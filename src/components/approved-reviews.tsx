@@ -26,13 +26,15 @@ const liveWork = [
   { to: "/projects/sandra-combe" as const, name: "Sandra D. Combe", note: "Book website for Stop the Bypass, live" },
 ];
 
-function Stars({ size = "h-5 w-5" }: { size?: string }) {
-  return <span role="img" aria-label="Five-star rating" className="inline-flex gap-1">
-    {[1, 2, 3, 4, 5].map(n => (
-      <span key={n} aria-hidden className={`inline-flex ${size} items-center justify-center bg-[#00a878]`}>
-        <svg viewBox="0 0 24 24" className="h-[68%] w-[68%] fill-white"><path d="M12 2.5l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.7l7.1-.6z" /></svg>
-      </span>
-    ))}
+function Stars({ value, size = "h-5 w-5" }: { value: number; size?: string }) {
+  return <span role="img" aria-label={`Rated ${value} out of 5`} className="inline-flex gap-1">
+    {[1, 2, 3, 4, 5].map(n => {
+      const fill = Math.max(0, Math.min(1, value - n + 1));
+      return <span key={n} aria-hidden className={`relative inline-flex ${size} items-center justify-center overflow-hidden bg-foreground/15`}>
+        <span className="absolute inset-y-0 left-0 bg-[#00a878]" style={{ width: `${fill * 100}%` }} />
+        <svg viewBox="0 0 24 24" className="relative h-[68%] w-[68%] fill-white"><path d="M12 2.5l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.7l7.1-.6z" /></svg>
+      </span>;
+    })}
   </span>;
 }
 
@@ -56,7 +58,7 @@ export function ApprovedReviews() {
           <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">Author project reviews</p>
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <span className="font-serif text-4xl tabular-nums">{avg.toFixed(1)}<span className="ml-1 text-lg text-muted-foreground">/ 5</span></span>
-            <Stars size="h-6 w-6" />
+            <Stars value={avg} size="h-6 w-6" />
           </div>
           <p className="mt-2 text-sm text-muted-foreground"> <span className="font-semibold text-foreground">{label(avg)}</span> · Based on {reviews.length} approved {reviews.length === 1 ? "review" : "reviews"}</p>
         </div>
@@ -67,7 +69,7 @@ export function ApprovedReviews() {
       </div>
       <ul tabIndex={0} aria-label="Published author project reviews" className="flex min-w-0 snap-x gap-4 overflow-x-auto p-5 focus-visible:outline-2 focus-visible:outline-ring sm:p-6">
         {reviews.map(r => <li key={r.id} className="w-[min(82vw,340px)] shrink-0 snap-start border border-foreground/10 bg-background p-5 sm:p-6">
-          <Stars />
+          <Stars value={r.rating} />
           <p className="mt-4 break-words text-sm leading-relaxed">{r.comment}</p>
           <div className="mt-6 border-t border-foreground/10 pt-4">
             <p className="text-sm font-semibold">{r.name}</p>
