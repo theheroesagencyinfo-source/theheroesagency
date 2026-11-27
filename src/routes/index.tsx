@@ -273,8 +273,22 @@ function Home() {
           <div>
             <Eyebrow>Why TheHeroes</Eyebrow>
             <h2 className="display reveal mt-4 font-serif text-[clamp(40px,5.7vw,78px)]">Not just a good-looking site. <em className="text-primary">A reason for readers to stay.</em></h2>
-            <p className="reveal mt-6 max-w-[490px] text-sm leading-loose text-muted-foreground">A lot of author websites stop at introducing the book. We look at the full journey: what a visitor understands, what makes them stay, how they join your audience and where that relationship can lead. Design matters. So does what the design helps people do.</p>
-            <a href="#review" className="reveal mt-6 inline-block border-b border-foreground pb-1 text-sm">See what your site could improve ↗</a>
+            <p className="reveal mt-6 max-w-[490px] text-sm leading-loose text-muted-foreground">Your book, expertise and goals should shape the digital platform around you. We bring the important pieces together, so your website is not working in isolation.</p>
+            <div className="mt-8 max-w-[520px] border-t border-foreground/15">
+              <div className="reveal grid grid-cols-[42px_1fr] gap-4 border-b border-foreground/15 py-5">
+                <span className="font-serif text-lg text-primary">01</span>
+                <div><h3 className="font-serif text-xl">Built around your work</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">Your books, expertise, audience and next goals guide the direction.</p></div>
+              </div>
+              <div className="reveal grid grid-cols-[42px_1fr] gap-4 border-b border-foreground/15 py-5">
+                <span className="font-serif text-lg text-primary">02</span>
+                <div><h3 className="font-serif text-xl">Connected from the start</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">Bring your website, reader signups, email communication and promotion into a clearer experience.</p></div>
+              </div>
+              <div className="reveal grid grid-cols-[42px_1fr] gap-4 border-b border-foreground/15 py-5">
+                <span className="font-serif text-lg text-primary">03</span>
+                <div><h3 className="font-serif text-xl">Focused on useful next steps</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">Prioritise improvements that make it easier for readers and opportunities to take action.</p></div>
+              </div>
+            </div>
+            <a href="#review" className="reveal mt-7 inline-block border-b border-foreground pb-1 text-sm">See what your site could improve ↗</a>
           </div>
           <div data-depth="0.18" data-fx="zoom" className="reveal"><div className="h-[390px] overflow-hidden border md:h-[600px]"><img src={assetSrc(authorStudy)} alt="An author at his desk in a private library, pen in hand over an open notebook" loading="lazy" decoding="async" className="h-full w-full object-cover object-center" /></div></div>
         </div>
