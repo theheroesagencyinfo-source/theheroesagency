@@ -19,6 +19,7 @@ export function ArticlePage({ article }: { article: Article }) {
             <ul className="mt-4 space-y-3 text-sm"><li><Link to="/services" className="underline underline-offset-4">Author websites and email systems</Link></li><li><Link to="/pricing" className="underline underline-offset-4">Packages and pricing</Link></li><li><Link to="/work" className="underline underline-offset-4">Case studies</Link></li></ul>
           </nav>
           <div className="min-w-0 max-w-[80ch]">
+            {article.answer && <aside aria-label="Short answer" className="mb-10 border-l-4 border-primary bg-secondary p-6"><p className="text-sm font-semibold uppercase tracking-wide">Short answer</p><p className="mt-3 text-lg leading-relaxed">{article.answer}</p></aside>}
             {article.sections.map(section => <section key={section.id} id={section.id} className="scroll-mt-36 first:mt-0 border-t pt-8 first:border-t-0 first:pt-0">
               <h2 className="text-3xl sm:text-4xl">{section.title}</h2>
               <div className="mt-5 space-y-5 text-lg leading-relaxed text-muted-foreground [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4 [&_li]:pl-1 [&_ol]:list-decimal [&_ol]:space-y-3 [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:space-y-3 [&_ul]:pl-6 [&_strong]:font-semibold [&_strong]:text-foreground">{section.content}</div>

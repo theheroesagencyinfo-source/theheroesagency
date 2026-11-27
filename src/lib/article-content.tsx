@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { articleSummaries, type Article } from "@/lib/articles";
+import { formatPrice, packageAmounts } from "@/lib/pricing-values";
 
 export const websiteArticle: Article = {
   ...articleSummaries[0],
@@ -97,6 +98,100 @@ export const emailArticle: Article = {
     { id: "studio-help", title: "How TheHeroes Agency · Author Studio can help", content: <>
       <p>My <Link to="/services">email marketing for authors</Link> service brings together a reader resource landing page, an email signup form, a five-email welcome sequence, and setup in your email tool.</p>
       <p>We start with your audience, your existing resource, and the next step you want readers to take. The website and email system should tell the same story, with no unsupported promises about sales or client numbers.</p>
+    </> },
+  ],
+};
+const starter = formatPrice(packageAmounts["author-starter"]);
+const growth = formatPrice(packageAmounts["author-growth"]);
+const authority = formatPrice(packageAmounts["author-authority"]);
+
+export const costArticle: Article = {
+  ...articleSummaries[2],
+  answer: `An author website can cost almost nothing on a DIY builder or several thousand dollars for a custom build. At TheHeroes Agency, custom author websites start at ${starter} (Author Starter), ${growth} for a site with email marketing built in (Author Growth), and ${authority} for a full authority platform (Author Authority). The right level depends on whether your site only needs to present a book, or also needs to bring in readers and client enquiries.`,
+  cta: "Not sure which level fits your book? Send us a message or book a free 15-minute call and we will tell you honestly, even if the answer is the smallest package.",
+  sections: [
+    { id: "what-affects-cost", title: "What decides the cost of an author website?", content: <>
+      <p>The price is shaped by what the website has to do, not by how many colours it uses. Four things matter most:</p>
+      <ul>
+        <li><strong>Number of pages:</strong> a single book page is quick; a site with book, about, services, speaking, media and blog pages takes longer.</li>
+        <li><strong>Writing and strategy:</strong> whether you supply finished text, or need help deciding what each page should say and who it is for.</li>
+        <li><strong>Email and lead capture:</strong> a signup form, free resource and welcome emails add real value and extra setup.</li>
+        <li><strong>Support after launch:</strong> whether someone is there to fix problems and help you make changes.</li>
+      </ul>
+    </> },
+    { id: "price-ranges", title: "Typical author website price ranges", content: <>
+      <ul>
+        <li><strong>DIY builder (low monthly fee):</strong> you do everything yourself. Good for testing an idea, but most authors spend many hours and still end up with a template look.</li>
+        <li><strong>Freelancer template setup:</strong> a template customised with your text and cover. Fast, but usually no strategy or email system.</li>
+        <li><strong>Custom studio build:</strong> a site planned around your readers and your goals, with design, writing guidance, email and launch support included.</li>
+      </ul>
+      <p>Be cautious of very low prices that leave out mobile testing, working forms or ownership of your domain. Always ask who owns the website when the project ends.</p>
+    </> },
+    { id: "our-packages", title: "What TheHeroes Agency author websites cost", content: <>
+      <ul>
+        <li><strong>Author Starter, {starter}:</strong> a custom author website with home, book, about and contact pages, mobile design, social links and basic SEO. Best for a first book or a clean professional presence.</li>
+        <li><strong>Author Growth, {growth}:</strong> everything in Starter plus up to 8 pages, newsletter setup, a 3-email welcome sequence and analytics. Best for authors who want readers to stay in touch.</li>
+        <li><strong>Author Authority, {authority}:</strong> up to 12 pages, brand positioning, advanced email automation, a 5-email sequence, lead capture, SEO strategy and 30 days of support. Best for authors who coach, consult or speak.</li>
+      </ul>
+      <p>Payments are split so you never pay everything up front. See the full breakdown on our <Link to="/pricing">pricing page</Link>.</p>
+    </> },
+    { id: "which-level", title: "Which level should you choose?", content: <>
+      <p>Ask yourself one question: what should a visitor do after reading about your book? If the answer is “buy it”, Starter is usually enough. If it is “join my list”, Growth fits. If it is “hire me, book me or invite me to speak”, Authority is designed for that.</p>
+      <p>You can start smaller and grow later. A good author website is built so new pages and features can be added without starting again.</p>
+    </> },
+    { id: "hidden-costs", title: "Costs authors often forget", content: <>
+      <ul>
+        <li>Your domain name, renewed every year.</li>
+        <li>An email marketing tool once your list grows past free limits.</li>
+        <li>Professional author photos, if you do not have current ones.</li>
+        <li>Your time to review pages and gather book details.</li>
+      </ul>
+      <p>We list these at the start of every project so there are no surprises. Read our <Link to="/author-website-design-nonfiction-authors">guide to author website design</Link> to see what each page should include.</p>
+    </> },
+  ],
+};
+
+export const aiSearchArticle: Article = {
+  ...articleSummaries[3],
+  answer: "AI tools like ChatGPT, Google AI Overviews and Perplexity recommend authors whose websites clearly state who they are, what their book covers and who they help, in plain text that is easy to quote. To be found, give each page one clear topic, answer real reader questions directly, keep your name and bio identical everywhere online, and let AI crawlers read your site.",
+  cta: "Want your author website set up so people and AI search can understand it? Tell us about your book and we will show you what to improve first.",
+  sections: [
+    { id: "what-is-aeo", title: "What is answer engine optimization (AEO)?", content: <>
+      <p>Answer engine optimization means shaping your website so AI tools can find it, understand it and quote it when someone asks a question. Traditional SEO helps you appear in a list of links. AEO helps you appear inside the answer itself.</p>
+      <p>For authors this matters because the questions people ask are often the exact questions your book answers.</p>
+    </> },
+    { id: "how-ai-chooses", title: "How do AI tools decide which authors to mention?", content: <>
+      <p>AI tools look for sources that are clear, consistent and trustworthy. They favour pages that:</p>
+      <ul>
+        <li>State facts in plain sentences, such as “Jane Smith is a leadership coach and author of …”.</li>
+        <li>Answer one question per section, with the answer near the top.</li>
+        <li>Match what other trusted sites say about you, like your publisher, podcast appearances and bookstore listings.</li>
+        <li>Are fast, readable on a phone and open to their crawlers.</li>
+      </ul>
+    </> },
+    { id: "seven-changes", title: "Seven website changes that help authors get found", content: <>
+      <ol>
+        <li><strong>Write a one-sentence description of yourself</strong> and use it on your home page, about page and every profile.</li>
+        <li><strong>Give your book its own page</strong> with the title, subtitle, who it is for, the problem it solves and where to buy it.</li>
+        <li><strong>Use questions as headings</strong>, such as “Who is this book for?”, and answer each one in the first sentence below it.</li>
+        <li><strong>Add a short answer at the top of articles</strong> so AI tools can lift a complete, accurate summary.</li>
+        <li><strong>Keep important text as real text</strong>, not inside images, so it can be read.</li>
+        <li><strong>Add structured data</strong> that tells search tools this is a book, an author and an article.</li>
+        <li><strong>Allow AI crawlers</strong> in your site settings and publish a simple summary file for them.</li>
+      </ol>
+    </> },
+    { id: "beyond-website", title: "What helps outside your website?", content: <>
+      <p>AI tools cross-check you. Keep your author bio identical on Amazon, Goodreads, LinkedIn, your publisher page and podcast show notes. Each guest appearance or interview that links back to your site makes you easier to trust and recommend.</p>
+    </> },
+    { id: "what-not-to-do", title: "What should authors avoid?", content: <>
+      <ul>
+        <li>Stuffing pages with keywords. AI tools reward clarity, not repetition.</li>
+        <li>Claiming awards, sales or clients you cannot prove. Inaccurate claims damage trust with people and machines.</li>
+        <li>Publishing many thin AI-written posts. A few useful, specific articles work better.</li>
+      </ul>
+    </> },
+    { id: "studio-help", title: "How TheHeroes Agency can help", content: <>
+      <p>Every author website we build includes clear page structure, structured data and AI-friendly settings from day one. Learn what a build costs in our <Link to="/author-website-cost">author website price guide</Link>, or see the <Link to="/services">services</Link> we offer.</p>
     </> },
   ],
 };

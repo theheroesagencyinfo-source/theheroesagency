@@ -13,12 +13,14 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthorWebsiteCostRouteImport } from './routes/author-website-cost'
 import { Route as AuthorWebsiteDesignNonfictionAuthorsRouteImport } from './routes/author-website-design-nonfiction-authors'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ContrastCheckRouteImport } from './routes/contrast-check'
 import { Route as CustomPackageRouteImport } from './routes/custom-package'
 import { Route as EmailMarketingForAuthorsRouteImport } from './routes/email-marketing-for-authors'
+import { Route as GetFoundInAiSearchAuthorsRouteImport } from './routes/get-found-in-ai-search-authors'
 import { Route as GetStartedRouteImport } from './routes/get-started'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -64,6 +66,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthorWebsiteCostRoute = AuthorWebsiteCostRouteImport.update({
+  id: '/author-website-cost',
+  path: '/author-website-cost',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthorWebsiteDesignNonfictionAuthorsRoute =
   AuthorWebsiteDesignNonfictionAuthorsRouteImport.update({
     id: '/author-website-design-nonfiction-authors',
@@ -94,6 +101,12 @@ const EmailMarketingForAuthorsRoute =
   EmailMarketingForAuthorsRouteImport.update({
     id: '/email-marketing-for-authors',
     path: '/email-marketing-for-authors',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const GetFoundInAiSearchAuthorsRoute =
+  GetFoundInAiSearchAuthorsRouteImport.update({
+    id: '/get-found-in-ai-search-authors',
+    path: '/get-found-in-ai-search-authors',
     getParentRoute: () => rootRouteImport,
   } as any)
 const GetStartedRoute = GetStartedRouteImport.update({
@@ -230,12 +243,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-website-cost': typeof AuthorWebsiteCostRoute
   '/author-website-design-nonfiction-authors': typeof AuthorWebsiteDesignNonfictionAuthorsRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/contrast-check': typeof ContrastCheckRoute
   '/custom-package': typeof CustomPackageRoute
   '/email-marketing-for-authors': typeof EmailMarketingForAuthorsRoute
+  '/get-found-in-ai-search-authors': typeof GetFoundInAiSearchAuthorsRoute
   '/get-started': typeof GetStartedRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -266,12 +281,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-website-cost': typeof AuthorWebsiteCostRoute
   '/author-website-design-nonfiction-authors': typeof AuthorWebsiteDesignNonfictionAuthorsRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/contrast-check': typeof ContrastCheckRoute
   '/custom-package': typeof CustomPackageRoute
   '/email-marketing-for-authors': typeof EmailMarketingForAuthorsRoute
+  '/get-found-in-ai-search-authors': typeof GetFoundInAiSearchAuthorsRoute
   '/get-started': typeof GetStartedRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -304,12 +321,14 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/author-website-cost': typeof AuthorWebsiteCostRoute
   '/author-website-design-nonfiction-authors': typeof AuthorWebsiteDesignNonfictionAuthorsRoute
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/contrast-check': typeof ContrastCheckRoute
   '/custom-package': typeof CustomPackageRoute
   '/email-marketing-for-authors': typeof EmailMarketingForAuthorsRoute
+  '/get-found-in-ai-search-authors': typeof GetFoundInAiSearchAuthorsRoute
   '/get-started': typeof GetStartedRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
@@ -342,12 +361,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-website-cost'
     | '/author-website-design-nonfiction-authors'
     | '/blog'
     | '/contact'
     | '/contrast-check'
     | '/custom-package'
     | '/email-marketing-for-authors'
+    | '/get-found-in-ai-search-authors'
     | '/get-started'
     | '/pricing'
     | '/privacy'
@@ -378,12 +399,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/auth'
+    | '/author-website-cost'
     | '/author-website-design-nonfiction-authors'
     | '/blog'
     | '/contact'
     | '/contrast-check'
     | '/custom-package'
     | '/email-marketing-for-authors'
+    | '/get-found-in-ai-search-authors'
     | '/get-started'
     | '/pricing'
     | '/privacy'
@@ -415,12 +438,14 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/about'
     | '/auth'
+    | '/author-website-cost'
     | '/author-website-design-nonfiction-authors'
     | '/blog'
     | '/contact'
     | '/contrast-check'
     | '/custom-package'
     | '/email-marketing-for-authors'
+    | '/get-found-in-ai-search-authors'
     | '/get-started'
     | '/pricing'
     | '/privacy'
@@ -453,12 +478,14 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  AuthorWebsiteCostRoute: typeof AuthorWebsiteCostRoute
   AuthorWebsiteDesignNonfictionAuthorsRoute: typeof AuthorWebsiteDesignNonfictionAuthorsRoute
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   ContrastCheckRoute: typeof ContrastCheckRoute
   CustomPackageRoute: typeof CustomPackageRoute
   EmailMarketingForAuthorsRoute: typeof EmailMarketingForAuthorsRoute
+  GetFoundInAiSearchAuthorsRoute: typeof GetFoundInAiSearchAuthorsRoute
   GetStartedRoute: typeof GetStartedRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -511,6 +538,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/author-website-cost': {
+      id: '/author-website-cost'
+      path: '/author-website-cost'
+      fullPath: '/author-website-cost'
+      preLoaderRoute: typeof AuthorWebsiteCostRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/author-website-design-nonfiction-authors': {
       id: '/author-website-design-nonfiction-authors'
       path: '/author-website-design-nonfiction-authors'
@@ -551,6 +585,13 @@ declare module '@tanstack/react-router' {
       path: '/email-marketing-for-authors'
       fullPath: '/email-marketing-for-authors'
       preLoaderRoute: typeof EmailMarketingForAuthorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/get-found-in-ai-search-authors': {
+      id: '/get-found-in-ai-search-authors'
+      path: '/get-found-in-ai-search-authors'
+      fullPath: '/get-found-in-ai-search-authors'
+      preLoaderRoute: typeof GetFoundInAiSearchAuthorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/get-started': {
@@ -755,6 +796,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  AuthorWebsiteCostRoute: AuthorWebsiteCostRoute,
   AuthorWebsiteDesignNonfictionAuthorsRoute:
     AuthorWebsiteDesignNonfictionAuthorsRoute,
   BlogRoute: BlogRoute,
@@ -762,6 +804,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContrastCheckRoute: ContrastCheckRoute,
   CustomPackageRoute: CustomPackageRoute,
   EmailMarketingForAuthorsRoute: EmailMarketingForAuthorsRoute,
+  GetFoundInAiSearchAuthorsRoute: GetFoundInAiSearchAuthorsRoute,
   GetStartedRoute: GetStartedRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
